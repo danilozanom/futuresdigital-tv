@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FuturesDigital TV — Streaming Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─────────────────────────────────────────────── */
+    /*  Reset & Custom Properties                      */
+    /* ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+
+    :root {
+      --navy-deep:  #020b18;
+      --navy:       #0a1628;
+      --navy-mid:   #0d2147;
+      --navy-light: #1a3a6b;
+      --accent:     #1e4fd8;
+      --accent-2:   #2563eb;
+      --cyan:       #22d3ee;
+      --white:      #ffffff;
+      --w70:        rgba(255,255,255,.70);
+      --w50:        rgba(255,255,255,.50);
+      --w40:        rgba(255,255,255,.40);
+      --w15:        rgba(255,255,255,.15);
+      --w08:        rgba(255,255,255,.08);
+      --w05:        rgba(255,255,255,.05);
+      --w03:        rgba(255,255,255,.03);
+      --border:     rgba(255,255,255,.12);
+      --border-2:   rgba(255,255,255,.07);
+      --r:   18px;
+      --rlg: 28px;
+      --blur: saturate(180%) blur(24px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--navy-deep);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Noise overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9998;
+    }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Scroll Progress                                */
+    /* ─────────────────────────────────────────────── */
+    #progress {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--accent-2), #60a5fa, var(--cyan));
+      z-index: 10000; transition: width .1s linear;
+    }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Cursor Glow                                    */
+    /* ─────────────────────────────────────────────── */
+    #cursor-glow {
+      position: fixed;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.09), transparent 60%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: left .25s ease, top .25s ease;
+      z-index: 0; will-change: left, top;
+    }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Background Orbs                                */
+    /* ─────────────────────────────────────────────── */
+    .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(130px); }
+    .orb-1 { width: 700px; height: 700px; background: var(--accent); top: -250px; left: -200px; opacity: .14; animation: orbf 12s ease-in-out infinite; }
+    .orb-2 { width: 500px; height: 500px; background: #0a2f8a; top: 35%; right: -150px; opacity: .11; animation: orbf 15s ease-in-out infinite reverse; }
+    .orb-3 { width: 380px; height: 380px; background: var(--navy-light); bottom: 5%; left: 25%; opacity: .09; animation: orbf 10s ease-in-out infinite 4s; }
+    @keyframes orbf {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%  { transform: translate(20px,-15px) scale(1.04); }
+      66%  { transform: translate(-12px,10px) scale(.96); }
+    }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Layout Helpers                                 */
+    /* ─────────────────────────────────────────────── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Navigation                                     */
+    /* ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(2,11,24,.65);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--border-2);
+    }
+    .nav-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -.025em;
+      color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 14px var(--accent-2); }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { color: var(--w70); text-decoration: none; font-size: .85rem; font-weight: 400; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--w08) !important; border: 1px solid var(--border) !important;
+      color: var(--white) !important; padding: 7px 18px !important; border-radius: 20px;
+      font-size: .82rem !important; font-weight: 500 !important;
+      backdrop-filter: blur(8px); transition: background .2s, border-color .2s !important;
+    }
+    .nav-cta:hover { background: var(--w15) !important; border-color: var(--w40) !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--w70); border-radius: 2px; transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; inset: 58px 0 0;
+      background: rgba(2,11,24,.97); backdrop-filter: var(--blur);
+      z-index: 99; padding: 32px 24px; flex-direction: column; gap: 4px;
+      border-top: 1px solid var(--border-2);
+      opacity: 0; transform: translateY(-8px); transition: opacity .3s, transform .3s;
+    }
+    .mobile-menu.open { display: flex; opacity: 1; transform: translateY(0); }
+    .mobile-menu a {
+      color: var(--w70); text-decoration: none; font-size: 1.1rem; font-weight: 400;
+      padding: 16px 0; border-bottom: 1px solid var(--border-2); transition: color .2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu .nav-cta { margin-top: 16px; text-align: center; padding: 15px 28px !important; border-radius: 50px; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Hero                                           */
+    /* ─────────────────────────────────────────────── */
+    .hero { min-height: 100vh; padding: 100px 0 80px; display: flex; align-items: center; }
+    .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 64px; }
+    .hero-text { flex: 1; min-width: 0; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--w08); border: 1px solid var(--border); border-radius: 20px;
+      padding: 5px 14px 5px 10px; font-size: .78rem; font-weight: 500; color: var(--w70);
+      margin-bottom: 28px; backdrop-filter: blur(8px);
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 5.5vw, 5rem); font-weight: 800;
+      letter-spacing: -.05em; line-height: 1.0; margin-bottom: 20px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #ffffff 0%, #93c5fd 40%, #2563eb 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub { font-size: 1.05rem; color: var(--w70); max-width: 480px; margin-bottom: 36px; font-weight: 300; line-height: 1.75; }
+
+    .hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--white); color: #000; border: none;
+      padding: 14px 28px; border-radius: 50px; font-size: .9rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; letter-spacing: -.01em;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: scale(1.03); box-shadow: 0 8px 40px rgba(255,255,255,.18); }
+
+    .btn-ghost {
+      background: var(--w08); color: var(--white); border: 1px solid var(--border);
+      padding: 13px 26px; border-radius: 50px; font-size: .9rem; font-weight: 500;
+      cursor: pointer; text-decoration: none; backdrop-filter: blur(8px);
+      transition: background .2s, border-color .2s;
+    }
+    .btn-ghost:hover { background: var(--w15); border-color: var(--w40); }
+
+    .hero-stats { display: flex; align-items: center; gap: 24px; margin-top: 44px; flex-wrap: wrap; }
+    .stat-item {}
+    .stat-value { font-size: 1.5rem; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+    .stat-label { font-size: .68rem; color: var(--w40); margin-top: 3px; letter-spacing: .05em; text-transform: uppercase; }
+    .stat-sep { width: 1px; height: 32px; background: var(--border-2); }
+
+    /* ─────────────────────────────────────────────── */
+    /*  TV Mockup                                      */
+    /* ─────────────────────────────────────────────── */
+    .tv-wrapper { flex: 0 0 auto; width: 490px; perspective: 1400px; }
+
+    .tv-float { animation: tvFloat 7s ease-in-out infinite; }
+    @keyframes tvFloat {
+      0%,100% { transform: rotateY(-7deg) rotateX(3deg) translateY(0); }
+      50%      { transform: rotateY(-7deg) rotateX(3deg) translateY(-18px); }
+    }
+
+    .tv-frame {
+      background: linear-gradient(160deg, #1c1c1e, #0d0d0f);
+      border-radius: 22px; padding: 12px 12px 44px;
+      border: 1px solid rgba(255,255,255,.07);
+      box-shadow:
+        0 80px 160px rgba(0,0,0,.9),
+        0 0 0 1px rgba(255,255,255,.03),
+        inset 0 1px 0 rgba(255,255,255,.07),
+        0 0 60px rgba(30,79,216,.15);
+      position: relative;
+    }
+    .tv-frame::before {
+      content: ''; position: absolute;
+      top: 12px; left: 12px; right: 12px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.1), transparent);
+    }
+
+    .tv-screen { background: #050d1a; border-radius: 12px; overflow: hidden; aspect-ratio: 16/10; position: relative; border: 1px solid rgba(255,255,255,.05); }
+
+    .tv-stand-base { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; }
+    .tv-stand-neck { width: 58px; height: 18px; background: linear-gradient(to bottom, #1c1c1e, #141416); border: 1px solid rgba(255,255,255,.05); border-top: none; }
+    .tv-stand-foot { width: 108px; height: 6px; border-radius: 0 0 6px 6px; background: linear-gradient(to bottom, #141416, #0d0d0f); border: 1px solid rgba(255,255,255,.04); border-top: none; }
+
+    /* Screen UI */
+    .s-topbar { height: 28px; background: rgba(0,0,0,.65); border-bottom: 1px solid rgba(255,255,255,.04); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
+    .s-logo { font-size: .44rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 3px; }
+    .s-logo-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--accent-2); }
+    .s-tabs { display: flex; gap: 12px; }
+    .s-tab { font-size: .37rem; color: rgba(255,255,255,.35); font-weight: 500; }
+    .s-tab.active { color: rgba(255,255,255,.88); }
+    .s-icons { display: flex; gap: 8px; font-size: .5rem; opacity: .45; }
+
+    .s-hero {
+      height: 44%; background: linear-gradient(120deg, #0c1f4a 0%, #1e3a8a 45%, #0f172a 100%);
+      position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 8px 12px;
+    }
+    .s-hero-glow { position: absolute; top: -20%; right: 5%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(96,165,250,.25), transparent); border-radius: 50%; filter: blur(18px); }
+    .s-hero-badge { position: absolute; top: 8px; left: 12px; font-size: .3rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.25); padding: 1.5px 5px; border-radius: 4px; }
+    .s-hero-text { position: relative; z-index: 1; }
+    .s-hero-eyebrow { font-size: .3rem; color: rgba(255,255,255,.45); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px; }
+    .s-hero-title { font-size: .62rem; font-weight: 800; color: white; letter-spacing: -.01em; line-height: 1.1; margin-bottom: 5px; }
+    .s-hero-btn { display: inline-flex; align-items: center; gap: 2px; background: white; color: #000; font-size: .3rem; font-weight: 700; padding: 2px 6px; border-radius: 8px; }
+
+    .s-rows { padding: 7px 10px; }
+    .s-row-head { font-size: .34rem; color: rgba(255,255,255,.4); font-weight: 700; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 5px; }
+    .s-thumbs { display: flex; gap: 4px; }
+    .s-thumb { flex: 1; border-radius: 5px; overflow: hidden; aspect-ratio: 16/9; position: relative; }
+    .s-thumb:nth-child(1) { background: linear-gradient(135deg,#be185d,#881337); }
+    .s-thumb:nth-child(2) { background: linear-gradient(135deg,#1d4ed8,#1e3a8a); }
+    .s-thumb:nth-child(3) { background: linear-gradient(135deg,#047857,#064e3b); }
+    .s-thumb:nth-child(4) { background: linear-gradient(135deg,#6d28d9,#4c1d95); }
+    .s-thumb:nth-child(5) { background: linear-gradient(135deg,#b45309,#78350f); }
+    .s-thumb:nth-child(6) { background: linear-gradient(135deg,#0f766e,#134e4a); }
+    .s-thumb-label { position: absolute; bottom: 0; left: 0; right: 0; font-size: .26rem; color: rgba(255,255,255,.6); padding: 2px 3px; background: linear-gradient(transparent, rgba(0,0,0,.55)); }
+    .s-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .s-play::after { content: '▶'; font-size: .44rem; color: white; opacity: .85; }
+    .s-live { position: absolute; top: 2px; right: 2px; font-size: .24rem; font-weight: 700; letter-spacing: .04em; background: #ef4444; color: white; padding: 1px 3px; border-radius: 2px; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Channel Ticker                                 */
+    /* ─────────────────────────────────────────────── */
+    .ticker-section { padding: 56px 0; overflow: hidden; position: relative; z-index: 1; }
+    .ticker-label { text-align: center; font-size: .65rem; color: var(--w40); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 20px; }
+    .ticker-wrapper { position: relative; }
+    .ticker-fade-l { position: absolute; left: 0; top: 0; bottom: 0; width: 140px; background: linear-gradient(to right, var(--navy-deep), transparent); z-index: 2; pointer-events: none; }
+    .ticker-fade-r { position: absolute; right: 0; top: 0; bottom: 0; width: 140px; background: linear-gradient(to left, var(--navy-deep), transparent); z-index: 2; pointer-events: none; }
+    .ticker-track { display: flex; gap: 12px; animation: tickAnim 30s linear infinite; width: max-content; }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes tickAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item {
+      background: var(--w05); border: 1px solid var(--border-2); border-radius: 10px;
+      padding: 9px 18px; font-size: .75rem; font-weight: 500; color: var(--w70);
+      white-space: nowrap; display: flex; align-items: center; gap: 7px;
+      backdrop-filter: blur(10px); transition: border-color .2s, color .2s;
+    }
+    .ticker-item:hover { border-color: var(--border); color: var(--white); }
+    .ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); opacity: .6; flex-shrink: 0; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Section Shared                                 */
+    /* ─────────────────────────────────────────────── */
+    section { padding: 100px 0; }
+    .section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 12px; }
+    .section-title { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.05; margin-bottom: 16px; }
+    .section-sub { font-size: .95rem; color: var(--w70); max-width: 480px; font-weight: 300; line-height: 1.75; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Services                                       */
+    /* ─────────────────────────────────────────────── */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 56px; }
+    .service-card {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--r);
+      padding: 30px 26px; backdrop-filter: blur(20px); position: relative; overflow: hidden;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .service-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top left, rgba(37,99,235,.06), transparent 65%); pointer-events: none; }
+    .service-card:hover { border-color: rgba(255,255,255,.18); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(37,99,235,.12); }
+    .service-icon { width: 46px; height: 46px; background: var(--w08); border: 1px solid var(--border); border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 18px; }
+    .service-card h3 { font-size: 1rem; font-weight: 600; letter-spacing: -.015em; margin-bottom: 8px; }
+    .service-card p { font-size: .85rem; color: var(--w40); line-height: 1.65; font-weight: 300; }
+    .service-tag { display: inline-block; margin-top: 18px; font-size: .66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--accent-2); background: rgba(37,99,235,.1); border: 1px solid rgba(37,99,235,.2); padding: 3px 10px; border-radius: 20px; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  How it works                                   */
+    /* ─────────────────────────────────────────────── */
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; margin-top: 60px; }
+    .steps-connector { position: absolute; top: 57px; left: calc(100%/6); right: calc(100%/6); height: 1px; background: linear-gradient(90deg, var(--border), var(--accent-2), var(--border)); }
+    .step { text-align: center; padding: 0 28px; }
+    .step-icon-wrap {
+      width: 64px; height: 64px; margin: 0 auto 22px;
+      background: var(--w08); border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+      position: relative; z-index: 1; backdrop-filter: blur(12px);
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .step:hover .step-icon-wrap { border-color: var(--accent-2); box-shadow: 0 0 24px rgba(37,99,235,.3); }
+    .step-num { font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--w40); margin-bottom: 10px; }
+    .step h3 { font-size: .98rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -.01em; }
+    .step p { font-size: .82rem; color: var(--w40); line-height: 1.65; font-weight: 300; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Bento Grid                                     */
+    /* ─────────────────────────────────────────────── */
+    .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; margin-top: 56px; }
+    .bento-card {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--r);
+      padding: 30px; backdrop-filter: blur(20px); position: relative; overflow: hidden;
+      transition: border-color .3s, transform .2s;
+    }
+    .bento-card:hover { border-color: rgba(255,255,255,.15); transform: translateY(-2px); }
+    .b1 { grid-column: span 7; }
+    .b2 { grid-column: span 5; }
+    .b3 { grid-column: span 4; }
+    .b4 { grid-column: span 4; }
+    .b5 { grid-column: span 4; }
+    .bento-card h3 { font-size: 1rem; font-weight: 600; letter-spacing: -.015em; margin-bottom: 8px; }
+    .bento-card p  { font-size: .82rem; color: var(--w40); line-height: 1.65; font-weight: 300; }
+    .bento-num {
+      font-size: 3.2rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 14px;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.45) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .bento-icon { font-size: 2.6rem; margin-bottom: 14px; }
+    .bento-bar { margin-top: 18px; height: 3px; border-radius: 2px; background: var(--border-2); overflow: hidden; }
+    .bento-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent-2), #60a5fa); width: 0; transition: width 1.5s ease; }
+    .bento-fill.on { width: var(--w); }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Pricing                                        */
+    /* ─────────────────────────────────────────────── */
+    .pricing-top { text-align: center; max-width: 600px; margin: 0 auto; }
+    .billing-toggle {
+      display: inline-flex; align-items: center; gap: 12px; margin-top: 24px;
+      font-size: .82rem; color: var(--w70); user-select: none;
+    }
+    .toggle-track {
+      width: 40px; height: 22px; background: var(--w15); border: 1px solid var(--border);
+      border-radius: 20px; position: relative; cursor: pointer; transition: background .2s, border-color .2s;
+    }
+    .toggle-track.active { background: var(--accent-2); border-color: var(--accent-2); }
+    .toggle-knob { position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: transform .2s; box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+    .toggle-track.active .toggle-knob { transform: translateX(18px); }
+    .toggle-save { font-size: .7rem; color: var(--cyan); font-weight: 600; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 52px; align-items: start; }
+    .price-card {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--rlg);
+      padding: 34px 30px; backdrop-filter: blur(20px); position: relative; overflow: hidden;
+      transition: border-color .3s, transform .3s;
+    }
+    .price-card:not(.featured):hover { border-color: rgba(255,255,255,.18); transform: translateY(-4px); }
+
+    /* Animated gradient border on featured */
+    .price-card.featured { background: rgba(8,18,38,.9); border: 1px solid transparent; }
+    .price-card.featured::before {
+      content: ''; position: absolute; inset: -1px;
+      border-radius: calc(var(--rlg) + 1px);
+      background: conic-gradient(from var(--angle), #1e4fd8, #60a5fa, #93c5fd, #60a5fa, #1e4fd8);
+      z-index: -1; opacity: .75; animation: rotateAngle 4s linear infinite;
+    }
+    @keyframes rotateAngle { to { --angle: 360deg; } }
+    .price-card.featured:hover { transform: translateY(-4px); }
+    .price-card.featured:hover::before { opacity: 1; }
+
+    .featured-badge { position: absolute; top: 18px; right: 18px; font-size: .65rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #000; background: white; padding: 3px 10px; border-radius: 20px; }
+    .price-plan { font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--w40); margin-bottom: 12px; }
+    .price-amount { font-size: 3.2rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 4px; }
+    .price-amount sup { font-size: 1.1rem; vertical-align: super; font-weight: 500; }
+    .price-period { font-size: .8rem; color: var(--w40); margin-bottom: 26px; }
+    .price-divider { height: 1px; background: var(--border-2); margin-bottom: 22px; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+    .price-features li { font-size: .85rem; color: var(--w70); display: flex; align-items: center; gap: 10px; }
+    .check { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .58rem; flex-shrink: 0; color: var(--cyan); }
+    .btn-plan { width: 100%; padding: 13px; border-radius: 50px; font-size: .88rem; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: block; transition: all .2s; border: none; }
+    .btn-outline { background: var(--w08); color: white; border: 1px solid var(--border); backdrop-filter: blur(8px); }
+    .btn-outline:hover { background: var(--w15); }
+    .btn-filled { background: white; color: #000; }
+    .btn-filled:hover { opacity: .9; transform: scale(1.02); }
+    .price-includes {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--accent-2); margin-bottom: 14px;
+    }
+    .price-includes::before, .price-includes::after {
+      content: ''; flex: 1; height: 1px; background: rgba(37,99,235,.25);
+    }
+    .channel-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .pill {
+      font-size: .65rem; font-weight: 600; letter-spacing: .04em;
+      color: var(--w70); background: var(--w05); border: 1px solid var(--border-2);
+      padding: 3px 9px; border-radius: 20px;
+    }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Testimonials                                   */
+    /* ─────────────────────────────────────────────── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 56px; }
+    .tcard {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--r);
+      padding: 28px; backdrop-filter: blur(20px); transition: border-color .3s;
+    }
+    .tcard:hover { border-color: var(--border); }
+    .stars { font-size: .82rem; margin-bottom: 14px; letter-spacing: 2px; color: #fbbf24; }
+    .tcard-text { font-size: .88rem; color: var(--w70); line-height: 1.72; font-weight: 300; margin-bottom: 20px; font-style: italic; }
+    .tcard-author { display: flex; align-items: center; gap: 12px; }
+    .tcard-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-light), var(--accent)); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; }
+    .tcard-name { font-size: .875rem; font-weight: 600; }
+    .tcard-country { font-size: .72rem; color: var(--w40); }
+
+    /* ─────────────────────────────────────────────── */
+    /*  FAQ                                            */
+    /* ─────────────────────────────────────────────── */
+    #faq > .container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .faq-intro { position: sticky; top: 80px; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    .faq-item { background: var(--w03); border: 1px solid var(--border-2); border-radius: 12px; overflow: hidden; transition: border-color .25s; }
+    .faq-item.open { border-color: rgba(255,255,255,.14); }
+    .faq-q {
+      padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-size: .9rem; font-weight: 500; user-select: none; gap: 16px;
+    }
+    .faq-ico {
+      width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; color: var(--w70); line-height: 1;
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), background .2s;
+    }
+    .faq-item.open .faq-ico { transform: rotate(45deg); background: var(--w08); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.4,0,.2,1); }
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-a-inner { padding: 0 22px 18px; font-size: .85rem; color: var(--w40); line-height: 1.72; font-weight: 300; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  CTA Banner                                     */
+    /* ─────────────────────────────────────────────── */
+    .cta-section { padding: 60px 0 100px; }
+    .cta-banner {
+      background: var(--w05); border: 1px solid var(--border); border-radius: var(--rlg);
+      padding: 80px 40px; text-align: center; backdrop-filter: blur(20px);
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% -20%, rgba(37,99,235,.14), transparent 70%); }
+    .cta-banner h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: 14px; position: relative; }
+    .cta-banner p { color: var(--w70); font-size: 1rem; margin-bottom: 36px; font-weight: 300; position: relative; }
+    .cta-banner .hero-actions { justify-content: center; position: relative; }
+    .cta-note { font-size: .75rem; color: var(--w40); margin-top: 16px; position: relative; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Footer                                         */
+    /* ─────────────────────────────────────────────── */
+    footer { border-top: 1px solid var(--border-2); padding: 40px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { color: var(--w40); text-decoration: none; font-size: .8rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--w70); }
+    .footer-copy { font-size: .75rem; color: var(--w40); }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Scroll Reveal                                  */
+    /* ─────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Responsive                                     */
+    /* ─────────────────────────────────────────────── */
+    @media (max-width: 1024px) { .tv-wrapper { width: 380px; } .hero-inner { gap: 40px; } }
+    @media (max-width: 900px) {
+      .hero-inner { flex-direction: column; text-align: center; }
+      .hero-sub, .hero-actions, .hero-stats { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .tv-wrapper { width: 100%; max-width: 440px; }
+      .tv-float { animation: none !important; transform: none !important; }
+      .b1,.b2,.b3,.b4,.b5 { grid-column: span 12; }
+      .steps-connector { display: none; }
+      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+      #faq > .container { grid-template-columns: 1fr; gap: 48px; }
+      .faq-intro { position: static; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 80px 0 60px; }
+      .cta-banner { padding: 52px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .stat-sep { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div id="progress"></div>
+  <!-- Cursor Glow -->
+  <div id="cursor-glow"></div>
+  <!-- BG Orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════════════ NAV ═══════════════════ -->
+  <nav aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a href="#" class="logo"><span class="logo-dot"></span>FuturesDigital TV</a>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contacto" class="nav-cta">Contratar</a></li>
+      </ul>
+      <button class="hamburger" id="ham" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu" role="navigation">
+    <a href="#servicios">Servicios</a>
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#precios">Precios</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contacto" class="nav-cta">Contratar ahora</a>
+  </div>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Text -->
+        <div class="hero-text">
+          <div class="hero-badge reveal">
+            <span class="badge-dot"></span>
+            Más de 20,000 canales en vivo
+          </div>
+          <h1 class="reveal d1">
+            Streaming<br/><span>sin límites.</span>
+          </h1>
+          <p class="hero-sub reveal d2">
+            Accede a miles de canales en vivo, películas y series con la mejor calidad de imagen. IPTV premium para toda tu familia.
+          </p>
+          <div class="hero-actions reveal d3">
+            <a href="#precios" class="btn-primary">Ver planes</a>
+            <a href="#servicios" class="btn-ghost">Conocer más</a>
+          </div>
+          <div class="hero-stats reveal d4">
+            <div class="stat-item">
+              <div class="stat-value">20K+</div>
+              <div class="stat-label">Canales</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+              <div class="stat-value">4K</div>
+              <div class="stat-label">Ultra HD</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+              <div class="stat-value">99.9%</div>
+              <div class="stat-label">Uptime</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+              <div class="stat-value">24/7</div>
+              <div class="stat-label">Soporte</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TV Mockup -->
+        <div class="tv-wrapper reveal d2">
+          <div class="tv-float">
+            <div class="tv-frame">
+              <div class="tv-screen">
+                <!-- Topbar -->
+                <div class="s-topbar">
+                  <div class="s-logo"><span class="s-logo-dot"></span>FuturesDigital TV</div>
+                  <div class="s-tabs">
+                    <span class="s-tab active">Inicio</span>
+                    <span class="s-tab">Series</span>
+                    <span class="s-tab">Películas</span>
+                    <span class="s-tab">Deportes</span>
+                  </div>
+                  <div class="s-icons"><span>🔍</span><span>⚙</span></div>
+                </div>
+                <!-- Featured -->
+                <div class="s-hero">
+                  <div class="s-hero-glow"></div>
+                  <div class="s-hero-badge">EN VIVO</div>
+                  <div class="s-hero-text">
+                    <div class="s-hero-eyebrow">Champions League · Semifinal</div>
+                    <div class="s-hero-title">Real Madrid<br/>vs Barcelona</div>
+                    <div class="s-hero-btn">▶ Ver ahora</div>
+                  </div>
+                </div>
+                <!-- Thumbnails -->
+                <div class="s-rows">
+                  <div class="s-row-head">Populares hoy</div>
+                  <div class="s-thumbs">
+                    <div class="s-thumb"><div class="s-play"></div><span class="s-thumb-label">Acción</span></div>
+                    <div class="s-thumb"><span class="s-live">LIVE</span><span class="s-thumb-label">Noticias</span></div>
+                    <div class="s-thumb"><span class="s-thumb-label">Drama</span></div>
+                    <div class="s-thumb"><span class="s-thumb-label">Comedia</span></div>
+                    <div class="s-thumb"><span class="s-thumb-label">Docs</span></div>
+                    <div class="s-thumb"><span class="s-thumb-label">Ciencia</span></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Stand -->
+              <div class="tv-stand-base">
+                <div class="tv-stand-neck"></div>
+                <div class="tv-stand-foot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ TICKER ═══════════════════ -->
+  <div class="ticker-section" aria-hidden="true">
+    <p class="ticker-label">Canales disponibles</p>
+    <div class="ticker-wrapper">
+      <div class="ticker-fade-l"></div>
+      <div class="ticker-fade-r"></div>
+      <div class="ticker-track" id="tickerTrack">
+        <!-- Fútbol -->
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar LaLiga</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Champions</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN LaLiga</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN Champions</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Partidazo</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>LaLiga Hypermotion TV</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>beIN LaLiga</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>beIN Sports</div>
+        <!-- Deportes -->
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN 1</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN 2</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN F1</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Deportes</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Eurosport 1</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Eurosport 2</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Teledeporte</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Sky Sports</div>
+        <!-- Entretenimiento Movistar+ -->
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar #0</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Seriesmanía</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Cine</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Estrenos</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Series</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Canal+ Cinema</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>FOX</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>AMC</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>TNT</div>
+        <!-- Docs / Infantil -->
+        <div class="ticker-item"><span class="ticker-dot"></span>National Geographic</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Discovery Channel</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>History Channel</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Disney Channel</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Cartoon Network</div>
+        <!-- Duplicado para loop infinito -->
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar LaLiga</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Champions</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN LaLiga</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN Champions</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Partidazo</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>LaLiga Hypermotion TV</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>beIN LaLiga</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>beIN Sports</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN 1</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN 2</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>DAZN F1</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Deportes</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Eurosport 1</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Eurosport 2</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Teledeporte</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Sky Sports</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar #0</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Seriesmanía</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Cine</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Estrenos</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Movistar Series</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Canal+ Cinema</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>FOX</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>AMC</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>TNT</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>National Geographic</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Discovery Channel</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>History Channel</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Disney Channel</div>
+        <div class="ticker-item"><span class="ticker-dot"></span>Cartoon Network</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════ SERVICIOS ═══════════════════ -->
+  <section id="servicios">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Nuestros servicios</p>
+        <h2 class="section-title">Todo el entretenimiento<br/>en un solo lugar</h2>
+        <p class="section-sub">Desde canales en vivo hasta contenido bajo demanda, tenemos todo lo que necesitas.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal d1">
+          <div class="service-icon">⚽</div>
+          <h3>Fútbol Español</h3>
+          <p>LaLiga EA Sports, LaLiga Hypermotion, 1ª RFEF, Copa del Rey, Supercopa y todos los partidos de la selección.</p>
+          <span class="service-tag">LaLiga · RFEF</span>
+        </div>
+        <div class="service-card reveal d2">
+          <div class="service-icon">🏆</div>
+          <h3>Fútbol Europeo</h3>
+          <p>Champions League, Europa League, Conference League, Premier League, Serie A, Bundesliga y más.</p>
+          <span class="service-tag">UEFA · Ligas top</span>
+        </div>
+        <div class="service-card reveal d3">
+          <div class="service-icon">🏎️</div>
+          <h3>Deportes DAZN</h3>
+          <p>Fórmula 1, MotoGP, boxeo, NBA, NFL y todos los deportes de motor. Incluido en el paquete Básico.</p>
+          <span class="service-tag">DAZN · Motor</span>
+        </div>
+        <div class="service-card reveal d1">
+          <div class="service-icon">📺</div>
+          <h3>Movistar+</h3>
+          <p>Todos los canales de Movistar+: #0, Seriesmanía, Cine, Deportes, Partidazo, Liga de Campeones y más.</p>
+          <span class="service-tag">Movistar+ completo</span>
+        </div>
+        <div class="service-card reveal d2">
+          <div class="service-icon">🎬</div>
+          <h3>Videoclub VOD</h3>
+          <p>Miles de películas y series disponibles bajo demanda. Contenido actualizado semanalmente con los últimos estrenos.</p>
+          <span class="service-tag">Bajo demanda</span>
+        </div>
+        <div class="service-card reveal d3">
+          <div class="service-icon">📱</div>
+          <h3>Multi-dispositivo</h3>
+          <p>Compatible con Smart TV, Android, iOS, PC, Fire Stick, Apple TV y cualquier reproductor M3U.</p>
+          <span class="service-tag">Todos los dispositivos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════ CÓMO FUNCIONA ═══════════════════ -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="reveal" style="text-align:center; max-width:580px; margin:0 auto 0;">
+        <p class="section-label">Proceso</p>
+        <h2 class="section-title">Empieza en tres pasos</h2>
+        <p class="section-sub" style="margin: 0 auto;">Sin instalaciones complicadas. En menos de 5 minutos ya estás viendo contenido.</p>
+      </div>
+      <div class="steps-grid reveal">
+        <div class="steps-connector"></div>
+        <div class="step">
+          <div class="step-num">Paso 01</div>
+          <div class="step-icon-wrap">📋</div>
+          <h3>Elige tu plan</h3>
+          <p>Elige entre Solo Fútbol, Básico o Básico con VOD según lo que quieras ver.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">Paso 02</div>
+          <div class="step-icon-wrap">⚡</div>
+          <h3>Activa tu cuenta</h3>
+          <p>Recibe tus credenciales de acceso al instante por WhatsApp o email tras el pago.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">Paso 03</div>
+          <div class="step-icon-wrap">🎉</div>
+          <h3>Empieza a ver</h3>
+          <p>Instala la app en tu dispositivo favorito y disfruta del contenido sin interrupciones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════ CARACTERÍSTICAS ═══════════════════ -->
+  <section id="caracteristicas">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Características</p>
+        <h2 class="section-title">Tecnología al nivel<br/>de la gran pantalla</h2>
+      </div>
+      <div class="bento-grid">
+        <div class="bento-card b1 reveal">
+          <div class="bento-num">20,000+</div>
+          <h3>Canales en vivo</h3>
+          <p>La colección más grande de canales disponible en español e inglés, con actualización constante.</p>
+          <div class="bento-bar"><div class="bento-fill" style="--w:95%"></div></div>
+        </div>
+        <div class="bento-card b2 reveal d1">
+          <div class="bento-icon">⚡</div>
+          <h3>Zapping instantáneo</h3>
+          <p>Cambia de canal sin cortes ni buffering gracias a nuestra infraestructura de baja latencia.</p>
+        </div>
+        <div class="bento-card b3 reveal">
+          <div class="bento-icon">🎭</div>
+          <h3>Series completas</h3>
+          <p>Todas las temporadas disponibles desde el primer episodio, sin esperas.</p>
+        </div>
+        <div class="bento-card b4 reveal d1">
+          <div class="bento-icon">🗓</div>
+          <h3>Guía EPG</h3>
+          <p>Programación electrónica de 7 días con información detallada de cada canal.</p>
+        </div>
+        <div class="bento-card b5 reveal d2">
+          <div class="bento-icon">☁️</div>
+          <h3>DVR en la nube</h3>
+          <p>Graba y reproduce tus programas favoritos cuando y donde quieras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════ PRECIOS ═══════════════════ -->
+  <section id="precios">
+    <div class="container">
+      <div class="pricing-top reveal">
+        <p class="section-label">Planes</p>
+        <h2 class="section-title">Simple y transparente</h2>
+        <p class="section-sub" style="margin: 0 auto;">Sin contratos. Sin sorpresas. Cancela cuando quieras.</p>
+        <div class="billing-toggle">
+          <span>Mensual</span>
+          <div class="toggle-track" id="billingToggle"><div class="toggle-knob"></div></div>
+          <span>Anual <span class="toggle-save">Ahorra 25%</span></span>
+        </div>
+      </div>
+      <div class="pricing-grid">
+
+        <!-- Solo Fútbol -->
+        <div class="price-card reveal">
+          <p class="price-plan">Solo Fútbol</p>
+          <div class="price-amount"><sup>€</sup><span data-monthly="10" data-annual="55">10</span></div>
+          <p class="price-period" data-period-monthly="por mes · acceso inmediato" data-period-annual="al año · ahorra €65">por mes · acceso inmediato</p>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> LaLiga EA Sports</li>
+            <li><span class="check">✓</span> LaLiga Hypermotion</li>
+            <li><span class="check">✓</span> Champions League</li>
+            <li><span class="check">✓</span> 1ª RFEF y Copa del Rey</li>
+            <li><span class="check">✓</span> Europa & Conference League</li>
+            <li><span class="check">✓</span> Guía EPG · Soporte 24/7</li>
+          </ul>
+          <div class="channel-pills">
+            <span class="pill">LaLiga</span>
+            <span class="pill">Champions</span>
+            <span class="pill">RFEF</span>
+            <span class="pill">Copa del Rey</span>
+          </div>
+          <br/>
+          <a href="#contacto" class="btn-plan btn-outline">Contratar</a>
+        </div>
+
+        <!-- Básico con VOD (featured · centro) -->
+        <div class="price-card featured reveal d1">
+          <span class="featured-badge">Más popular</span>
+          <p class="price-plan">Básico con VOD</p>
+          <div class="price-amount"><sup>€</sup><span data-monthly="15" data-annual="75">15</span></div>
+          <p class="price-period" data-period-monthly="por mes · acceso inmediato" data-period-annual="al año · ahorra €105">por mes · acceso inmediato</p>
+          <div class="price-divider"></div>
+          <div class="price-includes">Todo Básico +</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Videoclub bajo demanda</li>
+            <li><span class="check">✓</span> Miles de películas y series</li>
+            <li><span class="check">✓</span> Estrenos actualizados semanalmente</li>
+            <li><span class="check">✓</span> Contenido en HD y 4K</li>
+            <li><span class="check">✓</span> Sin límite de reproducciones</li>
+            <li><span class="check">✓</span> Soporte VIP 24/7</li>
+          </ul>
+          <div class="channel-pills">
+            <span class="pill">VOD</span>
+            <span class="pill">Videoclub</span>
+            <span class="pill">4K</span>
+            <span class="pill">Sin límites</span>
+          </div>
+          <br/>
+          <a href="#contacto" class="btn-plan btn-filled">Contratar ahora</a>
+        </div>
+
+        <!-- Básico -->
+        <div class="price-card reveal d2">
+          <p class="price-plan">Básico</p>
+          <div class="price-amount"><sup>€</sup><span data-monthly="13" data-annual="65">13</span></div>
+          <p class="price-period" data-period-monthly="por mes · acceso inmediato" data-period-annual="al año · ahorra €91">por mes · acceso inmediato</p>
+          <div class="price-divider"></div>
+          <div class="price-includes">Todo Solo Fútbol +</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Canales DAZN (F1, MotoGP, boxeo)</li>
+            <li><span class="check">✓</span> Movistar+ completo</li>
+            <li><span class="check">✓</span> Canales de series y cine</li>
+            <li><span class="check">✓</span> Deportes internacionales</li>
+            <li><span class="check">✓</span> Canales infantiles y documentales</li>
+            <li><span class="check">✓</span> Guía EPG · Soporte prioritario</li>
+          </ul>
+          <div class="channel-pills">
+            <span class="pill">DAZN</span>
+            <span class="pill">Movistar+</span>
+            <span class="pill">F1</span>
+            <span class="pill">MotoGP</span>
+            <span class="pill">NBA</span>
+          </div>
+          <br/>
+          <a href="#contacto" class="btn-plan btn-outline">Contratar</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════ TESTIMONIOS ═══════════════════ -->
+  <section>
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Clientes</p>
+        <h2 class="section-title">Lo que dicen<br/>nuestros usuarios</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="tcard reveal d1">
+          <div class="stars">★★★★★</div>
+          <p class="tcard-text">"La calidad de imagen es increíble. Todos los canales deportivos en 4K sin ningún corte. Llevo 2 años con FuturesDigital TV y no pienso cambiar."</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">CR</div>
+            <div><div class="tcard-name">Carlos Rodríguez</div><div class="tcard-country">México</div></div>
+          </div>
+        </div>
+        <div class="tcard reveal d2">
+          <div class="stars">★★★★★</div>
+          <p class="tcard-text">"El servicio al cliente es de 10. Tuve un problema a las 2 AM y me lo resolvieron en menos de 15 minutos. Muy recomendado a todos."</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">ML</div>
+            <div><div class="tcard-name">María López</div><div class="tcard-country">Colombia</div></div>
+          </div>
+        </div>
+        <div class="tcard reveal d3">
+          <div class="stars">★★★★★</div>
+          <p class="tcard-text">"El catálogo es enorme. Tengo todo en un solo servicio por mucho menos dinero. La relación calidad-precio es imbatible."</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">JP</div>
+            <div><div class="tcard-name">Javier Pérez</div><div class="tcard-country">España</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════ FAQ ═══════════════════ -->
+  <section id="faq">
+    <div class="container">
+      <div class="faq-intro reveal">
+        <p class="section-label">Preguntas frecuentes</p>
+        <h2 class="section-title">Todo lo que<br/>necesitas saber</h2>
+        <p class="section-sub">¿Tienes más preguntas? Escríbenos por WhatsApp y te respondemos en minutos.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal d1">
+          <div class="faq-q">¿Qué dispositivos son compatibles?<span class="faq-ico">+</span></div>
+          <div class="faq-a"><div class="faq-a-inner">Compatible con Smart TV (Samsung, LG, Sony), Android TV, Apple TV, Fire Stick, smartphones Android e iOS, y PC/Mac mediante navegador o aplicación dedicada. También con MAG, Formuler y Dreambox.</div></div>
+        </div>
+        <div class="faq-item reveal d2">
+          <div class="faq-q">¿Cómo recibo mis credenciales de acceso?<span class="faq-ico">+</span></div>
+          <div class="faq-a"><div class="faq-a-inner">Una vez confirmado el pago, recibirás tus credenciales (usuario, contraseña y URL del servidor) por WhatsApp o email en menos de 5 minutos, junto con una guía de instalación para tu dispositivo.</div></div>
+        </div>
+        <div class="faq-item reveal d3">
+          <div class="faq-q">¿Hay periodo de prueba gratuito?<span class="faq-ico">+</span></div>
+          <div class="faq-a"><div class="faq-a-inner">Sí, ofrecemos una prueba gratuita de 24 horas sin necesidad de tarjeta de crédito. Contacta por WhatsApp y te activamos la prueba de inmediato para que compruebes la calidad del servicio.</div></div>
+        </div>
+        <div class="faq-item reveal d1">
+          <div class="faq-q">¿Qué velocidad de internet necesito?<span class="faq-ico">+</span></div>
+          <div class="faq-a"><div class="faq-a-inner">Para canales en directo en HD basta con 10 Mbps. Para el videoclub en 4K recomendamos al menos 25 Mbps. Con cualquier fibra doméstica estándar funcionará perfectamente en todos los planes.</div></div>
+        </div>
+        <div class="faq-item reveal d2">
+          <div class="faq-q">¿Puedo usar el servicio en varios dispositivos?<span class="faq-ico">+</span></div>
+          <div class="faq-a"><div class="faq-a-inner">Los tres planes permiten conexión en el dispositivo que quieras. Si necesitas varias conexiones simultáneas, consúltanos y te preparamos una solución a medida sin problema.</div></div>
+        </div>
+        <div class="faq-item reveal d3">
+          <div class="faq-q">¿Cómo cancelo mi suscripción?<span class="faq-ico">+</span></div>
+          <div class="faq-a"><div class="faq-a-inner">Puedes cancelar en cualquier momento contactando por WhatsApp o email. No hay permanencia ni penalizaciones. Tu servicio seguirá activo hasta el final del periodo ya pagado.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════ CTA ═══════════════════ -->
+  <div class="cta-section" id="contacto">
+    <div class="container">
+      <div class="cta-banner reveal">
+        <h2>Prueba 24 horas gratis</h2>
+        <p>Sin tarjeta de crédito. Sin compromiso. Empieza ahora mismo.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/1234567890" class="btn-primary">Contactar por WhatsApp</a>
+          <a href="mailto:hola@futuresdigital.tv" class="btn-ghost">Enviar correo</a>
+        </div>
+        <p class="cta-note">Respuesta en menos de 5 minutos · Disponible 24/7</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#" class="logo"><span class="logo-dot"></span>FuturesDigital TV</a>
+        <ul class="footer-links">
+          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="#">Términos de uso</a></li>
+          <li><a href="#">Soporte</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+        <p class="footer-copy">© 2026 FuturesDigital TV · Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════ JS ═══════════════════ -->
+  <script>
+    // 1 · Scroll progress bar
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      progress.style.width = pct + '%';
+    }, { passive: true });
+
+    // 2 · Cursor glow
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    }, { passive: true });
+
+    // 3 · Hamburger / Mobile menu
+    const ham = document.getElementById('ham');
+    const menu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        ham.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // 4 · Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    revealEls.forEach(el => revealObs.observe(el));
+    // Hero instant reveal
+    document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 100 + i * 120);
+    });
+
+    // 5 · Bento bar animation
+    const barObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.querySelectorAll('.bento-fill').forEach(b => b.classList.add('on'));
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.bento-card').forEach(c => barObs.observe(c));
+
+    // 6 · FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-q').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // 7 · Billing toggle (annual prices)
+    const billingToggle = document.getElementById('billingToggle');
+    let isAnnual = false;
+    billingToggle.addEventListener('click', () => {
+      isAnnual = !isAnnual;
+      billingToggle.classList.toggle('active', isAnnual);
+      document.querySelectorAll('[data-monthly]').forEach(el => {
+        el.textContent = isAnnual ? el.dataset.annual : el.dataset.monthly;
+      });
+      document.querySelectorAll('[data-period-monthly]').forEach(el => {
+        el.textContent = isAnnual ? el.dataset.periodAnnual : el.dataset.periodMonthly;
+      });
+    });
+  </script>
+</body>
+</html>
