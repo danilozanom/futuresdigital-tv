@@ -278,22 +278,36 @@
     /* ─────────────────────────────────────────────── */
     /*  Channel Ticker                                 */
     /* ─────────────────────────────────────────────── */
-    .ticker-section { padding: 56px 0; overflow: hidden; position: relative; z-index: 1; }
-    .ticker-label { text-align: center; font-size: .65rem; color: var(--w40); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 20px; }
-    .ticker-wrapper { position: relative; }
-    .ticker-fade-l { position: absolute; left: 0; top: 0; bottom: 0; width: 140px; background: linear-gradient(to right, var(--navy-deep), transparent); z-index: 2; pointer-events: none; }
-    .ticker-fade-r { position: absolute; right: 0; top: 0; bottom: 0; width: 140px; background: linear-gradient(to left, var(--navy-deep), transparent); z-index: 2; pointer-events: none; }
-    .ticker-track { display: flex; gap: 12px; animation: tickAnim 30s linear infinite; width: max-content; }
+    .ticker-section { padding: 52px 0; overflow: hidden; position: relative; z-index: 1; }
+    .ticker-label { text-align: center; font-size: .65rem; color: var(--w40); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 30px; }
+    .ticker-row { display: flex; align-items: center; margin-bottom: 10px; }
+    .ticker-row:last-child { margin-bottom: 0; }
+    .ticker-cat {
+      flex-shrink: 0; width: 120px;
+      font-size: .58rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+      padding: 0 14px 0 24px; display: flex; align-items: center; gap: 6px;
+    }
+    .ticker-cat--futbol   { color: #22d3ee; }
+    .ticker-cat--deportes { color: #4ade80; }
+    .ticker-cat--series   { color: #c084fc; }
+    .ticker-cat-sep { flex-shrink: 0; width: 1px; height: 28px; background: var(--border-2); margin-right: 0; }
+    .ticker-wrapper { position: relative; flex: 1; overflow: hidden; }
+    .ticker-fade-l { position: absolute; left: 0; top: 0; bottom: 0; width: 60px; background: linear-gradient(to right, var(--navy-deep), transparent); z-index: 2; pointer-events: none; }
+    .ticker-fade-r { position: absolute; right: 0; top: 0; bottom: 0; width: 60px; background: linear-gradient(to left, var(--navy-deep), transparent); z-index: 2; pointer-events: none; }
+    .ticker-track { display: flex; gap: 10px; width: max-content; padding: 4px 0; }
     .ticker-track:hover { animation-play-state: paused; }
+    .ticker-track-1 { animation: tickAnim 26s linear infinite; }
+    .ticker-track-2 { animation: tickAnim 34s linear infinite; }
+    .ticker-track-3 { animation: tickAnim 42s linear infinite; }
     @keyframes tickAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .ticker-item {
       background: var(--w05); border: 1px solid var(--border-2); border-radius: 10px;
-      padding: 9px 18px; font-size: .75rem; font-weight: 500; color: var(--w70);
+      padding: 7px 15px; font-size: .73rem; font-weight: 500; color: var(--w70);
       white-space: nowrap; display: flex; align-items: center; gap: 7px;
       backdrop-filter: blur(10px); transition: border-color .2s, color .2s;
     }
     .ticker-item:hover { border-color: var(--border); color: var(--white); }
-    .ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); opacity: .7; flex-shrink: 0; }
+    .ticker-dot { width: 5px; height: 5px; border-radius: 50%; opacity: .75; flex-shrink: 0; }
     .ticker-dot.futbol   { background: #22d3ee; }
     .ticker-dot.deportes { background: #4ade80; }
     .ticker-dot.series   { background: #c084fc; }
@@ -670,96 +684,126 @@
   <!-- ═══════════════════ TICKER ═══════════════════ -->
   <div class="ticker-section" aria-hidden="true">
     <p class="ticker-label">Canales disponibles</p>
-    <div class="ticker-wrapper">
-      <div class="ticker-fade-l"></div>
-      <div class="ticker-fade-r"></div>
-      <div class="ticker-track" id="tickerTrack">
-        <!-- ⚽ Fútbol -->
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 2</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 3</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ Liga de Campeones</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga 2</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion 2</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>GOL</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>Real Madrid TV</div>
-        <!-- 🏅 Deportes -->
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Vamos</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes 2</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 1</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 2</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 3</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN F1</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN MotoGP</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN Baloncesto</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 1</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 2</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Golf</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>Teledeporte</div>
-        <!-- 📺 Series y Cine -->
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Originales</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Drama</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Estrenos</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Hits</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Clásicos</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Acción</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Comedia</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Indie</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Cine Español</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>AXN</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>AXN Movies</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>Warner TV</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>SkyShowtime</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>STAR Channel</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>TCM</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>National Geographic</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>BBC Earth</div>
-        <!-- Duplicado para loop infinito -->
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 2</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 3</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ Liga de Campeones</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga 2</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion 2</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>GOL</div>
-        <div class="ticker-item"><span class="ticker-dot futbol"></span>Real Madrid TV</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Vamos</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes 2</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 1</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 2</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 3</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN F1</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN MotoGP</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN Baloncesto</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 1</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 2</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Golf</div>
-        <div class="ticker-item"><span class="ticker-dot deportes"></span>Teledeporte</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Originales</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Drama</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Estrenos</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Hits</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Clásicos</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Acción</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Comedia</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Indie</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>M+ Cine Español</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>AXN</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>AXN Movies</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>Warner TV</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>SkyShowtime</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>STAR Channel</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>TCM</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>National Geographic</div>
-        <div class="ticker-item"><span class="ticker-dot series"></span>BBC Earth</div>
+
+    <!-- ⚽ Fútbol -->
+    <div class="ticker-row">
+      <div class="ticker-cat ticker-cat--futbol">⚽ Fútbol</div>
+      <div class="ticker-cat-sep"></div>
+      <div class="ticker-wrapper">
+        <div class="ticker-fade-l"></div>
+        <div class="ticker-fade-r"></div>
+        <div class="ticker-track ticker-track-1">
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 2</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 3</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ Liga de Campeones</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga 2</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion 2</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>GOL</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>Real Madrid TV</div>
+          <!-- loop -->
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 2</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ LaLiga 3</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>M+ Liga de Campeones</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>DAZN LaLiga 2</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>LaLiga TV Hypermotion 2</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>GOL</div>
+          <div class="ticker-item"><span class="ticker-dot futbol"></span>Real Madrid TV</div>
+        </div>
       </div>
     </div>
+
+    <!-- 🏅 Deportes -->
+    <div class="ticker-row">
+      <div class="ticker-cat ticker-cat--deportes">🏅 Deportes</div>
+      <div class="ticker-cat-sep"></div>
+      <div class="ticker-wrapper">
+        <div class="ticker-fade-l"></div>
+        <div class="ticker-fade-r"></div>
+        <div class="ticker-track ticker-track-2">
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Vamos</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes 2</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 1</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 2</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 3</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN F1</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN MotoGP</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN Baloncesto</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 1</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 2</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Golf</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>Teledeporte</div>
+          <!-- loop -->
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Vamos</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Deportes 2</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 1</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 2</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN 3</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN F1</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN MotoGP</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>DAZN Baloncesto</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 1</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>Eurosport 2</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>M+ Golf</div>
+          <div class="ticker-item"><span class="ticker-dot deportes"></span>Teledeporte</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📺 Series & Cine -->
+    <div class="ticker-row">
+      <div class="ticker-cat ticker-cat--series">📺 Series</div>
+      <div class="ticker-cat-sep"></div>
+      <div class="ticker-wrapper">
+        <div class="ticker-fade-l"></div>
+        <div class="ticker-fade-r"></div>
+        <div class="ticker-track ticker-track-3">
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Originales</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Drama</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Estrenos</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Hits</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Clásicos</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Acción</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Comedia</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Indie</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Cine Español</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>AXN</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>AXN Movies</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>Warner TV</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>SkyShowtime</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>STAR Channel</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>TCM</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>National Geographic</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>BBC Earth</div>
+          <!-- loop -->
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Originales</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Drama</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Estrenos</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Hits</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Clásicos</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Acción</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Comedia</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Indie</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>M+ Cine Español</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>AXN</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>AXN Movies</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>Warner TV</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>SkyShowtime</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>STAR Channel</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>TCM</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>National Geographic</div>
+          <div class="ticker-item"><span class="ticker-dot series"></span>BBC Earth</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="divider"></div>
