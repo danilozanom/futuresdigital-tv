@@ -163,13 +163,6 @@
     .hero { min-height: 100vh; padding: 100px 0 80px; display: flex; align-items: center; }
     .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 64px; }
     .hero-text { flex: 1; min-width: 0; }
-    .hero-icon {
-      width: 68px; height: 68px; border-radius: 18px; margin-bottom: 22px;
-      background: linear-gradient(135deg, rgba(34,211,238,.15), rgba(37,99,235,.15));
-      border: 1px solid rgba(34,211,238,.25);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 32px rgba(34,211,238,.12);
-    }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 7px;
@@ -553,8 +546,7 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .hero { padding: 80px 0 60px; }
-      .hero-icon { width: 60px; height: 60px; border-radius: 16px; margin-bottom: 18px; }
-      .stat-value { font-size: 1.25rem; }
+.stat-value { font-size: 1.25rem; }
       .stat-label { font-size: .65rem; }
       .cta-banner { padding: 52px 24px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -562,7 +554,7 @@
       .ticker-cols { grid-template-columns: 1fr; }
       .ticker-v-wrapper { height: 180px; }
       .devices-grid { gap: 8px; }
-      .social-proof { left: 12px; right: 12px; max-width: none; }
+      .social-proof { right: 82px; left: auto; max-width: 230px; bottom: 20px; padding: 10px 12px; }
       .whatsapp-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
     }
 
@@ -733,7 +725,7 @@
     /*  Social Proof Popup                             */
     /* ─────────────────────────────────────────────── */
     .social-proof {
-      position: fixed; bottom: 100px; left: 24px; z-index: 9997;
+      position: fixed; bottom: 28px; right: 98px; z-index: 9997;
       background: rgba(8,16,36,.94); border: 1px solid var(--border);
       border-radius: 16px; padding: 14px 16px;
       display: flex; align-items: center; gap: 12px;
@@ -825,26 +817,6 @@
 
         <!-- Text -->
         <div class="hero-text">
-          <div class="hero-icon reveal">
-            <svg viewBox="0 0 56 56" width="38" height="38" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="hig" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#22d3ee"/>
-                  <stop offset="100%" stop-color="#2563eb"/>
-                </linearGradient>
-              </defs>
-              <!-- Screen body -->
-              <rect x="4" y="8" width="48" height="30" rx="5" fill="url(#hig)"/>
-              <!-- Screen glass -->
-              <rect x="7" y="11" width="42" height="24" rx="3" fill="rgba(0,0,0,0.45)"/>
-              <!-- Play triangle -->
-              <path d="M24 18l12 7-12 7V18z" fill="white" opacity="0.95"/>
-              <!-- Stand neck -->
-              <rect x="24" y="38" width="8" height="5" rx="2" fill="url(#hig)"/>
-              <!-- Base -->
-              <rect x="18" y="43" width="20" height="4" rx="2" fill="url(#hig)"/>
-            </svg>
-          </div>
           <div class="hero-badge reveal">
             <span class="badge-dot"></span>
             IPTV Premium · Sin permanencia · Activación inmediata
@@ -1539,13 +1511,13 @@
     }
     const statsRow = document.querySelector('.hero-stats');
     let statsAnimated = false;
-    if (statsRow) {
+    if (statsRow && window.innerWidth >= 640) {
       new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && !statsAnimated) {
           statsAnimated = true;
           document.querySelectorAll('.stat-value[data-count]').forEach(animateCounter);
         }
-      }, { threshold: 0.6 }).observe(statsRow);
+      }, { threshold: 0.3 }).observe(statsRow);
     }
 
     // 9 · Streaming services + admin panel
@@ -1561,7 +1533,7 @@
       { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu',        banner: UNS+'1586899737413-93d09c1c05c8?w=600&h=200&fit=crop&q=75' },
       { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo',        banner: UNS+'1508098682722-e99c643e7f0b?w=600&h=200&fit=crop&q=75' },
       { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null,          banner: UNS+'1478720568477-152d9b164e26?w=600&h=200&fit=crop&q=75' },
-      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:35,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo',  banner: UNS+'1440404653325-ab127d49abc1?w=600&h=200&fit=crop&q=75' },
+      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:25,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo',  banner: UNS+'1440404653325-ab127d49abc1?w=600&h=200&fit=crop&q=75' },
       { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube',     banner: UNS+'1611162617474-5b21e879e113?w=600&h=200&fit=crop&q=75' },
     ];
 
