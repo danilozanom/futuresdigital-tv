@@ -163,6 +163,13 @@
     .hero { min-height: 100vh; padding: 100px 0 80px; display: flex; align-items: center; }
     .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 64px; }
     .hero-text { flex: 1; min-width: 0; }
+    .hero-icon {
+      width: 68px; height: 68px; border-radius: 18px; margin-bottom: 22px;
+      background: linear-gradient(135deg, rgba(34,211,238,.15), rgba(37,99,235,.15));
+      border: 1px solid rgba(34,211,238,.25);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 32px rgba(34,211,238,.12);
+    }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 7px;
@@ -546,6 +553,9 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .hero { padding: 80px 0 60px; }
+      .hero-icon { width: 60px; height: 60px; border-radius: 16px; margin-bottom: 18px; }
+      .stat-value { font-size: 1.25rem; }
+      .stat-label { font-size: .65rem; }
       .cta-banner { padding: 52px 24px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .stat-sep { display: none; }
@@ -679,8 +689,22 @@
 
     @media (max-width:1024px) { .stream-grid { grid-template-columns:repeat(3,1fr); } }
     @media (max-width:700px)  { .stream-grid { grid-template-columns:repeat(2,1fr); } }
-    @media (max-width:400px)  { .stream-grid { grid-template-columns:1fr; } }
     @media (max-width:440px)  { .admin-panel { width:100%; } }
+
+    /* ── Streaming mobile (must come after base streaming CSS) ─────── */
+    @media (max-width:640px) {
+      .stream-cats { flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .stream-cats::-webkit-scrollbar { display:none; }
+      .scat-btn { flex-shrink:0; }
+      .sc-header { padding:14px 12px 12px; }
+      .sc-logo { width:42px; height:42px; border-radius:10px; }
+      .sc-logo img { width:22px; height:22px; }
+      .sc-body { padding:10px 12px 12px; }
+      .sc-name { font-size:.82rem; }
+      .sc-price-val { font-size:1.45rem; }
+      .sc-btn { font-size:.75rem; padding:8px 0; }
+    }
+    @media (max-width:320px) { .stream-grid { grid-template-columns:1fr; } }
 
     /* ─────────────────────────────────────────────── */
     /*  WhatsApp FAB                                   */
@@ -800,6 +824,26 @@
 
         <!-- Text -->
         <div class="hero-text">
+          <div class="hero-icon reveal">
+            <svg viewBox="0 0 56 56" width="38" height="38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="hig" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#22d3ee"/>
+                  <stop offset="100%" stop-color="#2563eb"/>
+                </linearGradient>
+              </defs>
+              <!-- Screen body -->
+              <rect x="4" y="8" width="48" height="30" rx="5" fill="url(#hig)"/>
+              <!-- Screen glass -->
+              <rect x="7" y="11" width="42" height="24" rx="3" fill="rgba(0,0,0,0.45)"/>
+              <!-- Play triangle -->
+              <path d="M24 18l12 7-12 7V18z" fill="white" opacity="0.95"/>
+              <!-- Stand neck -->
+              <rect x="24" y="38" width="8" height="5" rx="2" fill="url(#hig)"/>
+              <!-- Base -->
+              <rect x="18" y="43" width="20" height="4" rx="2" fill="url(#hig)"/>
+            </svg>
+          </div>
           <div class="hero-badge reveal">
             <span class="badge-dot"></span>
             IPTV Premium · Sin permanencia · Activación inmediata
