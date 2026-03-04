@@ -820,7 +820,7 @@
         <div class="hero-text">
 <div class="hero-badge reveal">
             <span class="badge-dot"></span>
-            IPTV Premium · Sin permanencia · Activación inmediata
+            IPTV Premium · Activación inmediata
           </div>
           <h1 class="reveal d1">
             Streaming<br/><span>sin límites.</span>
@@ -1512,13 +1512,13 @@
     }
     const statsRow = document.querySelector('.hero-stats');
     let statsAnimated = false;
-    if (statsRow && window.innerWidth >= 640) {
+    if (statsRow) {
       new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && !statsAnimated) {
           statsAnimated = true;
           document.querySelectorAll('.stat-value[data-count]').forEach(animateCounter);
         }
-      }, { threshold: 0.3 }).observe(statsRow);
+      }, { threshold: 0.2 }).observe(statsRow);
     }
 
     // 9 · Streaming services + admin panel
