@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hazte Revendedor — FuturesDigital TV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:  #020b18;
+      --navy:       #0a1628;
+      --navy-mid:   #0d2147;
+      --navy-light: #1a3a6b;
+      --accent:     #1e4fd8;
+      --accent-2:   #2563eb;
+      --cyan:       #22d3ee;
+      --green:      #4ade80;
+      --white:      #ffffff;
+      --w70:        rgba(255,255,255,.70);
+      --w50:        rgba(255,255,255,.50);
+      --w40:        rgba(255,255,255,.40);
+      --w15:        rgba(255,255,255,.15);
+      --w08:        rgba(255,255,255,.08);
+      --w05:        rgba(255,255,255,.05);
+      --border:     rgba(255,255,255,.12);
+      --border-2:   rgba(255,255,255,.07);
+      --r:   18px;
+      --rlg: 28px;
+      --blur: saturate(180%) blur(24px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--navy-deep);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9998;
+    }
+
+    /* Scroll progress */
+    #progress {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--accent-2), #60a5fa, var(--cyan));
+      z-index: 10000; transition: width .1s linear;
+    }
+
+    /* Cursor glow */
+    #cursor-glow {
+      position: fixed; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.09), transparent 60%);
+      pointer-events: none; transform: translate(-50%,-50%);
+      transition: left .25s ease, top .25s ease; z-index: 0; will-change: left, top;
+    }
+
+    /* BG orbs */
+    .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(130px); }
+    .orb-1 { width: 700px; height: 700px; background: var(--accent); top: -250px; left: -200px; opacity: .14; animation: orbf 12s ease-in-out infinite; }
+    .orb-2 { width: 500px; height: 500px; background: #0a2f8a; top: 35%; right: -150px; opacity: .11; animation: orbf 15s ease-in-out infinite reverse; }
+    .orb-3 { width: 380px; height: 380px; background: var(--navy-light); bottom: 5%; left: 25%; opacity: .09; animation: orbf 10s ease-in-out infinite 4s; }
+    @keyframes orbf { 0%,100%{transform:translate(0,0)scale(1)} 33%{transform:translate(20px,-15px)scale(1.04)} 66%{transform:translate(-12px,10px)scale(.96)} }
+
+    /* Layout */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(2,11,24,.65);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--border-2);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -.025em; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 14px var(--accent-2); }
+    .nav-back { color: var(--w70); text-decoration: none; font-size: .85rem; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-back svg { width: 14px; height: 14px; }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: .95rem;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      color: var(--white); text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 24px rgba(37,99,235,.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(37,99,235,.55); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px; font-weight: 500; font-size: .95rem;
+      background: var(--w08); color: var(--white); text-decoration: none;
+      border: 1px solid var(--border); cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-ghost:hover { background: var(--w15); border-color: var(--w40); }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+    .d5 { transition-delay: .5s; } .d6 { transition-delay: .6s; }
+
+    /* Section header */
+    .section-label {
+      font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.15; }
+    .section-title span { background: linear-gradient(135deg, var(--cyan), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-sub { color: var(--w50); font-size: 1rem; margin-top: 14px; max-width: 560px; line-height: 1.7; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; padding: 120px 0 80px;
+      display: flex; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(37,99,235,.12); border: 1px solid rgba(37,99,235,.3);
+      padding: 6px 14px; border-radius: 20px;
+      font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      color: #93c5fd; margin-bottom: 22px;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800;
+      letter-spacing: -.05em; line-height: 1.1; margin-bottom: 22px;
+    }
+    .hero h1 span { background: linear-gradient(135deg, var(--cyan) 0%, #60a5fa 50%, var(--accent-2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 1.05rem; color: var(--w50); line-height: 1.75; max-width: 580px; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: flex; align-items: center; gap: 32px; margin-top: 52px;
+      padding-top: 36px; border-top: 1px solid var(--border-2); flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 1.8rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+    .stat-value.green { color: var(--green); }
+    .stat-value.cyan { background: linear-gradient(135deg, var(--cyan), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: .68rem; color: var(--w40); margin-top: 4px; letter-spacing: .05em; text-transform: uppercase; }
+    .stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+    /* ── HOW IT WORKS ── */
+    .how { padding: 100px 0; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
+    .step-card {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--r);
+      padding: 28px 24px; position: relative; transition: border-color .3s, background .3s;
+    }
+    .step-card:hover { border-color: var(--border); background: var(--w05); }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 12px; margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 800; color: var(--white);
+      box-shadow: 0 4px 16px rgba(37,99,235,.35);
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step-card p { font-size: .85rem; color: var(--w50); line-height: 1.6; }
+    .step-connector {
+      position: absolute; top: 48px; right: -12px;
+      width: 24px; height: 2px; background: linear-gradient(90deg, var(--border), transparent);
+      z-index: 2;
+    }
+
+    /* ── PAQUETES ── */
+    .packages { padding: 100px 0; }
+    .packages-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 56px; }
+    .pkg-card {
+      border-radius: var(--r); overflow: hidden;
+      border: 1px solid var(--border-2); background: var(--w03);
+      transition: transform .3s, border-color .3s; cursor: default;
+    }
+    .pkg-card:hover { transform: translateY(-4px); border-color: var(--border); }
+    .pkg-header {
+      padding: 20px 18px 16px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 10px; height: 90px;
+    }
+    .pkg-icon { font-size: 1.8rem; line-height: 1; }
+    .pkg-body { padding: 14px 16px 18px; }
+    .pkg-name { font-size: .9rem; font-weight: 700; margin-bottom: 6px; }
+    .pkg-desc { font-size: .77rem; color: var(--w40); line-height: 1.55; }
+
+    /* ── NIVELES ── */
+    .levels { padding: 100px 0; }
+    .levels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .level-card {
+      border-radius: var(--rlg); border: 1px solid var(--border-2);
+      background: var(--w03); overflow: hidden; position: relative;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .level-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.4); }
+    .level-card.featured { border-color: rgba(37,99,235,.4); background: rgba(37,99,235,.06); }
+    .level-card.featured::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(145deg, rgba(37,99,235,.08), transparent 60%);
+      pointer-events: none;
+    }
+    .level-badge {
+      position: absolute; top: 16px; right: 16px;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      color: white; font-size: .65rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+    }
+    .level-header { padding: 32px 28px 24px; border-bottom: 1px solid var(--border-2); }
+    .level-tier { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--w40); margin-bottom: 8px; }
+    .level-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 6px; }
+    .level-min { font-size: .82rem; color: var(--w40); }
+    .level-price-row { display: flex; align-items: baseline; gap: 6px; margin-top: 18px; }
+    .level-price { font-size: 2.4rem; font-weight: 800; letter-spacing: -.05em; }
+    .level-price-sub { font-size: .82rem; color: var(--w40); }
+    .level-body { padding: 24px 28px 28px; }
+    .level-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .level-features li { display: flex; align-items: flex-start; gap: 10px; font-size: .87rem; color: var(--w70); }
+    .level-features li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, var(--green), #16a34a); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='8' fill='%234ade80' opacity='.2'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%234ade80' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: cover; }
+    .level-cta { margin-top: 24px; width: 100%; }
+
+    /* ── RENTABILIDAD ── */
+    .profit { padding: 100px 0; }
+    .profit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 56px; align-items: start; }
+    .profit-example {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--rlg);
+      padding: 36px; position: relative; overflow: hidden;
+    }
+    .profit-example::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,222,128,.08), transparent 70%);
+    }
+    .profit-label { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    .profit-example h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+    .profit-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border-2); font-size: .9rem;
+    }
+    .profit-row:last-child { border-bottom: none; }
+    .profit-row .label { color: var(--w50); }
+    .profit-row .value { font-weight: 600; }
+    .profit-row .value.green { color: var(--green); }
+    .profit-row .value.red { color: #f87171; }
+    .profit-total {
+      margin-top: 20px; padding: 20px; border-radius: 14px;
+      background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .profit-total .label { font-size: .85rem; color: var(--w70); font-weight: 500; }
+    .profit-total .value { font-size: 1.6rem; font-weight: 800; color: var(--green); }
+    .profit-margin {
+      margin-top: 60px; background: var(--w03); border: 1px solid var(--border-2);
+      border-radius: var(--r); padding: 24px 28px;
+    }
+    .margin-title { font-size: .85rem; font-weight: 600; margin-bottom: 20px; color: var(--w70); }
+    .margin-bar-wrap { margin-bottom: 16px; }
+    .margin-bar-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--w50); margin-bottom: 6px; }
+    .margin-bar { height: 8px; border-radius: 4px; background: var(--w08); overflow: hidden; }
+    .margin-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent-2), var(--green)); }
+
+    /* ── SOPORTE ── */
+    .support { padding: 100px 0; }
+    .support-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 56px; }
+    .support-card {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--r);
+      padding: 28px; display: flex; gap: 18px; align-items: flex-start;
+      transition: border-color .3s, background .3s;
+    }
+    .support-card:hover { border-color: var(--border); background: var(--w05); }
+    .support-icon {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      background: rgba(37,99,235,.14); border: 1px solid rgba(37,99,235,.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .support-card h3 { font-size: .97rem; font-weight: 700; margin-bottom: 6px; }
+    .support-card p { font-size: .83rem; color: var(--w50); line-height: 1.6; }
+
+    /* ── NOTAS ── */
+    .notes { padding: 100px 0; }
+    .notes-inner {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--rlg);
+      padding: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    }
+    .note-item h3 { font-size: .95rem; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .note-item p { font-size: .84rem; color: var(--w50); line-height: 1.65; }
+    .note-icon { font-size: 1rem; }
+
+    /* ── DEVICES ── */
+    .devices { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+    .device-chip {
+      background: var(--w08); border: 1px solid var(--border-2);
+      border-radius: 20px; padding: 6px 14px; font-size: .78rem;
+      color: var(--w70); display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-section { padding: 100px 0; }
+    .cta-inner {
+      border-radius: var(--rlg); padding: 72px 48px; text-align: center;
+      background: linear-gradient(135deg, rgba(37,99,235,.15) 0%, rgba(29,78,216,.08) 100%);
+      border: 1px solid rgba(37,99,235,.25); position: relative; overflow: hidden;
+    }
+    .cta-inner::before {
+      content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(37,99,235,.18), transparent 70%);
+    }
+    .cta-inner h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: 16px; position: relative; }
+    .cta-inner p { color: var(--w50); font-size: 1rem; margin-bottom: 36px; position: relative; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* ── FOOTER ── */
+    footer { padding: 36px 0; border-top: 1px solid var(--border-2); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: .8rem; color: var(--w40); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: .8rem; color: var(--w40); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── WHATSAPP FAB ── */
+    .whatsapp-fab {
+      position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25d366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,.45);
+      transition: transform .2s, box-shadow .2s; text-decoration: none;
+    }
+    .whatsapp-fab:hover { transform: scale(1.1); box-shadow: 0 6px 36px rgba(37,211,102,.65); }
+    .whatsapp-fab svg { width: 30px; height: 30px; fill: white; }
+    .whatsapp-fab::before {
+      content: ''; position: absolute; inset: -6px; border-radius: 50%;
+      border: 2px solid rgba(37,211,102,.4);
+      animation: waPulse 2.2s ease-out infinite;
+    }
+    @keyframes waPulse { 0%{transform:scale(1);opacity:1} 100%{transform:scale(1.5);opacity:0} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .packages-grid { grid-template-columns: repeat(3, 1fr); }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .step-connector { display: none; }
+    }
+    @media (max-width: 768px) {
+      .levels-grid { grid-template-columns: 1fr; }
+      .profit-grid { grid-template-columns: 1fr; }
+      .support-grid { grid-template-columns: 1fr; }
+      .notes-inner { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; }
+      .packages-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-inner { padding: 48px 24px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .packages-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-stats { gap: 20px; }
+      .stat-sep { display: none; }
+      .whatsapp-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+    }
+    @media (max-width: 400px) {
+      .packages-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress"></div>
+  <div id="cursor-glow"></div>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        FuturesDigital TV
+      </a>
+      <a href="index.html" class="nav-back">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 2.5L4 7l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Volver al inicio
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge reveal">
+        <span class="badge-dot"></span>
+        Programa de Revendedores · Abierto
+      </div>
+      <h1 class="reveal d1">
+        Gana dinero<br/><span>con nosotros.</span>
+      </h1>
+      <p class="hero-sub reveal d2">
+        Bienvenido a nuestra plataforma para la creación y gestión de credenciales de acceso a paquetes de contenido audiovisual. Sistema basado en créditos, diseñado para que puedas ofrecer a tus clientes entretenimiento premium y generar ganancias significativas.
+      </p>
+      <div class="hero-actions reveal d3">
+        <a href="https://wa.me/1234567890" target="_blank" rel="noopener" class="btn-primary">
+          Quiero ser revendedor
+        </a>
+        <a href="#niveles" class="btn-ghost">Ver niveles</a>
+      </div>
+      <div class="hero-stats reveal d4">
+        <div class="stat-item">
+          <div class="stat-value green" data-count="80" data-suffix="%" data-decimals="0">80%</div>
+          <div class="stat-label">Margen neto máximo</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <div class="stat-value cyan" data-count="3" data-decimals="0">3</div>
+          <div class="stat-label">Niveles de revendedor</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <div class="stat-value" data-count="5" data-decimals="0">5</div>
+          <div class="stat-label">Paquetes disponibles</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <div class="stat-value cyan">5</div>
+          <div class="stat-label">Apps compatibles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="how" id="como-funciona">
+    <div class="container">
+      <div class="section-label reveal">¿Cómo funciona?</div>
+      <h2 class="section-title reveal d1">Tu negocio en <span>4 pasos</span></h2>
+      <p class="section-sub reveal d2">Nuestra plataforma opera mediante un sistema de créditos. Para crear credenciales de acceso a los diferentes paquetes, primero adquieres créditos y luego los usas para generar accesos para tus clientes.</p>
+      <div class="steps-grid">
+        <div class="step-card reveal d1">
+          <div class="step-num">1</div>
+          <div class="step-connector"></div>
+          <h3>Elige tu nivel</h3>
+          <p>Selecciona el nivel de revendedor que mejor se adapte a tu volumen de ventas y presupuesto.</p>
+        </div>
+        <div class="step-card reveal d2">
+          <div class="step-num">2</div>
+          <div class="step-connector"></div>
+          <h3>Adquiere créditos</h3>
+          <p>Compra paquetes de créditos a precio mayorista. Cuantos más créditos, menor coste por unidad.</p>
+        </div>
+        <div class="step-card reveal d3">
+          <div class="step-num">3</div>
+          <div class="step-connector"></div>
+          <h3>Genera credenciales</h3>
+          <p>Desde la plataforma web, crea accesos para tus clientes eligiendo el paquete y la duración.</p>
+        </div>
+        <div class="step-card reveal d4">
+          <div class="step-num">4</div>
+          <h3>Vende y gana</h3>
+          <p>Establece tu propio precio de venta y embolsa la diferencia. Tú controlas tu margen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PAQUETES -->
+  <section class="packages" id="paquetes">
+    <div class="container">
+      <div class="section-label reveal">Catálogo de contenidos</div>
+      <h2 class="section-title reveal d1">5 paquetes para <span>cada cliente</span></h2>
+      <p class="section-sub reveal d2">Ofrecemos una amplia variedad de opciones para que puedas adaptarte a cualquier tipo de cliente, desde el espectador casual hasta el aficionado al deporte.</p>
+      <div class="packages-grid">
+        <div class="pkg-card reveal d1">
+          <div class="pkg-header" style="background:linear-gradient(135deg,#1e3a5f,#0d2147)">
+            <div class="pkg-icon">📺</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-name">Solo España</div>
+            <div class="pkg-desc">Canales nacionales españoles. Ideal para clientes básicos que buscan entretenimiento local.</div>
+          </div>
+        </div>
+        <div class="pkg-card reveal d2">
+          <div class="pkg-header" style="background:linear-gradient(135deg,#1e4fd8,#0d2147)">
+            <div class="pkg-icon">🌍</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-name">España + Internacional</div>
+            <div class="pkg-desc">Canales nacionales más canales internacionales. La opción más completa para el gran público.</div>
+          </div>
+        </div>
+        <div class="pkg-card reveal d3">
+          <div class="pkg-header" style="background:linear-gradient(135deg,#166534,#0d2147)">
+            <div class="pkg-icon">⚽</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-name">Fútbol Exclusivo</div>
+            <div class="pkg-desc">Todos los canales de fútbol. La Liga, Champions, Premier... Para los verdaderos aficionados.</div>
+          </div>
+        </div>
+        <div class="pkg-card reveal d4">
+          <div class="pkg-header" style="background:linear-gradient(135deg,#7c2d12,#0d2147)">
+            <div class="pkg-icon">🏎️</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-name">Motor y F1</div>
+            <div class="pkg-desc">Canales DAZN y Motor. Fórmula 1, MotoGP y más para los amantes del automovilismo.</div>
+          </div>
+        </div>
+        <div class="pkg-card reveal d5">
+          <div class="pkg-header" style="background:linear-gradient(135deg,#4c1d95,#0d2147)">
+            <div class="pkg-icon">🎬</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-name">Biblioteca VOD</div>
+            <div class="pkg-desc">Series y películas a la carta con actualizaciones diarias. Contenido ilimitado bajo demanda.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- NIVELES -->
+  <section class="levels" id="niveles">
+    <div class="container">
+      <div class="section-label reveal">Adquisición de créditos</div>
+      <h2 class="section-title reveal d1">Elige tu <span>nivel de revendedor</span></h2>
+      <p class="section-sub reveal d2">Cuanto mayor sea tu inversión en créditos, menor será el coste por crédito y mayor tu margen de beneficio. Empieza pequeño y escala a tu ritmo.</p>
+      <div class="levels-grid">
+
+        <!-- Junior -->
+        <div class="level-card reveal d1">
+          <div class="level-header">
+            <div class="level-tier">Nivel 1</div>
+            <div class="level-name">Junior</div>
+            <div class="level-min">Mínimo 25 créditos</div>
+            <div class="level-price-row">
+              <div class="level-price">€60</div>
+              <div class="level-price-sub">/ 25 créditos (€2,40/crédito)</div>
+            </div>
+          </div>
+          <div class="level-body">
+            <ul class="level-features">
+              <li>Acceso inmediato a la plataforma</li>
+              <li>Genera credenciales para cualquier paquete</li>
+              <li>Pruebas gratuitas para tus clientes</li>
+              <li>Soporte técnico incluido</li>
+              <li>Sin fecha de caducidad de créditos</li>
+            </ul>
+            <a href="https://wa.me/1234567890" target="_blank" rel="noopener" class="btn-ghost level-cta" style="text-align:center;justify-content:center;">Empezar como Junior</a>
+          </div>
+        </div>
+
+        <!-- Super Reseller -->
+        <div class="level-card featured reveal d2">
+          <div class="level-badge">Más popular</div>
+          <div class="level-header">
+            <div class="level-tier">Nivel 2</div>
+            <div class="level-name">Super Reseller</div>
+            <div class="level-min">Mínimo 300 créditos</div>
+            <div class="level-price-row">
+              <div class="level-price">€1</div>
+              <div class="level-price-sub">/ crédito (desde 1.000 créditos)</div>
+            </div>
+          </div>
+          <div class="level-body">
+            <ul class="level-features">
+              <li>Todo lo del nivel Junior</li>
+              <li>Precio por crédito reducido a €1</li>
+              <li>Márgenes superiores por volumen</li>
+              <li>Comunidad privada de revendedores</li>
+              <li>Acceso a promociones exclusivas</li>
+              <li>Actualizaciones automáticas de plataforma</li>
+            </ul>
+            <a href="https://wa.me/1234567890" target="_blank" rel="noopener" class="btn-primary level-cta" style="text-align:center;justify-content:center;">Ser Super Reseller</a>
+          </div>
+        </div>
+
+        <!-- Super Mega -->
+        <div class="level-card reveal d3">
+          <div class="level-header">
+            <div class="level-tier">Nivel 3</div>
+            <div class="level-name">Super Mega</div>
+            <div class="level-min">Mínimo 1.500 créditos</div>
+            <div class="level-price-row">
+              <div class="level-price" style="background:linear-gradient(135deg,var(--cyan),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Mejor</div>
+              <div class="level-price-sub">precio/crédito del mercado</div>
+            </div>
+          </div>
+          <div class="level-body">
+            <ul class="level-features">
+              <li>Todo lo del nivel Super Reseller</li>
+              <li>Coste por crédito más bajo disponible</li>
+              <li>Hasta 80% de margen neto</li>
+              <li>Soporte prioritario</li>
+              <li>Condiciones personalizadas</li>
+              <li>2–3 promociones anuales para tus clientes</li>
+            </ul>
+            <a href="https://wa.me/1234567890" target="_blank" rel="noopener" class="btn-ghost level-cta" style="text-align:center;justify-content:center;">Contactar para Super Mega</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- RENTABILIDAD -->
+  <section class="profit" id="rentabilidad">
+    <div class="container">
+      <div class="section-label reveal">Rentabilidad</div>
+      <h2 class="section-title reveal d1">Calcula tu <span>beneficio real</span></h2>
+      <p class="section-sub reveal d2">Aquí tienes un ejemplo real de lo que puedes ganar siendo revendedor Junior desde el primer día.</p>
+      <div class="profit-grid">
+        <div class="profit-example reveal d1">
+          <div class="profit-label">Ejemplo práctico · Nivel Junior</div>
+          <h3>25 créditos → €52 de beneficio</h3>
+          <div class="profit-row">
+            <span class="label">Inversión inicial</span>
+            <span class="value red">−€60</span>
+          </div>
+          <div class="profit-row">
+            <span class="label">Coste por crédito</span>
+            <span class="value">€2,40</span>
+          </div>
+          <div class="profit-row">
+            <span class="label">Créditos usados por venta (Premium)</span>
+            <span class="value">20 créditos</span>
+          </div>
+          <div class="profit-row">
+            <span class="label">Precio de venta al cliente</span>
+            <span class="value green">+€100</span>
+          </div>
+          <div class="profit-row">
+            <span class="label">Coste de los créditos usados</span>
+            <span class="value red">−€48</span>
+          </div>
+          <div class="profit-total">
+            <span class="label">✅ Beneficio bruto por venta</span>
+            <span class="value">~€52</span>
+          </div>
+        </div>
+        <div>
+          <div class="profit-margin reveal d2">
+            <div class="margin-title">Margen estimado por nivel</div>
+            <div class="margin-bar-wrap">
+              <div class="margin-bar-label"><span>Junior</span><span>~50%</span></div>
+              <div class="margin-bar"><div class="margin-bar-fill" style="width:50%"></div></div>
+            </div>
+            <div class="margin-bar-wrap">
+              <div class="margin-bar-label"><span>Super Reseller</span><span>~65%</span></div>
+              <div class="margin-bar"><div class="margin-bar-fill" style="width:65%"></div></div>
+            </div>
+            <div class="margin-bar-wrap">
+              <div class="margin-bar-label"><span>Super Mega Reseller</span><span>hasta 80%</span></div>
+              <div class="margin-bar"><div class="margin-bar-fill" style="width:80%"></div></div>
+            </div>
+          </div>
+          <div class="support-card reveal d3" style="margin-top:20px;border-radius:var(--r);">
+            <div class="support-icon">💡</div>
+            <div>
+              <h3>Tú pones el precio</h3>
+              <p>Eres libre de fijar el precio de venta a tus clientes. Cuanto mayor sea el volumen de créditos que compres, mayor será tu margen en cada venta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SOPORTE -->
+  <section class="support" id="soporte">
+    <div class="container">
+      <div class="section-label reveal">Soporte y actualizaciones</div>
+      <h2 class="section-title reveal d1">Todo incluido, <span>sin preocupaciones</span></h2>
+      <p class="section-sub reveal d2">Nos encargamos de toda la infraestructura para que tú solo te preocupes de vender.</p>
+      <div class="support-grid">
+        <div class="support-card reveal d1">
+          <div class="support-icon">🛠️</div>
+          <div>
+            <h3>Soporte técnico</h3>
+            <p>Asistencia técnica disponible para resolver cualquier incidencia que tú o tus clientes podáis tener.</p>
+          </div>
+        </div>
+        <div class="support-card reveal d2">
+          <div class="support-icon">🔄</div>
+          <div>
+            <h3>Actualizaciones automáticas</h3>
+            <p>La plataforma se actualiza de forma continua sin que tengas que hacer nada. Siempre con las últimas funciones.</p>
+          </div>
+        </div>
+        <div class="support-card reveal d3">
+          <div class="support-icon">🏗️</div>
+          <div>
+            <h3>Gestión de infraestructura</h3>
+            <p>Toda la infraestructura técnica está gestionada por nuestro equipo. Tú solo vendes, nosotros mantenemos.</p>
+          </div>
+        </div>
+        <div class="support-card reveal d4">
+          <div class="support-icon">👥</div>
+          <div>
+            <h3>Comunidad de revendedores</h3>
+            <p>Accede a una comunidad activa de revendedores donde compartir estrategias, dudas y experiencias.</p>
+          </div>
+        </div>
+        <div class="support-card reveal d5">
+          <div class="support-icon">🎁</div>
+          <div>
+            <h3>Pruebas gratuitas</h3>
+            <p>Ofrece períodos de prueba gratuitos a tus clientes potenciales para que prueben el servicio antes de comprar.</p>
+          </div>
+        </div>
+        <div class="support-card reveal d6">
+          <div class="support-icon">📣</div>
+          <div>
+            <h3>Promociones para tus clientes</h3>
+            <p>Realizamos 2–3 promociones y descuentos anuales que puedes ofrecer a tu cartera de clientes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- NOTAS IMPORTANTES -->
+  <section class="notes" id="notas">
+    <div class="container">
+      <div class="section-label reveal">Condiciones</div>
+      <h2 class="section-title reveal d1">Lo que debes <span>saber</span></h2>
+      <div class="notes-inner reveal d2">
+        <div class="note-item">
+          <h3><span class="note-icon">♾️</span> Créditos sin caducidad</h3>
+          <p>Los créditos que adquieras <strong>no tienen fecha de vencimiento</strong>. Puedes usarlos a tu ritmo sin preocuparte por perderlos.</p>
+        </div>
+        <div class="note-item">
+          <h3><span class="note-icon">⚡</span> Recargas mínimas</h3>
+          <p>Si tu cuenta queda inactiva, será necesaria una recarga mínima de <strong>25 créditos (€60)</strong> para volver a acceder a los créditos restantes. Cada nivel tiene su período de gracia correspondiente (ej: 200 créditos = 90 días de gracia).</p>
+        </div>
+        <div class="note-item">
+          <h3><span class="note-icon">📱</span> Dispositivos compatibles</h3>
+          <p>Tus clientes pueden usar el servicio en <strong>5 plataformas</strong>:</p>
+          <div class="devices">
+            <span class="device-chip">🤖 Android</span>
+            <span class="device-chip">💻 PC</span>
+            <span class="device-chip">🖥️ Samsung</span>
+            <span class="device-chip">📺 LG</span>
+            <span class="device-chip">🍎 Apple</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <h2>¿Listo para empezar a ganar?</h2>
+        <p>Únete a nuestra red de revendedores hoy mismo. Sin permanencia, activación inmediata.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/1234567890" target="_blank" rel="noopener" class="btn-primary">
+            💬 Contactar por WhatsApp
+          </a>
+          <a href="index.html" class="btn-ghost">Ver planes de usuario</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">© 2025 FuturesDigital TV · Programa de Revendedores</div>
+        <div class="footer-links">
+          <a href="index.html">Inicio</a>
+          <a href="#niveles">Niveles</a>
+          <a href="#rentabilidad">Rentabilidad</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <a href="https://wa.me/1234567890" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  </a>
+
+  <script>
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const s = document.documentElement;
+      document.getElementById('progress').style.width =
+        (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
+    });
+
+    // Cursor glow
+    const cg = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', e => { cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px'; });
+
+    // Reveal on scroll
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // Counter animation
+    function animateCounter(el) {
+      const target   = parseFloat(el.dataset.count);
+      const suffix   = el.dataset.suffix || '';
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const from     = target > 10 ? target * 0.4 : 0;
+      const duration = 1800;
+      const startTime = performance.now();
+      function tick(now) {
+        const p = Math.min((now - startTime) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        const val = from + (target - from) * ease;
+        el.textContent = val.toFixed(decimals) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const statsRow = document.querySelector('.hero-stats');
+    let statsAnimated = false;
+    if (statsRow) {
+      new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !statsAnimated) {
+          statsAnimated = true;
+          document.querySelectorAll('.stat-value[data-count]').forEach(animateCounter);
+        }
+      }, { threshold: 0.2 }).observe(statsRow);
+    }
+
+    // Animate margin bars on scroll
+    const barObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.margin-bar-fill').forEach(bar => {
+            const w = bar.style.width;
+            bar.style.width = '0';
+            setTimeout(() => { bar.style.transition = 'width 1.2s cubic-bezier(.4,0,.2,1)'; bar.style.width = w; }, 100);
+          });
+          barObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.profit-margin').forEach(el => barObs.observe(el));
+  </script>
+
+</body>
+</html>
