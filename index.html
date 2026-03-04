@@ -1486,18 +1486,18 @@
 
     // 9 · Streaming services + admin panel
     const SERVICES = [
-      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify'      },
-      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:'disneyplus', logoUrl:'https://www.google.com/s2/favicons?domain=disneyplus.com&sz=64' },
-      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax'       },
-      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix'      },
-      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#F47521', abbr:'CR',  dark:false, logo:'crunchyroll'  },
-      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn'         },
-      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer', logoUrl:'https://www.google.com/s2/favicons?domain=atresplayer.com&sz=64' },
-      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu',       logoUrl:'https://www.google.com/s2/favicons?domain=hulu.com&sz=64'         },
-      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo'         },
-      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null           },
-      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:35,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo',  logoUrl:'https://www.google.com/s2/favicons?domain=primevideo.com&sz=64' },
-      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube'      },
+      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify'         },
+      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:null  },
+      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax'          },
+      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix'         },
+      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#1a0a00', abbr:'CR',  dark:false, logo:'crunchyroll'     },
+      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn'            },
+      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer'     },
+      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu'            },
+      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo'            },
+      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null              },
+      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:35,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo'      },
+      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube'         },
     ];
 
     function loadPrices() {
@@ -1521,11 +1521,9 @@
         <div class="stream-card reveal" style="--brand-color:${s.color}">
           <div class="stream-top">
             <div class="stream-logo" style="background:${s.color}" data-abbr="${s.abbr}">${
-              s.logoUrl
-                ? `<img src="${s.logoUrl}" width="28" height="28" alt="${s.name}" style="object-fit:contain;display:block" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
-                : (s.logo
-                  ? `<img src="https://cdn.simpleicons.org/${s.logo}" class="icon-${s.dark?'dark':'light'}" width="24" height="24" alt="${s.name}" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
-                  : `<span style="color:${s.dark?'#000':'#fff'};font-size:.7rem;font-weight:800">${s.abbr}</span>`)
+              s.logo
+                ? `<img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${s.logo}.svg" class="icon-${s.dark?'dark':'light'}" width="24" height="24" alt="${s.name}" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
+                : `<span style="color:${s.dark?'#000':'#fff'};font-size:.75rem;font-weight:900;letter-spacing:-.5px;line-height:1">${s.abbr}</span>`
             }</div>
             <div>
               <div class="stream-name">${s.name}</div>
@@ -1552,11 +1550,9 @@
         return `
         <div class="admin-row">
           <div class="admin-logo" style="background:${s.color}" data-abbr="${s.abbr}">${
-              s.logoUrl
-                ? `<img src="${s.logoUrl}" width="16" height="16" alt="${s.name}" style="object-fit:contain;display:block" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
-                : (s.logo
-                  ? `<img src="https://cdn.simpleicons.org/${s.logo}" class="icon-${s.dark?'dark':'light'}" width="14" height="14" alt="${s.name}" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
-                  : `<span style="color:${s.dark?'#000':'#fff'}">${s.abbr}</span>`)
+              s.logo
+                ? `<img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${s.logo}.svg" class="icon-${s.dark?'dark':'light'}" width="14" height="14" alt="${s.name}" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
+                : `<span style="color:${s.dark?'#000':'#fff'}">${s.abbr}</span>`
             }</div>
           <div class="admin-svc-name">${s.name}</div>
           <input class="admin-input" type="number" min="1" step="1" data-id="${s.id}" value="${price}" />
