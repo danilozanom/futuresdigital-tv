@@ -589,6 +589,7 @@
     .sc-header {
       padding:18px 14px 16px; display:flex; align-items:flex-start; justify-content:space-between;
       background:linear-gradient(135deg, var(--brand-color,var(--accent)), var(--brand-dark,#000));
+      min-height:115px; background-size:cover; background-position:center;
     }
     .sc-logo {
       width:50px; height:50px; border-radius:13px; flex-shrink:0;
@@ -1548,19 +1549,20 @@
     }
 
     // 9 · Streaming services + admin panel
+    const UNS = 'https://images.unsplash.com/photo-';
     const SERVICES = [
-      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify'         },
-      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:null  },
-      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax'          },
-      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix'         },
-      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#1a0a00', abbr:'CR',  dark:false, logo:'crunchyroll'     },
-      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn'            },
-      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer'     },
-      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu'            },
-      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo'            },
-      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null              },
-      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:35,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo'      },
-      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube'         },
+      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify',     banner: UNS+'1493225457124-a3eb161ffa5f?w=600&h=200&fit=crop&q=75' },
+      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:null,          banner: UNS+'1446776877081-d282a0f896e2?w=600&h=200&fit=crop&q=75' },
+      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax',      banner: UNS+'1536440136628-849c177e76a1?w=600&h=200&fit=crop&q=75' },
+      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix',     banner: UNS+'1489599849927-2ee91cede3ba?w=600&h=200&fit=crop&q=75' },
+      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#F47521', abbr:'CR',  dark:false, logo:'crunchyroll', banner: UNS+'1528360983277-13d401cdc186?w=600&h=200&fit=crop&q=75' },
+      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn',        banner: UNS+'1574629810360-7efbbe195018?w=600&h=200&fit=crop&q=75' },
+      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer', banner: UNS+'1522869635100-9f4c5e86aa37?w=600&h=200&fit=crop&q=75' },
+      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu',        banner: UNS+'1586899737413-93d09c1c05c8?w=600&h=200&fit=crop&q=75' },
+      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo',        banner: UNS+'1508098682722-e99c643e7f0b?w=600&h=200&fit=crop&q=75' },
+      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null,          banner: UNS+'1478720568477-152d9b164e26?w=600&h=200&fit=crop&q=75' },
+      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:35,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo',  banner: UNS+'1440404653325-ab127d49abc1?w=600&h=200&fit=crop&q=75' },
+      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube',     banner: UNS+'1611162617474-5b21e879e113?w=600&h=200&fit=crop&q=75' },
     ];
 
     // ── Storage (config: price + custom name + badge) ──────────────────
@@ -1634,10 +1636,13 @@
         const badge = cfg.badge;
         const dark = brandDark(s.color);
         const wa = `https://wa.me/1234567890?text=${encodeURIComponent('Hola, me interesa contratar ' + displayName)}`;
-        const logoBg = s.dark ? 'rgba(255,255,255,.9)' : 'rgba(0,0,0,.22)';
+        const logoBg = s.dark ? 'rgba(255,255,255,.9)' : 'rgba(0,0,0,.25)';
+        const headerBg = s.banner
+          ? `background:linear-gradient(135deg,${s.color}cc 0%,${dark}bb 100%),url('${s.banner}') center/cover no-repeat`
+          : `background:linear-gradient(135deg,${s.color},${dark})`;
         return `
         <div class="stream-card reveal${badge?' has-badge':''}" style="--brand-color:${s.color}">
-          <div class="sc-header" style="background:linear-gradient(135deg,${s.color},${dark})">
+          <div class="sc-header" style="${headerBg}">
             <div class="sc-logo" style="background:${logoBg}" data-abbr="${s.abbr}">${logoImg(s,26)}</div>
             ${badge ? `<span class="sc-badge sc-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
           </div>
