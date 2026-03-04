@@ -557,6 +557,107 @@
     }
 
     /* ─────────────────────────────────────────────── */
+    /*  Streaming Services                             */
+    /* ─────────────────────────────────────────────── */
+    .stream-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 48px;
+    }
+    .stream-card {
+      background: var(--w05); border: 1px solid var(--border-2); border-radius: var(--r);
+      padding: 20px; display: flex; flex-direction: column; gap: 10px;
+      backdrop-filter: blur(20px); transition: border-color .25s, transform .25s;
+      position: relative; overflow: hidden;
+    }
+    .stream-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--brand-color, var(--accent)); opacity: 0; transition: opacity .25s;
+    }
+    .stream-card:hover { border-color: var(--border); transform: translateY(-4px); }
+    .stream-card:hover::before { opacity: 1; }
+    .stream-top { display: flex; align-items: center; gap: 12px; }
+    .stream-logo {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem; font-weight: 800; letter-spacing: -.02em;
+    }
+    .stream-name { font-size: .9rem; font-weight: 600; color: var(--white); line-height: 1.2; }
+    .stream-cat  { font-size: .62rem; color: var(--w40); margin-top: 2px; text-transform: uppercase; letter-spacing: .07em; }
+    .stream-price-row { display: flex; align-items: baseline; gap: 3px; margin-top: 4px; }
+    .stream-price-val  { font-size: 1.55rem; font-weight: 700; letter-spacing: -.04em; color: var(--white); line-height: 1; }
+    .stream-price-per  { font-size: .75rem; color: var(--w40); }
+    .stream-monthly    { font-size: .72rem; color: var(--w50); }
+    .stream-btn {
+      margin-top: auto; padding: 9px 0; text-align: center;
+      background: var(--w08); border: 1px solid var(--border-2); border-radius: 10px;
+      font-size: .78rem; font-weight: 600; color: var(--w70); text-decoration: none;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .stream-btn:hover { background: var(--brand-color, var(--accent)); color: white; border-color: transparent; }
+
+    /* ─────────────────────────────────────────────── */
+    /*  Admin Panel                                    */
+    /* ─────────────────────────────────────────────── */
+    .admin-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 9998;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .admin-overlay.show { opacity: 1; pointer-events: all; }
+    .admin-panel {
+      position: fixed; right: 0; top: 0; bottom: 0; width: 340px; z-index: 9999;
+      background: #060f1e; border-left: 1px solid var(--border);
+      transform: translateX(100%); transition: transform .35s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column;
+    }
+    .admin-panel.show { transform: translateX(0); }
+    .admin-hd {
+      padding: 20px 24px; border-bottom: 1px solid var(--border-2);
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    }
+    .admin-hd-title { font-size: .85rem; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 8px; }
+    .admin-close-btn {
+      background: var(--w08); border: 1px solid var(--border-2); border-radius: 8px;
+      color: var(--w70); cursor: pointer; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+      transition: background .2s; flex-shrink: 0;
+    }
+    .admin-close-btn:hover { background: var(--w15); color: var(--white); }
+    .admin-body { flex: 1; overflow-y: auto; padding: 14px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .admin-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border-2); }
+    .admin-row:last-child { border-bottom: none; }
+    .admin-logo {
+      width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; font-weight: 800;
+    }
+    .admin-svc-name { flex: 1; font-size: .8rem; color: var(--w70); }
+    .admin-input {
+      width: 72px; background: var(--w08); border: 1px solid var(--border-2);
+      border-radius: 8px; padding: 6px 9px; color: var(--white);
+      font-size: .85rem; font-weight: 600; text-align: right; outline: none;
+      transition: border-color .2s; -moz-appearance: textfield;
+    }
+    .admin-input::-webkit-outer-spin-button,
+    .admin-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .admin-input:focus { border-color: var(--accent); }
+    .admin-unit { font-size: .72rem; color: var(--w40); flex-shrink: 0; width: 28px; }
+    .admin-ft {
+      padding: 16px 20px; border-top: 1px solid var(--border-2); flex-shrink: 0;
+    }
+    .admin-save-btn {
+      width: 100%; padding: 12px; background: var(--accent); border: none;
+      border-radius: 12px; color: white; font-size: .85rem; font-weight: 700;
+      cursor: pointer; transition: background .2s, transform .1s; letter-spacing: .03em;
+    }
+    .admin-save-btn:hover  { background: var(--accent-2); }
+    .admin-save-btn:active { transform: scale(.97); }
+    .admin-hint { font-size: .63rem; color: var(--w30); text-align: center; margin-top: 8px; letter-spacing: .04em; }
+
+    @media (max-width: 1024px) { .stream-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px)  { .stream-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 400px)  { .stream-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 340px)  { .admin-panel { width: 100%; } }
+
+    /* ─────────────────────────────────────────────── */
     /*  WhatsApp FAB                                   */
     /* ─────────────────────────────────────────────── */
     .whatsapp-fab {
@@ -650,6 +751,7 @@
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#como-funciona">Cómo funciona</a></li>
         <li><a href="#precios">Precios</a></li>
+        <li><a href="#streaming">Streaming</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contacto" class="nav-cta">Contratar</a></li>
       </ul>
@@ -1119,6 +1221,22 @@
 
   <div class="divider"></div>
 
+  <!-- ═══════════════════ STREAMING ═══════════════════ -->
+  <section id="streaming">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Plataformas adicionales</p>
+        <h2 class="section-title">Streaming a precio<br/>anual inmejorable</h2>
+        <p class="section-sub">Todas tus plataformas favoritas en suscripción anual. Sin permanencia y al mejor precio del mercado.</p>
+      </div>
+      <div class="stream-grid" id="streamGrid">
+        <!-- Generado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- ═══════════════════ TESTIMONIOS ═══════════════════ -->
   <section>
     <div class="container">
@@ -1226,6 +1344,20 @@
       </div>
     </div>
   </footer>
+
+  <!-- Admin Panel -->
+  <div class="admin-overlay" id="adminOverlay"></div>
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-hd">
+      <span class="admin-hd-title">⚙️ Editar precios</span>
+      <button class="admin-close-btn" id="adminClose">×</button>
+    </div>
+    <div class="admin-body" id="adminBody"><!-- JS --></div>
+    <div class="admin-ft">
+      <button class="admin-save-btn" id="adminSave">💾 Guardar cambios</button>
+      <p class="admin-hint">CTRL + SHIFT + E · Los precios se guardan localmente</p>
+    </div>
+  </div>
 
   <!-- WhatsApp FAB -->
   <a href="https://wa.me/1234567890" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
@@ -1346,7 +1478,103 @@
       }, { threshold: 0.6 }).observe(statsRow);
     }
 
-    // 9 · Social proof popup
+    // 9 · Streaming services + admin panel
+    const SERVICES = [
+      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true  },
+      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false },
+      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false },
+      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false },
+      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#F47521', abbr:'CR',  dark:false },
+      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true  },
+      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false },
+      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true  },
+      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false },
+      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false },
+      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:35,  color:'#00A8E1', abbr:'PV',  dark:false },
+    ];
+
+    function loadPrices() {
+      try { return JSON.parse(localStorage.getItem('fdtv_prices') || '{}'); }
+      catch(e) { return {}; }
+    }
+    function savePrices(p) { localStorage.setItem('fdtv_prices', JSON.stringify(p)); }
+    function getPrice(id, saved) {
+      return saved[id] !== undefined ? parseFloat(saved[id]) : SERVICES.find(s => s.id === id).price;
+    }
+
+    function renderStreamGrid() {
+      const grid = document.getElementById('streamGrid');
+      const saved = loadPrices();
+      if (!grid) return;
+      grid.innerHTML = SERVICES.map(s => {
+        const price = getPrice(s.id, saved);
+        const monthly = (price / 12).toFixed(2);
+        const wa = `https://wa.me/1234567890?text=${encodeURIComponent('Hola, me interesa contratar ' + s.name)}`;
+        return `
+        <div class="stream-card reveal" style="--brand-color:${s.color}">
+          <div class="stream-top">
+            <div class="stream-logo" style="background:${s.color};color:${s.dark?'#000':'#fff'}">${s.abbr}</div>
+            <div>
+              <div class="stream-name">${s.name}</div>
+              <div class="stream-cat">${s.cat}</div>
+            </div>
+          </div>
+          <div class="stream-price-row">
+            <span class="stream-price-val">${price}</span>
+            <span class="stream-price-per">€/año</span>
+          </div>
+          <div class="stream-monthly">≈ ${monthly}€/mes</div>
+          <a href="${wa}" class="stream-btn" target="_blank" rel="noopener">Contratar</a>
+        </div>`;
+      }).join('');
+      grid.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    }
+
+    function renderAdminBody() {
+      const body = document.getElementById('adminBody');
+      const saved = loadPrices();
+      if (!body) return;
+      body.innerHTML = SERVICES.map(s => {
+        const price = getPrice(s.id, saved);
+        return `
+        <div class="admin-row">
+          <div class="admin-logo" style="background:${s.color};color:${s.dark?'#000':'#fff'}">${s.abbr}</div>
+          <div class="admin-svc-name">${s.name}</div>
+          <input class="admin-input" type="number" min="1" step="1" data-id="${s.id}" value="${price}" />
+          <span class="admin-unit">€/año</span>
+        </div>`;
+      }).join('');
+    }
+
+    const adminPanel   = document.getElementById('adminPanel');
+    const adminOverlay = document.getElementById('adminOverlay');
+    const adminClose   = document.getElementById('adminClose');
+    const adminSave    = document.getElementById('adminSave');
+
+    function openAdmin()  { renderAdminBody(); adminPanel.classList.add('show'); adminOverlay.classList.add('show'); }
+    function closeAdmin() { adminPanel.classList.remove('show'); adminOverlay.classList.remove('show'); }
+
+    adminClose.addEventListener('click', closeAdmin);
+    adminOverlay.addEventListener('click', closeAdmin);
+    adminSave.addEventListener('click', () => {
+      const prices = {};
+      document.querySelectorAll('.admin-input').forEach(inp => { prices[inp.dataset.id] = parseFloat(inp.value) || 0; });
+      savePrices(prices);
+      renderStreamGrid();
+      closeAdmin();
+      adminSave.textContent = '✓ Guardado';
+      setTimeout(() => { adminSave.textContent = '💾 Guardar cambios'; }, 1800);
+    });
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'E') {
+        e.preventDefault();
+        adminPanel.classList.contains('show') ? closeAdmin() : openAdmin();
+      }
+    });
+
+    renderStreamGrid();
+
+    // 10 · Social proof popup
     const spEl     = document.getElementById('socialProof');
     const spAvatar = document.getElementById('spAvatar');
     const spName   = document.getElementById('spName');
