@@ -559,109 +559,128 @@
     /* ─────────────────────────────────────────────── */
     /*  Streaming Services                             */
     /* ─────────────────────────────────────────────── */
-    .stream-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 48px;
+    .stream-cats { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 32px; }
+    .scat-btn {
+      padding:6px 18px; border-radius:999px; border:1px solid var(--border-2);
+      background:transparent; color:var(--w50); font-size:.78rem; cursor:pointer;
+      transition:all .18s; font-family:inherit;
     }
+    .scat-btn:hover { border-color:var(--cyan); color:var(--cyan); }
+    .scat-btn.active { background:var(--cyan); border-color:var(--cyan); color:var(--navy-deep); font-weight:700; }
+    .stream-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
     .stream-card {
-      background: var(--w05); border: 1px solid var(--border-2); border-radius: var(--r);
-      padding: 20px; display: flex; flex-direction: column; gap: 10px;
-      backdrop-filter: blur(20px); transition: border-color .25s, transform .25s;
-      position: relative; overflow: hidden;
+      border-radius:16px; overflow:hidden; border:1px solid var(--border-2);
+      background:var(--w05); display:flex; flex-direction:column;
+      transition:transform .22s, box-shadow .22s, border-color .22s; position:relative;
     }
-    .stream-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--brand-color, var(--accent)); opacity: 0; transition: opacity .25s;
+    .stream-card:hover { transform:translateY(-5px); box-shadow:0 18px 44px rgba(0,0,0,.45); }
+    .stream-card.has-badge { border-color:var(--brand-color,var(--accent)); }
+    .stream-card.has-badge:hover { box-shadow:0 18px 52px rgba(0,0,0,.5); }
+    .sc-header {
+      padding:18px 14px 16px; display:flex; align-items:flex-start; justify-content:space-between;
+      background:linear-gradient(135deg, var(--brand-color,var(--accent)), var(--brand-dark,#000));
     }
-    .stream-card:hover { border-color: var(--border); transform: translateY(-4px); }
-    .stream-card:hover::before { opacity: 1; }
-    .stream-top { display: flex; align-items: center; gap: 12px; }
-    .stream-logo {
-      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .72rem; font-weight: 800; letter-spacing: -.02em;
+    .sc-logo {
+      width:50px; height:50px; border-radius:13px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.78rem; font-weight:900; letter-spacing:-.5px; line-height:1;
     }
-    .stream-name { font-size: .9rem; font-weight: 600; color: var(--white); line-height: 1.2; }
-    .stream-cat  { font-size: .62rem; color: var(--w40); margin-top: 2px; text-transform: uppercase; letter-spacing: .07em; }
-    .stream-price-row { display: flex; align-items: baseline; gap: 3px; margin-top: 4px; }
-    .stream-price-val  { font-size: 1.55rem; font-weight: 700; letter-spacing: -.04em; color: var(--white); line-height: 1; }
-    .stream-price-per  { font-size: .75rem; color: var(--w40); }
-    .stream-monthly    { font-size: .72rem; color: var(--w50); }
-    .stream-logo img { width: 26px; height: 26px; object-fit: contain; display: block; }
-    .stream-logo img.icon-light { filter: brightness(0) invert(1); }
-    .stream-logo img.icon-dark  { filter: brightness(0); }
-    .admin-logo  img { width: 16px; height: 16px; object-fit: contain; display: block; }
-    .admin-logo  img.icon-light { filter: brightness(0) invert(1); }
-    .admin-logo  img.icon-dark  { filter: brightness(0); }
-    .stream-btn {
-      margin-top: auto; padding: 9px 0; text-align: center;
-      background: var(--w08); border: 1px solid var(--border-2); border-radius: 10px;
-      font-size: .78rem; font-weight: 600; color: var(--w70); text-decoration: none;
-      transition: background .2s, color .2s, border-color .2s;
+    .sc-logo img { width:26px; height:26px; object-fit:contain; display:block; }
+    .sc-logo img.icon-light { filter:brightness(0) invert(1); }
+    .sc-logo img.icon-dark  { filter:brightness(0); }
+    .sc-badge {
+      font-size:.57rem; font-weight:800; padding:4px 10px; border-radius:999px;
+      text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; align-self:flex-start;
     }
-    .stream-btn:hover { background: var(--brand-color, var(--accent)); color: white; border-color: transparent; }
+    .sc-badge-PROMO     { background:#ff4500; color:#fff; }
+    .sc-badge-OFERTA    { background:#f9fd00; color:#000; }
+    .sc-badge-FLASH     { background:#ffffff; color:#000; }
+    .sc-badge-EXCLUSIVO { background:linear-gradient(90deg,#a855f7,#ec4899); color:#fff; }
+    .sc-badge-NUEVO     { background:#22c55e; color:#fff; }
+    .sc-body { padding:14px 16px 16px; display:flex; flex-direction:column; gap:4px; flex:1; }
+    .sc-name  { font-size:.9rem; font-weight:700; color:var(--white); line-height:1.2; }
+    .sc-cat   { font-size:.62rem; color:var(--w40); text-transform:uppercase; letter-spacing:.07em; }
+    .sc-price-row { display:flex; align-items:baseline; gap:3px; margin-top:8px; }
+    .sc-price-val { font-size:1.75rem; font-weight:800; letter-spacing:-.04em; color:var(--brand-color,var(--accent)); line-height:1; }
+    .sc-price-per { font-size:.75rem; color:var(--w40); }
+    .sc-monthly   { font-size:.72rem; color:var(--w50); margin-bottom:4px; }
+    .sc-btn {
+      margin-top:auto; padding:9px 0; text-align:center;
+      background:var(--w08); border:1px solid var(--border-2); border-radius:10px;
+      font-size:.78rem; font-weight:600; color:var(--w70); text-decoration:none;
+      transition:background .2s, color .2s, border-color .2s;
+    }
+    .sc-btn:hover, .stream-card.has-badge .sc-btn { background:var(--brand-color,var(--accent)); color:#fff; border-color:transparent; }
 
     /* ─────────────────────────────────────────────── */
     /*  Admin Panel                                    */
     /* ─────────────────────────────────────────────── */
-    .admin-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 9998;
-      opacity: 0; pointer-events: none; transition: opacity .3s;
-    }
-    .admin-overlay.show { opacity: 1; pointer-events: all; }
+    .admin-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9998; opacity:0; pointer-events:none; transition:opacity .3s; }
+    .admin-overlay.show { opacity:1; pointer-events:all; }
     .admin-panel {
-      position: fixed; right: 0; top: 0; bottom: 0; width: 340px; z-index: 9999;
-      background: #060f1e; border-left: 1px solid var(--border);
-      transform: translateX(100%); transition: transform .35s cubic-bezier(.4,0,.2,1);
-      display: flex; flex-direction: column;
+      position:fixed; right:0; top:0; bottom:0; width:420px; z-index:9999;
+      background:#060f1e; border-left:1px solid var(--border);
+      transform:translateX(100%); transition:transform .35s cubic-bezier(.4,0,.2,1);
+      display:flex; flex-direction:column;
     }
-    .admin-panel.show { transform: translateX(0); }
-    .admin-hd {
-      padding: 20px 24px; border-bottom: 1px solid var(--border-2);
-      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
-    }
-    .admin-hd-title { font-size: .85rem; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 8px; }
+    .admin-panel.show { transform:translateX(0); }
+    .admin-hd { padding:20px 24px; border-bottom:1px solid var(--border-2); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+    .admin-hd-title { font-size:.85rem; font-weight:700; color:var(--white); display:flex; align-items:center; gap:8px; }
     .admin-close-btn {
-      background: var(--w08); border: 1px solid var(--border-2); border-radius: 8px;
-      color: var(--w70); cursor: pointer; width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center; font-size: 1rem;
-      transition: background .2s; flex-shrink: 0;
+      background:var(--w08); border:1px solid var(--border-2); border-radius:8px; color:var(--w70);
+      cursor:pointer; width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+      font-size:1rem; transition:background .2s; flex-shrink:0;
     }
-    .admin-close-btn:hover { background: var(--w15); color: var(--white); }
-    .admin-body { flex: 1; overflow-y: auto; padding: 14px 20px; display: flex; flex-direction: column; gap: 8px; }
-    .admin-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border-2); }
-    .admin-row:last-child { border-bottom: none; }
-    .admin-logo {
-      width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .6rem; font-weight: 800;
+    .admin-close-btn:hover { background:var(--w15); color:var(--white); }
+    .admin-body { flex:1; overflow-y:auto; padding:12px 20px; display:flex; flex-direction:column; gap:6px; }
+    .admin-row { padding:12px 0; border-bottom:1px solid var(--border-2); display:flex; gap:10px; align-items:flex-start; }
+    .admin-row:last-child { border-bottom:none; }
+    .admin-logo { width:32px; height:32px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.6rem; font-weight:800; margin-top:4px; }
+    .admin-logo img { width:16px; height:16px; object-fit:contain; display:block; }
+    .admin-logo img.icon-light { filter:brightness(0) invert(1); }
+    .admin-logo img.icon-dark  { filter:brightness(0); }
+    .admin-fields { flex:1; display:flex; flex-direction:column; gap:7px; min-width:0; }
+    .admin-svc-base { font-size:.68rem; color:var(--w30); font-weight:600; letter-spacing:.03em; }
+    .admin-label { font-size:.62rem; color:var(--w40); display:block; margin-bottom:3px; text-transform:uppercase; letter-spacing:.06em; }
+    .admin-name-input {
+      width:100%; background:var(--w08); border:1px solid var(--border-2); border-radius:8px;
+      padding:6px 9px; color:var(--white); font-size:.82rem; font-weight:500;
+      outline:none; transition:border-color .2s; font-family:inherit; box-sizing:border-box;
     }
-    .admin-svc-name { flex: 1; font-size: .8rem; color: var(--w70); }
+    .admin-name-input:focus { border-color:var(--accent); }
+    .admin-field-row { display:flex; gap:8px; }
+    .admin-field { flex:1; min-width:0; }
     .admin-input {
-      width: 72px; background: var(--w08); border: 1px solid var(--border-2);
-      border-radius: 8px; padding: 6px 9px; color: var(--white);
-      font-size: .85rem; font-weight: 600; text-align: right; outline: none;
-      transition: border-color .2s; -moz-appearance: textfield;
+      width:100%; background:var(--w08); border:1px solid var(--border-2); border-radius:8px;
+      padding:6px 9px; color:var(--white); font-size:.85rem; font-weight:600;
+      outline:none; transition:border-color .2s; -moz-appearance:textfield;
+      box-sizing:border-box; text-align:right;
     }
-    .admin-input::-webkit-outer-spin-button,
-    .admin-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-    .admin-input:focus { border-color: var(--accent); }
-    .admin-unit { font-size: .72rem; color: var(--w40); flex-shrink: 0; width: 28px; }
-    .admin-ft {
-      padding: 16px 20px; border-top: 1px solid var(--border-2); flex-shrink: 0;
+    .admin-input::-webkit-outer-spin-button,.admin-input::-webkit-inner-spin-button { -webkit-appearance:none; }
+    .admin-input:focus { border-color:var(--accent); }
+    .admin-badge-select {
+      width:100%; background:var(--w08); border:1px solid var(--border-2); border-radius:8px;
+      padding:6px 26px 6px 9px; color:var(--white); font-size:.78rem; font-weight:500;
+      outline:none; cursor:pointer; transition:border-color .2s; font-family:inherit;
+      appearance:none; box-sizing:border-box;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 8px center;
     }
+    .admin-badge-select:focus { border-color:var(--accent); }
+    .admin-ft { padding:16px 20px; border-top:1px solid var(--border-2); flex-shrink:0; }
     .admin-save-btn {
-      width: 100%; padding: 12px; background: var(--accent); border: none;
-      border-radius: 12px; color: white; font-size: .85rem; font-weight: 700;
-      cursor: pointer; transition: background .2s, transform .1s; letter-spacing: .03em;
+      width:100%; padding:12px; background:var(--accent); border:none; border-radius:12px;
+      color:white; font-size:.85rem; font-weight:700; cursor:pointer;
+      transition:background .2s,transform .1s; letter-spacing:.03em;
     }
-    .admin-save-btn:hover  { background: var(--accent-2); }
-    .admin-save-btn:active { transform: scale(.97); }
-    .admin-hint { font-size: .63rem; color: var(--w30); text-align: center; margin-top: 8px; letter-spacing: .04em; }
+    .admin-save-btn:hover  { background:var(--accent-2); }
+    .admin-save-btn:active { transform:scale(.97); }
+    .admin-hint { font-size:.63rem; color:var(--w30); text-align:center; margin-top:8px; letter-spacing:.04em; }
 
-    @media (max-width: 1024px) { .stream-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 700px)  { .stream-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 400px)  { .stream-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 340px)  { .admin-panel { width: 100%; } }
+    @media (max-width:1024px) { .stream-grid { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:700px)  { .stream-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:400px)  { .stream-grid { grid-template-columns:1fr; } }
+    @media (max-width:440px)  { .admin-panel { width:100%; } }
 
     /* ─────────────────────────────────────────────── */
     /*  WhatsApp FAB                                   */
@@ -1355,13 +1374,13 @@
   <div class="admin-overlay" id="adminOverlay"></div>
   <div class="admin-panel" id="adminPanel">
     <div class="admin-hd">
-      <span class="admin-hd-title">⚙️ Editar precios</span>
+      <span class="admin-hd-title">⚙️ Gestionar servicios</span>
       <button class="admin-close-btn" id="adminClose">×</button>
     </div>
     <div class="admin-body" id="adminBody"><!-- JS --></div>
     <div class="admin-ft">
       <button class="admin-save-btn" id="adminSave">💾 Guardar cambios</button>
-      <p class="admin-hint">CTRL + SHIFT + E · Los precios se guardan localmente</p>
+      <p class="admin-hint">CTRL + SHIFT + E · Los cambios se guardan localmente</p>
     </div>
   </div>
 
@@ -1500,67 +1519,133 @@
       { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube'         },
     ];
 
-    function loadPrices() {
-      try { return JSON.parse(localStorage.getItem('fdtv_prices') || '{}'); }
-      catch(e) { return {}; }
+    // ── Storage (config: price + custom name + badge) ──────────────────
+    function loadConfig() {
+      try {
+        const cfg = JSON.parse(localStorage.getItem('fdtv_config') || '{}');
+        // migrate legacy fdtv_prices
+        if (!Object.keys(cfg).length) {
+          const old = JSON.parse(localStorage.getItem('fdtv_prices') || '{}');
+          if (Object.keys(old).length) {
+            const m = {};
+            for (const [k,v] of Object.entries(old)) m[k] = { price:parseFloat(v)||0, name:'', badge:'' };
+            return m;
+          }
+        }
+        return cfg;
+      } catch(e) { return {}; }
     }
-    function savePrices(p) { localStorage.setItem('fdtv_prices', JSON.stringify(p)); }
-    function getPrice(id, saved) {
-      return saved[id] !== undefined ? parseFloat(saved[id]) : SERVICES.find(s => s.id === id).price;
+    function saveConfig(cfg) { localStorage.setItem('fdtv_config', JSON.stringify(cfg)); }
+    function getSvcCfg(id, saved) {
+      const s = SERVICES.find(x => x.id === id);
+      const c = saved[id] || {};
+      return { price: c.price !== undefined ? parseFloat(c.price)||0 : s.price, name: c.name||'', badge: c.badge||'' };
     }
 
+    // ── Helpers ─────────────────────────────────────────────────────────
+    const BADGE_LABELS = { '':'— Sin badge', PROMO:'PROMO', OFERTA:'OFERTA', FLASH:'⚡ FLASH', EXCLUSIVO:'★ EXCLUSIVO', NUEVO:'NUEVO' };
+    const CDN = slug => `https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${slug}.svg`;
+    function logoImg(s, size) {
+      const fb = `this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'`;
+      return s.logo
+        ? `<img src="${CDN(s.logo)}" class="icon-${s.dark?'dark':'light'}" width="${size}" height="${size}" alt="${s.name}" onerror="${fb}" />`
+        : `<span style="color:${s.dark?'#000':'#fff'};font-size:.75rem;font-weight:900;letter-spacing:-.5px;line-height:1">${s.abbr}</span>`;
+    }
+    // darken a hex color for gradient endpoint
+    function brandDark(hex) {
+      try {
+        const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+        return `rgb(${Math.round(r*.3)},${Math.round(g*.3)},${Math.round(b*.3)})`;
+      } catch(e) { return '#000'; }
+    }
+
+    // ── Category tabs ────────────────────────────────────────────────────
+    let currentCat = 'Todos';
+    const CATS = ['Todos', ...new Set(SERVICES.map(s => s.cat))];
+    function buildCatTabs() {
+      const wrap = document.createElement('div');
+      wrap.className = 'stream-cats';
+      wrap.innerHTML = CATS.map(c => `<button class="scat-btn${c==='Todos'?' active':''}" data-cat="${c}">${c}</button>`).join('');
+      wrap.addEventListener('click', e => {
+        const btn = e.target.closest('.scat-btn');
+        if (!btn) return;
+        wrap.querySelectorAll('.scat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCat = btn.dataset.cat;
+        renderStreamGrid();
+      });
+      document.getElementById('streamGrid').before(wrap);
+    }
+
+    // ── Render grid ──────────────────────────────────────────────────────
     function renderStreamGrid() {
       const grid = document.getElementById('streamGrid');
-      const saved = loadPrices();
+      const saved = loadConfig();
       if (!grid) return;
-      grid.innerHTML = SERVICES.map(s => {
-        const price = getPrice(s.id, saved);
-        const monthly = (price / 12).toFixed(2);
-        const wa = `https://wa.me/1234567890?text=${encodeURIComponent('Hola, me interesa contratar ' + s.name)}`;
+      const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
+      grid.innerHTML = list.map(s => {
+        const cfg = getSvcCfg(s.id, saved);
+        const price = cfg.price, monthly = (price/12).toFixed(2);
+        const displayName = cfg.name || s.name;
+        const badge = cfg.badge;
+        const dark = brandDark(s.color);
+        const wa = `https://wa.me/1234567890?text=${encodeURIComponent('Hola, me interesa contratar ' + displayName)}`;
+        const logoBg = s.dark ? 'rgba(255,255,255,.9)' : 'rgba(0,0,0,.22)';
         return `
-        <div class="stream-card reveal" style="--brand-color:${s.color}">
-          <div class="stream-top">
-            <div class="stream-logo" style="background:${s.color}" data-abbr="${s.abbr}">${
-              s.logo
-                ? `<img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${s.logo}.svg" class="icon-${s.dark?'dark':'light'}" width="24" height="24" alt="${s.name}" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
-                : `<span style="color:${s.dark?'#000':'#fff'};font-size:.75rem;font-weight:900;letter-spacing:-.5px;line-height:1">${s.abbr}</span>`
-            }</div>
-            <div>
-              <div class="stream-name">${s.name}</div>
-              <div class="stream-cat">${s.cat}</div>
+        <div class="stream-card reveal${badge?' has-badge':''}" style="--brand-color:${s.color}">
+          <div class="sc-header" style="background:linear-gradient(135deg,${s.color},${dark})">
+            <div class="sc-logo" style="background:${logoBg}" data-abbr="${s.abbr}">${logoImg(s,26)}</div>
+            ${badge ? `<span class="sc-badge sc-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
+          </div>
+          <div class="sc-body">
+            <div class="sc-name">${displayName}</div>
+            <div class="sc-cat">${s.cat}</div>
+            <div class="sc-price-row">
+              <span class="sc-price-val">${price}</span>
+              <span class="sc-price-per">€/año</span>
             </div>
+            <div class="sc-monthly">≈ ${monthly}€/mes</div>
+            <a href="${wa}" class="sc-btn" target="_blank" rel="noopener">Contratar</a>
           </div>
-          <div class="stream-price-row">
-            <span class="stream-price-val">${price}</span>
-            <span class="stream-price-per">€/año</span>
-          </div>
-          <div class="stream-monthly">≈ ${monthly}€/mes</div>
-          <a href="${wa}" class="stream-btn" target="_blank" rel="noopener">Contratar</a>
         </div>`;
       }).join('');
       grid.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
     }
 
+    // ── Render admin ─────────────────────────────────────────────────────
     function renderAdminBody() {
       const body = document.getElementById('adminBody');
-      const saved = loadPrices();
+      const saved = loadConfig();
       if (!body) return;
       body.innerHTML = SERVICES.map(s => {
-        const price = getPrice(s.id, saved);
+        const cfg = getSvcCfg(s.id, saved);
         return `
         <div class="admin-row">
-          <div class="admin-logo" style="background:${s.color}" data-abbr="${s.abbr}">${
-              s.logo
-                ? `<img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${s.logo}.svg" class="icon-${s.dark?'dark':'light'}" width="14" height="14" alt="${s.name}" onerror="this.parentNode.textContent=this.parentNode.dataset.abbr;this.parentNode.style.color='${s.dark?'#000':'#fff'}'" />`
-                : `<span style="color:${s.dark?'#000':'#fff'}">${s.abbr}</span>`
-            }</div>
-          <div class="admin-svc-name">${s.name}</div>
-          <input class="admin-input" type="number" min="1" step="1" data-id="${s.id}" value="${price}" />
-          <span class="admin-unit">€/año</span>
+          <div class="admin-logo" style="background:${s.color}" data-abbr="${s.abbr}">${logoImg(s,14)}</div>
+          <div class="admin-fields">
+            <div class="admin-svc-base">${s.name}</div>
+            <div>
+              <label class="admin-label">Nombre visible / Promo</label>
+              <input class="admin-name-input" type="text" data-id="${s.id}" placeholder="${s.name}" value="${cfg.name.replace(/"/g,'&quot;')}" />
+            </div>
+            <div class="admin-field-row">
+              <div class="admin-field">
+                <label class="admin-label">Precio €/año</label>
+                <input class="admin-input" type="number" min="1" step="1" data-id="${s.id}" value="${cfg.price}" />
+              </div>
+              <div class="admin-field">
+                <label class="admin-label">Badge</label>
+                <select class="admin-badge-select" data-id="${s.id}">
+                  ${Object.entries(BADGE_LABELS).map(([v,l]) => `<option value="${v}"${cfg.badge===v?' selected':''}>${l}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+          </div>
         </div>`;
       }).join('');
     }
 
+    // ── Admin wiring ─────────────────────────────────────────────────────
     const adminPanel   = document.getElementById('adminPanel');
     const adminOverlay = document.getElementById('adminOverlay');
     const adminClose   = document.getElementById('adminClose');
@@ -1572,21 +1657,28 @@
     adminClose.addEventListener('click', closeAdmin);
     adminOverlay.addEventListener('click', closeAdmin);
     adminSave.addEventListener('click', () => {
-      const prices = {};
-      document.querySelectorAll('.admin-input').forEach(inp => { prices[inp.dataset.id] = parseFloat(inp.value) || 0; });
-      savePrices(prices);
+      const cfg = {};
+      SERVICES.forEach(s => {
+        const nameEl  = document.querySelector(`.admin-name-input[data-id="${s.id}"]`);
+        const priceEl = document.querySelector(`.admin-input[data-id="${s.id}"]`);
+        const badgeEl = document.querySelector(`.admin-badge-select[data-id="${s.id}"]`);
+        cfg[s.id] = {
+          price: priceEl ? parseFloat(priceEl.value)||0 : s.price,
+          name:  nameEl  ? nameEl.value.trim() : '',
+          badge: badgeEl ? badgeEl.value : '',
+        };
+      });
+      saveConfig(cfg);
       renderStreamGrid();
       closeAdmin();
       adminSave.textContent = '✓ Guardado';
       setTimeout(() => { adminSave.textContent = '💾 Guardar cambios'; }, 1800);
     });
     document.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'E') {
-        e.preventDefault();
-        adminPanel.classList.contains('show') ? closeAdmin() : openAdmin();
-      }
+      if (e.ctrlKey && e.shiftKey && e.key === 'E') { e.preventDefault(); adminPanel.classList.contains('show') ? closeAdmin() : openAdmin(); }
     });
 
+    buildCatTabs();
     renderStreamGrid();
 
     // 10 · Social proof popup
