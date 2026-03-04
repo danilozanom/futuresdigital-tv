@@ -331,6 +331,151 @@
     .cta-inner p { color: var(--w50); font-size: 1rem; margin-bottom: 36px; position: relative; }
     .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
 
+    /* ── PRICING TABLE ── */
+    .pricing-table-section { padding: 100px 0; }
+    .price-table {
+      width: 100%; border-collapse: collapse; margin-top: 56px;
+      background: var(--w03); border-radius: var(--rlg); overflow: hidden;
+      border: 1px solid var(--border-2);
+    }
+    .price-table th {
+      padding: 16px 20px; font-size: .72rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--w40); text-align: left;
+      border-bottom: 1px solid var(--border-2); background: rgba(0,0,0,.2);
+    }
+    .price-table th:last-child { text-align: right; }
+    .price-table td {
+      padding: 18px 20px; font-size: .9rem; border-bottom: 1px solid var(--border-2);
+      vertical-align: middle;
+    }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table tr:hover td { background: var(--w05); }
+    .price-table td:last-child { text-align: right; }
+    .pt-level { display: inline-flex; align-items: center; gap: 8px; }
+    .pt-badge {
+      font-size: .65rem; font-weight: 700; padding: 3px 8px; border-radius: 10px;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .pt-badge.junior  { background: rgba(74,222,128,.15);  color: #4ade80; border: 1px solid rgba(74,222,128,.3); }
+    .pt-badge.super   { background: rgba(37,99,235,.18);   color: #93c5fd; border: 1px solid rgba(37,99,235,.35); }
+    .pt-badge.mega    { background: rgba(34,211,238,.12);  color: var(--cyan); border: 1px solid rgba(34,211,238,.3); }
+    .pt-badge.popular { background: linear-gradient(135deg,var(--accent-2),#1d4ed8); color: white; border: none; }
+    .pt-price { font-size: 1.1rem; font-weight: 700; }
+    .pt-per { font-size: .75rem; color: var(--w40); margin-top: 2px; }
+    .pt-saving { color: var(--green); font-size: .78rem; font-weight: 600; }
+    .pt-saving-zero { color: var(--w40); font-size: .78rem; }
+    .pt-tier-row td {
+      padding: 10px 20px; background: rgba(37,99,235,.07);
+      border-bottom: 1px solid var(--border-2);
+    }
+    .pt-tier-row:hover td { background: rgba(37,99,235,.07); }
+    @media (max-width: 640px) {
+      .price-table th:nth-child(4), .price-table td:nth-child(4) { display: none; }
+      .price-table th:last-child, .price-table td:last-child { display: none; }
+    }
+
+    /* ── SIMULATOR ── */
+    .simulator { padding: 100px 0; }
+    .sim-wrap {
+      margin-top: 56px; display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: start;
+    }
+    .sim-controls {
+      background: var(--w03); border: 1px solid var(--border-2);
+      border-radius: var(--rlg); padding: 36px;
+    }
+    .sim-block { margin-bottom: 32px; }
+    .sim-block:last-child { margin-bottom: 0; }
+    .sim-label {
+      font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--w40); margin-bottom: 14px;
+    }
+    .sim-pkg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .sim-pkg-btn {
+      background: var(--w05); border: 1px solid var(--border-2); border-radius: 12px;
+      padding: 12px 14px; cursor: pointer; transition: all .2s; text-align: left;
+      color: var(--white);
+    }
+    .sim-pkg-btn:hover { background: var(--w08); border-color: var(--border); }
+    .sim-pkg-btn.active { background: rgba(37,99,235,.15); border-color: rgba(37,99,235,.4); }
+    .sim-pkg-name { font-size: .83rem; font-weight: 600; }
+    .sim-pkg-cr { font-size: .72rem; color: var(--w40); margin-top: 2px; }
+    .sim-credit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .sim-cr-btn {
+      background: var(--w05); border: 1px solid var(--border-2); border-radius: 12px;
+      padding: 12px 10px; cursor: pointer; transition: all .2s; text-align: center;
+      color: var(--white);
+    }
+    .sim-cr-btn:hover { background: var(--w08); border-color: var(--border); }
+    .sim-cr-btn.active { background: rgba(37,99,235,.15); border-color: rgba(37,99,235,.4); }
+    .sim-cr-num { font-size: 1rem; font-weight: 700; }
+    .sim-cr-eur { font-size: .72rem; color: var(--cyan); margin-top: 2px; font-weight: 500; }
+    .sim-cr-per { font-size: .65rem; color: var(--w40); }
+    .sim-slider-row { display: flex; align-items: center; gap: 14px; }
+    .sim-slider {
+      flex: 1; -webkit-appearance: none; appearance: none; height: 4px;
+      border-radius: 2px; background: var(--w15); outline: none; cursor: pointer;
+    }
+    .sim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,.5);
+      border: 2px solid white;
+    }
+    .sim-slider::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,.5);
+      border: 2px solid white;
+    }
+    .sim-price-val {
+      min-width: 64px; text-align: right; font-size: 1.1rem; font-weight: 700;
+      color: var(--green);
+    }
+    .sim-results {
+      background: var(--w03); border: 1px solid var(--border-2);
+      border-radius: var(--rlg); padding: 32px; position: sticky; top: 76px;
+    }
+    .sim-results-title { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--w40); margin-bottom: 22px; }
+    .sim-result-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border-2); font-size: .88rem;
+    }
+    .sim-result-row:last-of-type { border-bottom: none; }
+    .sim-result-row .lbl { color: var(--w50); }
+    .sim-result-row .val { font-weight: 600; }
+    .sim-total {
+      margin-top: 20px; padding: 22px; border-radius: 14px;
+      background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2);
+    }
+    .sim-total-lbl { font-size: .78rem; color: var(--w70); margin-bottom: 6px; }
+    .sim-total-val { font-size: 2.2rem; font-weight: 800; color: var(--green); letter-spacing: -.04em; line-height: 1; }
+    .sim-total-sub { font-size: .75rem; color: var(--w40); margin-top: 4px; }
+    .sim-margin-bar { margin-top: 20px; }
+    .sim-margin-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--w50); margin-bottom: 6px; }
+    .sim-margin-track { height: 8px; border-radius: 4px; background: var(--w08); overflow: hidden; }
+    .sim-margin-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent-2), var(--green)); transition: width .6s cubic-bezier(.4,0,.2,1); }
+    .sim-breakeven {
+      margin-top: 16px; padding: 14px 16px; border-radius: 12px;
+      background: rgba(37,99,235,.1); border: 1px solid rgba(37,99,235,.2);
+      font-size: .82rem; color: var(--w70);
+    }
+    .sim-breakeven strong { color: #93c5fd; }
+    .sim-tier-btn {
+      padding: 8px 16px; border-radius: 20px; font-size: .8rem; font-weight: 600;
+      background: var(--w05); border: 1px solid var(--border-2); color: var(--w70);
+      cursor: pointer; transition: all .2s;
+    }
+    .sim-tier-btn:hover { background: var(--w08); color: var(--white); }
+    .sim-tier-btn.active { background: rgba(37,99,235,.18); border-color: rgba(37,99,235,.4); color: #93c5fd; }
+    @media (max-width: 900px) {
+      .sim-wrap { grid-template-columns: 1fr; }
+      .sim-results { position: static; }
+    }
+    @media (max-width: 480px) {
+      .sim-credit-grid { grid-template-columns: repeat(2, 1fr); }
+      .sim-pkg-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── FOOTER ── */
     footer { padding: 36px 0; border-top: 1px solid var(--border-2); }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
@@ -784,6 +929,256 @@
 
   <div class="divider"></div>
 
+  <!-- TABLA DE PRECIOS -->
+  <section class="pricing-table-section" id="precios">
+    <div class="container">
+      <div class="section-label reveal">Tabla de precios</div>
+      <h2 class="section-title reveal d1">Paquetes de <span>créditos disponibles</span></h2>
+      <p class="section-sub reveal d2">Cuantos más créditos compres de una vez, menor es tu coste por crédito y mayor tu margen de beneficio.</p>
+      <table class="price-table reveal d3">
+        <thead>
+          <tr>
+            <th>Créditos</th>
+            <th>Precio (€)</th>
+            <th>Por crédito</th>
+            <th>Sin obligación de recarga</th>
+            <th>Nivel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="pt-tier-row"><td colspan="5"><span class="pt-badge junior">Junior Reseller</span></td></tr>
+          <tr>
+            <td><strong>25</strong></td>
+            <td><div class="pt-price">€60</div></td>
+            <td><div class="pt-per">€2,40</div></td>
+            <td>30 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+          <tr>
+            <td><strong>50</strong></td>
+            <td><div class="pt-price">€115</div></td>
+            <td><div class="pt-per">€2,30</div></td>
+            <td>30 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+          <tr>
+            <td><strong>100</strong></td>
+            <td><div class="pt-price">€220</div></td>
+            <td><div class="pt-per">€2,20</div></td>
+            <td>45 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+          <tr>
+            <td><strong>200</strong></td>
+            <td><div class="pt-price">€400</div></td>
+            <td><div class="pt-per">€2,00</div></td>
+            <td>90 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+          <tr>
+            <td><strong>300</strong></td>
+            <td><div class="pt-price">€540</div></td>
+            <td><div class="pt-per">€1,80</div></td>
+            <td>120 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+          <tr>
+            <td><strong>500</strong></td>
+            <td><div class="pt-price">€750</div></td>
+            <td><div class="pt-per">€1,50</div></td>
+            <td>180 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+          <tr>
+            <td><strong>800</strong></td>
+            <td><div class="pt-price">€1.050</div></td>
+            <td><div class="pt-per">€1,30</div></td>
+            <td>240 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+          <tr>
+            <td><strong>1000</strong></td>
+            <td><div class="pt-price">€1.200</div></td>
+            <td><div class="pt-per">€1,20</div></td>
+            <td>300 días</td>
+            <td><span class="pt-badge junior">Junior</span></td>
+          </tr>
+
+          <tr class="pt-tier-row"><td colspan="5"><span class="pt-badge super">Super Reseller</span></td></tr>
+          <tr>
+            <td><strong>300</strong></td>
+            <td><div class="pt-price">€480</div></td>
+            <td><div class="pt-per">€1,60</div></td>
+            <td>60 días</td>
+            <td><span class="pt-badge super">Super</span></td>
+          </tr>
+          <tr>
+            <td><strong>500</strong></td>
+            <td><div class="pt-price">€650</div></td>
+            <td><div class="pt-per">€1,30</div></td>
+            <td>120 días</td>
+            <td><span class="pt-badge super">Super</span></td>
+          </tr>
+          <tr>
+            <td><strong>800</strong></td>
+            <td><div class="pt-price">€900</div></td>
+            <td><div class="pt-per">€1,12</div></td>
+            <td>180 días</td>
+            <td><span class="pt-badge super">Super</span></td>
+          </tr>
+          <tr>
+            <td><strong>1000</strong> <span class="pt-badge popular" style="margin-left:6px">Popular</span></td>
+            <td><div class="pt-price">€1.000</div></td>
+            <td><div class="pt-per">€1,00</div></td>
+            <td>240 días</td>
+            <td><span class="pt-badge super">Super</span></td>
+          </tr>
+
+          <tr class="pt-tier-row"><td colspan="5"><span class="pt-badge mega">Super Mega Reseller</span></td></tr>
+          <tr>
+            <td><strong>1500</strong></td>
+            <td><div class="pt-price">€1.350</div></td>
+            <td><div class="pt-per">€0,90</div></td>
+            <td>120 días</td>
+            <td><span class="pt-badge mega">Mega</span></td>
+          </tr>
+          <tr>
+            <td><strong>2000</strong></td>
+            <td><div class="pt-price">€1.600</div></td>
+            <td><div class="pt-per">€0,80</div></td>
+            <td>200 días</td>
+            <td><span class="pt-badge mega">Mega</span></td>
+          </tr>
+          <tr>
+            <td><strong>5000</strong></td>
+            <td><div class="pt-price">€3.000</div></td>
+            <td><div class="pt-per">€0,60</div></td>
+            <td>500 días</td>
+            <td><span class="pt-badge mega">Mega</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SIMULADOR -->
+  <section class="simulator" id="simulador">
+    <div class="container">
+      <div class="section-label reveal">Calculadora interactiva</div>
+      <h2 class="section-title reveal d1">Simula tus <span>ganancias</span></h2>
+      <p class="section-sub reveal d2">Elige tu paquete de créditos, el tipo de servicio que vas a vender y el precio que le pondrás a tus clientes. Verás tu beneficio al instante.</p>
+
+      <div class="sim-wrap reveal d3">
+        <!-- Controls -->
+        <div class="sim-controls">
+
+          <div class="sim-block">
+            <div class="sim-label">1 · Selecciona tu nivel</div>
+            <div style="display:flex;gap:8px;margin-bottom:14px" id="tierTabs">
+              <button class="sim-tier-btn active" data-tier="junior" onclick="selectTier(this)">Junior</button>
+              <button class="sim-tier-btn" data-tier="super" onclick="selectTier(this)">Super Reseller</button>
+              <button class="sim-tier-btn" data-tier="mega" onclick="selectTier(this)">Super Mega</button>
+            </div>
+            <div class="sim-credit-grid" id="creditGrid"></div>
+          </div>
+
+          <div class="sim-block">
+            <div class="sim-label">2 · Paquete que venderás a tus clientes</div>
+            <div class="sim-pkg-grid" id="pkgGrid">
+              <button class="sim-pkg-btn" data-pkg="españa" data-cr="10" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">📺 Solo España</div>
+                <div class="sim-pkg-cr">10 créditos / acceso</div>
+              </button>
+              <button class="sim-pkg-btn active" data-pkg="premium" data-cr="15" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">🌍 España + Internacional</div>
+                <div class="sim-pkg-cr">15 créditos / acceso</div>
+              </button>
+              <button class="sim-pkg-btn" data-pkg="futbol" data-cr="15" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">⚽ Fútbol Exclusivo</div>
+                <div class="sim-pkg-cr">15 créditos / acceso</div>
+              </button>
+              <button class="sim-pkg-btn" data-pkg="motor" data-cr="15" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">🏎️ Motor y F1</div>
+                <div class="sim-pkg-cr">15 créditos / acceso</div>
+              </button>
+              <button class="sim-pkg-btn" data-pkg="vod" data-cr="20" onclick="selectPkg(this)" style="grid-column:span 2">
+                <div class="sim-pkg-name">🎬 VOD Premium (España + Internacional + Biblioteca)</div>
+                <div class="sim-pkg-cr">20 créditos / acceso</div>
+              </button>
+            </div>
+          </div>
+
+          <div class="sim-block">
+            <div class="sim-label">3 · Precio que cobrarás a tu cliente</div>
+            <div class="sim-slider-row">
+              <input type="range" class="sim-slider" id="priceSlider" min="20" max="200" value="80" oninput="updateSim()">
+              <div class="sim-price-val" id="priceDisplay">€80</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Results -->
+        <div class="sim-results">
+          <div class="sim-results-title">Tu beneficio estimado</div>
+
+          <div class="sim-result-row">
+            <span class="lbl">Créditos comprados</span>
+            <span class="val" id="r-credits">500</span>
+          </div>
+          <div class="sim-result-row">
+            <span class="lbl">Inversión total</span>
+            <span class="val" id="r-investment">€600</span>
+          </div>
+          <div class="sim-result-row">
+            <span class="lbl">Coste por crédito</span>
+            <span class="val" id="r-per-credit">€1,20</span>
+          </div>
+          <div class="sim-result-row">
+            <span class="lbl">Créditos por acceso</span>
+            <span class="val" id="r-cr-per-sale">15</span>
+          </div>
+          <div class="sim-result-row">
+            <span class="lbl">Tu coste por acceso</span>
+            <span class="val" id="r-cost-sale" style="color:#f87171">€18,00</span>
+          </div>
+          <div class="sim-result-row">
+            <span class="lbl">Precio de venta</span>
+            <span class="val" id="r-sell-price" style="color:var(--green)">€80</span>
+          </div>
+          <div class="sim-result-row">
+            <span class="lbl">Accesos totales generables</span>
+            <span class="val" id="r-total-sales">33</span>
+          </div>
+
+          <div class="sim-total">
+            <div class="sim-total-lbl">Beneficio neto total estimado</div>
+            <div class="sim-total-val" id="r-total-profit">€2.046</div>
+            <div class="sim-total-sub" id="r-profit-sale">€62,00 por acceso vendido</div>
+          </div>
+
+          <div class="sim-margin-bar">
+            <div class="sim-margin-label">
+              <span>Margen de beneficio</span>
+              <span id="r-margin-pct" style="color:var(--green);font-weight:600">77,5%</span>
+            </div>
+            <div class="sim-margin-track">
+              <div class="sim-margin-fill" id="r-margin-bar" style="width:77.5%"></div>
+            </div>
+          </div>
+
+          <div class="sim-breakeven" id="r-breakeven">
+            Necesitas vender <strong id="r-be-num">10</strong> accesos para recuperar tu inversión.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- CTA FINAL -->
   <section class="cta-section">
     <div class="container">
@@ -879,6 +1274,113 @@
       });
     }, { threshold: 0.3 });
     document.querySelectorAll('.profit-margin').forEach(el => barObs.observe(el));
+
+    // ── SIMULATOR ──
+    const TIERS = {
+      junior: [
+        { credits: 25,   cost: 60,   label: '25 cr',   eur: '€60',     per: '€2,40/cr', days: '30 días' },
+        { credits: 50,   cost: 115,  label: '50 cr',   eur: '€115',    per: '€2,30/cr', days: '30 días' },
+        { credits: 100,  cost: 220,  label: '100 cr',  eur: '€220',    per: '€2,20/cr', days: '45 días' },
+        { credits: 200,  cost: 400,  label: '200 cr',  eur: '€400',    per: '€2,00/cr', days: '90 días' },
+        { credits: 300,  cost: 540,  label: '300 cr',  eur: '€540',    per: '€1,80/cr', days: '120 días' },
+        { credits: 500,  cost: 750,  label: '500 cr',  eur: '€750',    per: '€1,50/cr', days: '180 días' },
+        { credits: 800,  cost: 1050, label: '800 cr',  eur: '€1.050',  per: '€1,30/cr', days: '240 días' },
+        { credits: 1000, cost: 1200, label: '1000 cr', eur: '€1.200',  per: '€1,20/cr', days: '300 días' },
+      ],
+      super: [
+        { credits: 300,  cost: 480,  label: '300 cr',  eur: '€480',    per: '€1,60/cr', days: '60 días' },
+        { credits: 500,  cost: 650,  label: '500 cr',  eur: '€650',    per: '€1,30/cr', days: '120 días' },
+        { credits: 800,  cost: 900,  label: '800 cr',  eur: '€900',    per: '€1,12/cr', days: '180 días' },
+        { credits: 1000, cost: 1000, label: '1000 cr', eur: '€1.000',  per: '€1,00/cr', days: '240 días' },
+      ],
+      mega: [
+        { credits: 1500, cost: 1350, label: '1500 cr', eur: '€1.350',  per: '€0,90/cr', days: '120 días' },
+        { credits: 2000, cost: 1600, label: '2000 cr', eur: '€1.600',  per: '€0,80/cr', days: '200 días' },
+        { credits: 5000, cost: 3000, label: '5000 cr', eur: '€3.000',  per: '€0,60/cr', days: '500 días' },
+      ]
+    };
+
+    let simState = { credits: 500, cost: 750, pkgCr: 15, sellPrice: 80 };
+
+    function fmt(n) { return n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+    function fmtInt(n) { return Math.floor(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
+    function renderCreditGrid(tier) {
+      const grid = document.getElementById('creditGrid');
+      const opts = TIERS[tier];
+      grid.innerHTML = opts.map((o, i) => `
+        <button class="sim-cr-btn${i === 0 ? ' active' : ''}"
+          data-credits="${o.credits}" data-cost="${o.cost}"
+          onclick="selectCredits(this)">
+          <div class="sim-cr-num">${o.label}</div>
+          <div class="sim-cr-eur">${o.eur}</div>
+          <div class="sim-cr-per">${o.per} · ${o.days}</div>
+        </button>`).join('');
+      const first = opts[0];
+      simState.credits = first.credits;
+      simState.cost    = first.cost;
+      updateSim();
+    }
+
+    function selectTier(btn) {
+      document.querySelectorAll('.sim-tier-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCreditGrid(btn.dataset.tier);
+    }
+
+    function selectCredits(btn) {
+      document.querySelectorAll('.sim-cr-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      simState.credits = parseInt(btn.dataset.credits);
+      simState.cost    = parseInt(btn.dataset.cost);
+      updateSim();
+    }
+
+    function selectPkg(btn) {
+      document.querySelectorAll('.sim-pkg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      simState.pkgCr = parseInt(btn.dataset.cr);
+      updateSim();
+    }
+
+    function updateSim() {
+      const slider = document.getElementById('priceSlider');
+      simState.sellPrice = parseInt(slider.value);
+      document.getElementById('priceDisplay').textContent = '€' + simState.sellPrice;
+
+      const perCredit    = simState.cost / simState.credits;
+      const costPerSale  = perCredit * simState.pkgCr;
+      const profitPerSale= simState.sellPrice - costPerSale;
+      const totalSales   = Math.floor(simState.credits / simState.pkgCr);
+      const totalProfit  = profitPerSale * totalSales;
+      const margin       = simState.sellPrice > 0 ? (profitPerSale / simState.sellPrice) * 100 : 0;
+      const breakeven    = profitPerSale > 0 ? Math.ceil(simState.cost / profitPerSale) : '∞';
+
+      document.getElementById('r-credits').textContent    = fmtInt(simState.credits) + ' cr';
+      document.getElementById('r-investment').textContent = '€' + fmtInt(simState.cost);
+      document.getElementById('r-per-credit').textContent = '€' + fmt(perCredit);
+      document.getElementById('r-cr-per-sale').textContent= simState.pkgCr + ' cr';
+      document.getElementById('r-cost-sale').textContent  = '€' + fmt(costPerSale);
+      document.getElementById('r-sell-price').textContent = '€' + simState.sellPrice;
+      document.getElementById('r-total-sales').textContent= fmtInt(totalSales);
+      document.getElementById('r-total-profit').textContent = '€' + fmtInt(totalProfit);
+      document.getElementById('r-profit-sale').textContent  = '€' + fmt(profitPerSale) + ' por acceso vendido';
+      document.getElementById('r-margin-pct').textContent   = fmt(margin) + '%';
+      document.getElementById('r-margin-bar').style.width   = Math.max(0, Math.min(100, margin)) + '%';
+      document.getElementById('r-margin-bar').style.background =
+        margin >= 60 ? 'linear-gradient(90deg,var(--accent-2),var(--green))' :
+        margin >= 30 ? 'linear-gradient(90deg,var(--accent-2),#facc15)' :
+        'linear-gradient(90deg,#f87171,#facc15)';
+      document.getElementById('r-be-num').textContent = breakeven;
+      document.getElementById('r-cost-sale').style.color = '#f87171';
+      document.getElementById('r-sell-price').style.color = 'var(--green)';
+      document.getElementById('r-total-profit').style.color =
+        totalProfit > 0 ? 'var(--green)' : '#f87171';
+    }
+
+    // Init simulator
+    renderCreditGrid('junior');
+    document.getElementById('priceSlider').addEventListener('input', updateSim);
   </script>
 
 </body>
