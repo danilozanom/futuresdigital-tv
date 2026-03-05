@@ -560,83 +560,82 @@
     }
 
     /* ─────────────────────────────────────────────── */
-    /*  Streaming Services - Minimal Showcase         */
+    /*  Streaming Services - Minimal Compact Grid    */
     /* ─────────────────────────────────────────────── */
     .stream-showcase {
-      display:flex; flex-direction:column; gap:0;
-      max-width:560px; margin:32px auto 0;
+      display:grid; grid-template-columns:repeat(6,1fr);
+      gap:12px; max-width:100%; margin:32px 0 0;
     }
 
     .service-item {
-      display:flex; align-items:center; gap:14px;
-      padding:14px 20px; border-bottom:1px solid var(--border-2);
+      display:flex; flex-direction:column; align-items:center;
+      gap:8px; padding:12px; border-radius:10px;
       background:transparent;
       transition:all .2s ease;
       position:relative;
-    }
-
-    .service-item:first-child {
-      border-top:1px solid var(--border-2);
+      text-align:center;
+      border:1px solid transparent;
     }
 
     .service-item:hover {
       background:var(--w02);
+      border-color:var(--border-2);
     }
 
     .service-item:hover .si-logo {
-      transform:scale(1.08);
+      transform:scale(1.12);
     }
 
     .si-logo {
-      width:44px; height:44px; flex-shrink:0;
+      width:48px; height:48px; flex-shrink:0;
       border-radius:8px;
       background:linear-gradient(135deg, var(--brand-color), var(--brand-dark));
       display:flex; align-items:center; justify-content:center;
       transition:transform .2s ease;
     }
 
-    .si-logo img { width:22px; height:22px; object-fit:contain; }
+    .si-logo img { width:24px; height:24px; object-fit:contain; }
     .si-logo img.icon-light { filter:brightness(0) invert(1); }
     .si-logo img.icon-dark { filter:brightness(0); }
 
     .si-content {
-      flex:1; display:flex; align-items:center; justify-content:space-between;
-      gap:16px;
+      display:flex; flex-direction:column; gap:4px;
+      width:100%;
     }
 
     .si-info {
-      display:flex; flex-direction:column; gap:2px;
+      display:none;
     }
 
     .si-name {
-      font-size:.85rem; font-weight:700;
-      color:var(--white); letter-spacing:-.2px;
+      font-size:.75rem; font-weight:700;
+      color:var(--white); line-height:1.1;
     }
 
     .si-cat {
-      font-size:.62rem; color:var(--w40);
-      text-transform:uppercase; letter-spacing:.04em;
+      font-size:.56rem; color:var(--w40);
+      text-transform:uppercase; letter-spacing:.03em;
       font-weight:500;
     }
 
     .si-price {
-      text-align:right; display:flex; flex-direction:column;
-      align-items:flex-end; gap:1px;
+      display:flex; flex-direction:column;
+      align-items:center; gap:0;
     }
 
     .si-price-val {
-      font-size:1.35rem; font-weight:900;
-      color:var(--cyan); letter-spacing:-.03em;
+      font-size:1.1rem; font-weight:900;
+      color:var(--cyan); letter-spacing:-.02em;
     }
 
     .si-price-per {
-      font-size:.6rem; color:var(--w50);
+      font-size:.55rem; color:var(--w50);
       letter-spacing:.02em;
     }
 
     .si-badge {
-      position:absolute; top:10px; right:20px;
-      font-size:.48rem; font-weight:900; padding:3px 7px;
+      position:absolute; top:6px; right:6px;
+      font-size:.42rem; font-weight:900; padding:2px 5px;
       border-radius:3px; text-transform:uppercase;
       letter-spacing:.05em;
     }
@@ -646,36 +645,35 @@
     .si-badge-EXCLUSIVO { background:linear-gradient(90deg,#a855f7,#ec4899); color:#fff; }
     .si-badge-NUEVO     { background:#22c55e; color:#fff; }
 
+    @media (max-width:1200px) {
+      .stream-showcase { grid-template-columns:repeat(5,1fr); }
+    }
+
+    @media (max-width:900px) {
+      .stream-showcase { grid-template-columns:repeat(4,1fr); gap:10px; }
+      .service-item { padding:10px; gap:6px; }
+      .si-logo { width:44px; height:44px; }
+      .si-logo img { width:22px; height:22px; }
+      .si-name { font-size:.7rem; }
+      .si-price-val { font-size:.95rem; }
+    }
+
     @media (max-width:768px) {
-      .stream-showcase {
-        max-width:100%;
-      }
-      .service-item {
-        padding:12px 16px;
-        gap:12px;
-      }
+      .stream-showcase { grid-template-columns:repeat(3,1fr); gap:8px; }
+      .service-item { padding:8px; gap:5px; }
       .si-logo { width:40px; height:40px; }
       .si-logo img { width:20px; height:20px; }
-      .si-name { font-size:.8rem; }
-      .si-price-val { font-size:1.2rem; }
+      .si-name { font-size:.65rem; }
+      .si-price-val { font-size:.9rem; }
     }
 
     @media (max-width:480px) {
-      .service-item {
-        padding:12px;
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .si-content {
-        flex-direction:column;
-        align-items:flex-start;
-        width:100%;
-        justify-content:flex-start;
-      }
-      .si-price {
-        align-items:flex-start;
-        margin-top:6px;
-      }
+      .stream-showcase { grid-template-columns:repeat(2,1fr); gap:6px; }
+      .service-item { padding:6px; gap:4px; }
+      .si-logo { width:36px; height:36px; }
+      .si-logo img { width:18px; height:18px; }
+      .si-name { font-size:.6rem; }
+      .si-price-val { font-size:.8rem; }
     }
     .admin-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9998; opacity:0; pointer-events:none; transition:opacity .3s; }
     .admin-overlay.show { opacity:1; pointer-events:all; }
@@ -1662,16 +1660,14 @@
         return `
         <a class="service-item" href="${wa}" target="_blank" rel="noopener">
           <div class="si-logo" style="--brand-color:${s.color}; --brand-dark:${darkColor}" data-abbr="${s.abbr}">
-            ${logoImg(s,26)}
+            ${logoImg(s,24)}
           </div>
           <div class="si-content">
-            <div class="si-info">
-              <div class="si-name">${displayName}</div>
-              <div class="si-cat">${s.cat}</div>
-            </div>
+            <div class="si-name">${displayName}</div>
+            <div class="si-cat">${s.cat}</div>
             <div class="si-price">
               <span class="si-price-val">${price}€</span>
-              <span class="si-price-per">al año</span>
+              <span class="si-price-per">año</span>
             </div>
           </div>
           ${badge ? `<span class="si-badge si-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
