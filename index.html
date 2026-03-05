@@ -575,6 +575,7 @@
       position:relative;
       text-decoration:none;
       color:inherit;
+      height:100%;
     }
 
     .service-item:hover {
@@ -601,7 +602,7 @@
     .si-logo img.icon-dark { filter:brightness(0); }
 
     .si-content {
-      width:100%; display:flex; flex-direction:column; gap:4px;
+      width:100%; display:flex; flex-direction:column; gap:4px; flex:1;
     }
 
     .si-header {
@@ -623,6 +624,7 @@
       font-size:.7rem; color:var(--w50);
       line-height:1.4; margin:4px 0 8px;
       display:flex; flex-direction:column; gap:2px;
+      min-height:42px;
     }
 
     .si-feature {
@@ -1690,11 +1692,11 @@
             <div class="si-features">
               ${features.map(f => `<div class="si-feature">${f}</div>`).join('')}
             </div>
-            <div class="si-price-section">
-              <div class="si-price">
-                <span class="si-price-val">${price}€</span>
-                <span class="si-price-per">al año</span>
-              </div>
+          </div>
+          <div class="si-price-section">
+            <div class="si-price">
+              <span class="si-price-val">${price}€</span>
+              <span class="si-price-per">al año</span>
             </div>
           </div>
           ${badge ? `<span class="si-badge si-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
