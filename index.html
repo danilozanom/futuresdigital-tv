@@ -560,106 +560,65 @@
     }
 
     /* ─────────────────────────────────────────────── */
-    /*  Streaming Services (3D Stacked Cards)          */
+    /*  Streaming Services - Simple Grid               */
     /* ─────────────────────────────────────────────── */
-    .stream-cats-3d { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 32px; }
-    .scat-btn-3d {
-      padding:7px 16px; border-radius:999px; border:1px solid var(--border-2);
-      background:transparent; color:var(--w50); font-size:.75rem; cursor:pointer;
-      transition:all .18s; font-family:inherit; font-weight:500;
+    .stream-filters {
+      display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 32px;
+      padding-bottom:6px;
     }
-    .scat-btn-3d:hover { border-color:var(--cyan); color:var(--cyan); }
-    .scat-btn-3d.active { background:var(--cyan); border-color:var(--cyan); color:var(--navy-deep); font-weight:700; }
-
-    /* Stack Container */
-    .stack-container {
-      perspective:1200px; margin:40px 0 20px;
-      display:flex; justify-content:center; align-items:center;
-      min-height:360px;
+    .stream-filter-btn {
+      padding:8px 18px; border-radius:8px;
+      border:1px solid var(--border-2); background:transparent;
+      color:var(--w60); font-size:.8rem; cursor:pointer;
+      transition:all .2s; font-weight:500;
     }
-    .cards-stack-wrapper {
-      position:relative; width:100%; max-width:380px; height:380px;
+    .stream-filter-btn:hover {
+      border-color:var(--w40); color:var(--white);
     }
-
-    /* Stack Cards */
-    .stack-card {
-      position:absolute; width:100%; height:100%;
-      border-radius:20px; overflow:hidden;
-      background:var(--w05); border:1px solid var(--border-2);
-      cursor:grab; user-select:none;
-      transition:transform .5s cubic-bezier(.34,.1,.64,.1),
-                  box-shadow .5s cubic-bezier(.34,.1,.64,.1),
-                  opacity .5s ease;
-      transform-style:preserve-3d;
-      display:flex; flex-direction:column;
-      box-shadow:0 0 0 rgba(0,150,255,0), 0 20px 40px rgba(0,0,0,.3);
+    .stream-filter-btn.active {
+      background:var(--cyan); border-color:var(--cyan);
+      color:var(--navy-deep); font-weight:700;
     }
 
-    .stack-card:active { cursor:grabbing; }
-
-    /* Stacked positioning */
-    .stack-card:nth-child(1) {
-      transform:translateY(0) translateX(0) rotateY(0deg) scale(1);
-      z-index:20; box-shadow:0 20px 60px rgba(0,0,0,.4), 0 0 30px rgba(0,150,255,.2);
-    }
-    .stack-card:nth-child(2) {
-      transform:translateY(12px) translateX(8px) rotateY(-8deg) scale(0.97);
-      z-index:15; opacity:.9;
-    }
-    .stack-card:nth-child(3) {
-      transform:translateY(24px) translateX(16px) rotateY(-16deg) scale(0.94);
-      z-index:10; opacity:.8;
-    }
-    .stack-card:nth-child(n+4) {
-      transform:translateY(36px) translateX(24px) rotateY(-24deg) scale(0.91);
-      z-index:5; opacity:0;
+    .stream-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:20px;
     }
 
-    /* Hover effect - lift stack */
-    .cards-stack-wrapper:hover .stack-card:nth-child(1) {
-      transform:translateY(-8px) translateX(0) rotateY(0deg) scale(1);
-      box-shadow:0 30px 80px rgba(0,0,0,.5), 0 0 40px rgba(0,150,255,.3);
+    .stream-card {
+      border-radius:12px; border:1px solid var(--border-2);
+      background:var(--w05); display:flex; flex-direction:column;
+      overflow:hidden;
+      transition:all .25s ease;
     }
-    .cards-stack-wrapper:hover .stack-card:nth-child(2) {
-      transform:translateY(4px) translateX(8px) rotateY(-8deg) scale(0.97);
-    }
-    .cards-stack-wrapper:hover .stack-card:nth-child(3) {
-      transform:translateY(16px) translateX(16px) rotateY(-16deg) scale(0.94);
+    .stream-card:hover {
+      border-color:var(--cyan);
+      box-shadow:0 8px 24px rgba(0,150,255,.15);
+      transform:translateY(-3px);
     }
 
-    /* Card structure */
     .sc-header {
-      flex:0 0 150px; display:flex; align-items:flex-start; justify-content:space-between;
-      padding:20px 18px; background:linear-gradient(135deg, var(--brand-color,var(--accent)), var(--brand-dark,#000));
-      background-size:cover; background-position:center;
-      position:relative; overflow:hidden;
-    }
-    .sc-header::before {
-      content:''; position:absolute; inset:0;
-      background:radial-gradient(circle at 100% 0%, rgba(255,255,255,.15), transparent 70%);
-      pointer-events:none;
-    }
-    .sc-header::after {
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(to bottom, rgba(0,0,0,.0), rgba(0,0,0,.15));
+      flex:0 0 100px;
+      background:linear-gradient(135deg, var(--brand-color), var(--brand-dark));
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
     }
 
     .sc-logo {
-      width:56px; height:56px; border-radius:14px; flex-shrink:0;
+      width:48px; height:48px; border-radius:10px;
+      background:rgba(255,255,255,.15);
       display:flex; align-items:center; justify-content:center;
-      font-size:.78rem; font-weight:900; letter-spacing:-.5px;
-      background:rgba(255,255,255,.15); backdrop-filter:blur(10px);
-      position:relative; z-index:2;
-      border:1px solid rgba(255,255,255,.2);
+      flex-shrink:0;
     }
-    .sc-logo img { width:28px; height:28px; object-fit:contain; }
+    .sc-logo img { width:24px; height:24px; object-fit:contain; }
     .sc-logo img.icon-light { filter:brightness(0) invert(1); }
     .sc-logo img.icon-dark { filter:brightness(0); }
 
     .sc-badge {
-      font-size:.6rem; font-weight:900; padding:6px 12px; border-radius:999px;
-      text-transform:uppercase; letter-spacing:.08em; white-space:nowrap;
-      position:relative; z-index:2;
+      position:absolute; top:8px; right:8px;
+      font-size:.55rem; font-weight:800; padding:4px 9px;
+      border-radius:6px; text-transform:uppercase;
+      letter-spacing:.05em;
     }
     .sc-badge-PROMO     { background:#ff4500; color:#fff; }
     .sc-badge-OFERTA    { background:#f9fd00; color:#000; }
@@ -668,74 +627,72 @@
     .sc-badge-NUEVO     { background:#22c55e; color:#fff; }
 
     .sc-body {
-      flex:1; padding:22px 20px; display:flex; flex-direction:column; gap:8px;
-      background:linear-gradient(180deg, var(--w05), var(--w02));
+      flex:1; padding:16px;
+      display:flex; flex-direction:column; gap:6px;
     }
-    .sc-name { font-size:1.05rem; font-weight:800; color:var(--white); line-height:1.2; }
-    .sc-cat { font-size:.65rem; color:var(--w40); text-transform:uppercase; letter-spacing:.08em; font-weight:600; }
 
-    .sc-price-row { display:flex; align-items:baseline; gap:5px; margin-top:8px; margin-bottom:4px; }
-    .sc-price-val { font-size:2.2rem; font-weight:900; letter-spacing:-.03em; color:var(--cyan); }
-    .sc-price-per { font-size:.75rem; color:var(--w40); }
-    .sc-monthly { font-size:.7rem; color:var(--w50); margin-bottom:12px; }
+    .sc-name {
+      font-size:.9rem; font-weight:700;
+      color:var(--white); line-height:1.2;
+    }
+
+    .sc-cat {
+      font-size:.65rem; color:var(--w40);
+      text-transform:uppercase; letter-spacing:.05em;
+      font-weight:600;
+    }
+
+    .sc-price-row {
+      display:flex; align-items:baseline; gap:3px;
+      margin-top:10px; margin-bottom:2px;
+    }
+
+    .sc-price-val {
+      font-size:1.8rem; font-weight:900;
+      letter-spacing:-.02em; color:var(--cyan);
+    }
+
+    .sc-price-per {
+      font-size:.7rem; color:var(--w40);
+    }
+
+    .sc-monthly {
+      font-size:.68rem; color:var(--w50);
+      margin-bottom:10px;
+    }
 
     .sc-btn {
-      margin-top:auto; padding:12px; text-align:center;
-      background:linear-gradient(135deg, var(--cyan), #0088bb);
-      border:none; border-radius:12px; color:#fff;
-      font-size:.8rem; font-weight:800; text-decoration:none;
-      letter-spacing:.04em; cursor:pointer;
-      transition:all .3s cubic-bezier(.34,.1,.64,.1);
-      box-shadow:0 4px 15px rgba(0,150,255,.25);
-      position:relative; overflow:hidden;
-    }
-    .sc-btn::before {
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
-      transform:translateX(-100%);
-      animation:shimmer 2s infinite;
-    }
-    @keyframes shimmer {
-      0% { transform:translateX(-100%); }
-      100% { transform:translateX(100%); }
-    }
-    .sc-btn:hover {
-      transform:translateY(-3px);
-      box-shadow:0 12px 28px rgba(0,150,255,.4);
-    }
-    .sc-btn:active { transform:translateY(-1px); }
-
-    .stack-actions {
-      text-align:center; margin-top:28px;
-    }
-    .stack-shuffle-btn {
-      padding:12px 28px; border-radius:999px;
-      border:2px solid var(--cyan); background:transparent;
-      color:var(--cyan); font-size:.85rem; font-weight:700;
-      cursor:pointer; transition:all .3s;
+      margin-top:auto;
+      padding:10px 0; text-align:center;
+      background:var(--cyan); border:none;
+      border-radius:8px; color:var(--navy-deep);
+      font-size:.75rem; font-weight:800;
+      cursor:pointer; text-decoration:none;
+      transition:all .2s;
       letter-spacing:.03em;
     }
-    .stack-shuffle-btn:hover {
-      background:var(--cyan); color:var(--navy-deep);
-      transform:scale(1.05);
+    .sc-btn:hover {
+      background:#00d4ff;
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(0,150,255,.25);
+    }
+
+    @media (max-width:1024px) {
+      .stream-grid { grid-template-columns:repeat(3,1fr); gap:16px; }
     }
 
     @media (max-width:768px) {
-      .cards-stack-wrapper { max-width:320px; height:320px; }
-      .stack-card:nth-child(1) { transform:translateY(0) translateX(0) rotateY(0deg) scale(1); }
-      .stack-card:nth-child(2) { transform:translateY(10px) translateX(6px) rotateY(-6deg) scale(0.95); }
-      .stack-card:nth-child(3) { transform:translateY(20px) translateX(12px) rotateY(-12deg) scale(0.90); }
-      .sc-header { flex:0 0 130px; padding:16px 14px; }
-      .sc-body { padding:16px 14px; gap:6px; }
-      .sc-name { font-size:.95rem; }
-      .sc-price-val { font-size:1.8rem; }
-      .sc-btn { padding:10px; font-size:.75rem; }
+      .stream-grid { grid-template-columns:repeat(2,1fr); gap:14px; }
+      .sc-header { flex:0 0 80px; }
+      .sc-body { padding:12px; }
+      .sc-name { font-size:.85rem; }
+      .sc-price-val { font-size:1.5rem; }
     }
 
     @media (max-width:480px) {
-      .stack-container { min-height:300px; }
-      .cards-stack-wrapper { max-width:280px; height:360px; }
-      .sc-body { padding:14px 12px; }
+      .stream-grid { grid-template-columns:1fr; gap:12px; }
+      .stream-filters { gap:6px; }
+      .stream-filter-btn { padding:6px 12px; font-size:.75rem; }
     }
     .admin-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9998; opacity:0; pointer-events:none; transition:opacity .3s; }
     .admin-overlay.show { opacity:1; pointer-events:all; }
@@ -1394,14 +1351,9 @@
         <h2 class="section-title">Streaming a precio<br/>anual inmejorable</h2>
         <p class="section-sub">Todas tus plataformas favoritas en suscripción anual. Sin permanencia y al mejor precio del mercado.</p>
       </div>
-      <div class="stream-cats-3d" id="streamCats3d"></div>
-      <div class="stack-container reveal">
-        <div class="cards-stack-wrapper" id="cardsStackWrapper">
-          <!-- Generado por JS -->
-        </div>
-      </div>
-      <div class="stack-actions">
-        <button class="stack-shuffle-btn" id="shuffleBtn" aria-label="Mezclar">🔄 Explorar más</button>
+      <div class="stream-filters" id="streamFilters"></div>
+      <div class="stream-grid" id="streamGrid">
+        <!-- Generado por JS -->
       </div>
     </div>
   </section>
@@ -1652,18 +1604,18 @@
     // 9 · Streaming services + admin panel
     const UNS = 'https://images.unsplash.com/photo-';
     const SERVICES = [
-      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify',     banner: UNS+'1493225457124-a3eb161ffa5f?w=600&h=200&fit=crop&q=75' },
-      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:null,          banner: UNS+'1446776877081-d282a0f896e2?w=600&h=200&fit=crop&q=75' },
-      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax',      banner: UNS+'1536440136628-849c177e76a1?w=600&h=200&fit=crop&q=75' },
-      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix',     banner: UNS+'1489599849927-2ee91cede3ba?w=600&h=200&fit=crop&q=75' },
-      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#F47521', abbr:'CR',  dark:false, logo:'crunchyroll', banner: UNS+'1528360983277-13d401cdc186?w=600&h=200&fit=crop&q=75' },
-      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn',        banner: UNS+'1574629810360-7efbbe195018?w=600&h=200&fit=crop&q=75' },
-      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer', banner: UNS+'1522869635100-9f4c5e86aa37?w=600&h=200&fit=crop&q=75' },
-      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu',        banner: UNS+'1586899737413-93d09c1c05c8?w=600&h=200&fit=crop&q=75' },
-      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo',        banner: UNS+'1508098682722-e99c643e7f0b?w=600&h=200&fit=crop&q=75' },
-      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null,          banner: UNS+'1478720568477-152d9b164e26?w=600&h=200&fit=crop&q=75' },
-      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:25,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo',  banner: UNS+'1440404653325-ab127d49abc1?w=600&h=200&fit=crop&q=75' },
-      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube',     banner: UNS+'1611162617474-5b21e879e113?w=600&h=200&fit=crop&q=75' },
+      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify' },
+      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:null },
+      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax' },
+      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix' },
+      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#F47521', abbr:'CR',  dark:false, logo:'crunchyroll' },
+      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn' },
+      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer' },
+      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu' },
+      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo' },
+      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null },
+      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:25,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo' },
+      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube' },
     ];
 
     // ── Storage (config: price + custom name + badge) ──────────────────
@@ -1706,27 +1658,29 @@
       } catch(e) { return '#000'; }
     }
 
-    // ── Category tabs ────────────────────────────────────────────────────
+    // ── Category filters ────────────────────────────────────────────────
     let currentCat = 'Todos';
     const CATS = ['Todos', ...new Set(SERVICES.map(s => s.cat))];
-    function buildCatTabs() {
-      const wrap = document.getElementById('streamCats3d');
-      wrap.innerHTML = CATS.map(c => `<button class="scat-btn-3d${c==='Todos'?' active':''}" data-cat="${c}">${c}</button>`).join('');
-      wrap.addEventListener('click', e => {
-        const btn = e.target.closest('.scat-btn-3d');
+    function buildCategoryFilters() {
+      const filtersDiv = document.getElementById('streamFilters');
+      filtersDiv.innerHTML = CATS.map(c =>
+        `<button class="stream-filter-btn${c === 'Todos' ? ' active' : ''}" data-cat="${c}">${c}</button>`
+      ).join('');
+      filtersDiv.addEventListener('click', e => {
+        const btn = e.target.closest('.stream-filter-btn');
         if (!btn) return;
-        wrap.querySelectorAll('.scat-btn-3d').forEach(b => b.classList.remove('active'));
+        filtersDiv.querySelectorAll('.stream-filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentCat = btn.dataset.cat;
-        renderStackCards();
+        renderGrid();
       });
     }
 
-    // ── Render stacked cards ─────────────────────────────────────────────
-    function renderStackCards() {
-      const wrapper = document.getElementById('cardsStackWrapper');
+    // ── Render grid ──────────────────────────────────────────────────────
+    function renderGrid() {
+      const grid = document.getElementById('streamGrid');
       const saved = loadConfig();
-      if (!wrapper) return;
+      if (!grid) return;
       const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
       const dark = (hex) => {
         try {
@@ -1735,20 +1689,17 @@
         } catch(e) { return '#000'; }
       };
 
-      wrapper.innerHTML = list.slice(0, 10).map(s => {
+      grid.innerHTML = list.map(s => {
         const cfg = getSvcCfg(s.id, saved);
         const price = cfg.price, monthly = (price/12).toFixed(2);
         const displayName = cfg.name || s.name;
         const badge = cfg.badge;
         const darkColor = dark(s.color);
         const wa = `https://wa.me/1234567890?text=${encodeURIComponent('Hola, me interesa contratar ' + displayName)}`;
-        const headerBg = s.banner
-          ? `background:linear-gradient(135deg,${s.color}dd 0%,${darkColor}bb 100%),url('${s.banner}') center/cover no-repeat`
-          : `background:linear-gradient(135deg,${s.color},${darkColor})`;
         return `
-        <div class="stack-card" style="--brand-color:${s.color}">
-          <div class="sc-header" style="${headerBg}">
-            <div class="sc-logo" data-abbr="${s.abbr}">${logoImg(s,28)}</div>
+        <div class="stream-card">
+          <div class="sc-header" style="background:linear-gradient(135deg,${s.color},${darkColor})">
+            <div class="sc-logo" data-abbr="${s.abbr}">${logoImg(s,24)}</div>
             ${badge ? `<span class="sc-badge sc-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
           </div>
           <div class="sc-body">
@@ -1763,79 +1714,7 @@
           </div>
         </div>`;
       }).join('');
-
-      setupStackInteraction();
     }
-
-    // ── Stack interaction (drag to remove top card) ───────────────────────
-    let stackIndex = 0;
-    function setupStackInteraction() {
-      const cards = document.querySelectorAll('.stack-card');
-      if (!cards.length) return;
-
-      cards.forEach((card, idx) => {
-        let startX = 0, startY = 0, offsetX = 0, offsetY = 0;
-
-        card.addEventListener('mousedown', (e) => {
-          startX = e.clientX;
-          startY = e.clientY;
-          offsetX = 0;
-          offsetY = 0;
-        });
-
-        document.addEventListener('mousemove', (e) => {
-          if (!startX) return;
-          offsetX = e.clientX - startX;
-          offsetY = e.clientY - startY;
-
-          if (idx === 0) {
-            const angle = (offsetX / window.innerWidth) * 20;
-            const scale = 1 - Math.abs(offsetX) / window.innerWidth * 0.2;
-            card.style.transform = `translateX(${offsetX}px) rotateZ(${angle}deg) scale(${Math.max(0.6, scale)})`;
-            card.style.opacity = Math.max(0.5, 1 - Math.abs(offsetX) / window.innerWidth);
-          }
-        });
-
-        document.addEventListener('mouseup', () => {
-          if (Math.abs(offsetX) > 100 && idx === 0) {
-            card.style.transition = 'all .4s ease-out';
-            card.style.transform = `translateX(${offsetX > 0 ? 500 : -500}px) rotateZ(${offsetX > 0 ? 30 : -30}deg) scale(0.5)`;
-            card.style.opacity = '0';
-            setTimeout(() => {
-              card.remove();
-              if (document.querySelectorAll('.stack-card').length < 3) {
-                const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
-                if (stackIndex + 10 < list.length) {
-                  stackIndex += 10;
-                  renderStackCards();
-                }
-              }
-            }, 400);
-          } else if (idx === 0) {
-            card.style.transition = 'all .4s cubic-bezier(.34,.1,.64,.1)';
-            card.style.transform = 'translateY(0) translateX(0) rotateY(0deg) scale(1)';
-            card.style.opacity = '1';
-          }
-          startX = 0;
-          startY = 0;
-        });
-      });
-    }
-
-    // ── Shuffle button ────────────────────────────────────────────────────
-    document.getElementById('shuffleBtn')?.addEventListener('click', () => {
-      const wrapper = document.getElementById('cardsStackWrapper');
-      const cards = document.querySelectorAll('.stack-card');
-      const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
-
-      // Si quedan pocas tarjetas, reiniciar
-      if (cards.length < 3 || stackIndex + 10 >= list.length) {
-        stackIndex = 0;
-      } else {
-        stackIndex += 10;
-      }
-      renderStackCards();
-    });
 
     // ── Render admin ─────────────────────────────────────────────────────
     function renderAdminBody() {
@@ -1894,7 +1773,7 @@
         };
       });
       saveConfig(cfg);
-      renderStackCards();
+      renderGrid();
       closeAdmin();
       adminSave.textContent = '✓ Guardado';
       setTimeout(() => { adminSave.textContent = '💾 Guardar cambios'; }, 1800);
@@ -1903,8 +1782,8 @@
       if (e.ctrlKey && e.shiftKey && e.key === 'E') { e.preventDefault(); adminPanel.classList.contains('show') ? closeAdmin() : openAdmin(); }
     });
 
-    buildCatTabs();
-    renderStackCards();
+    buildCategoryFilters();
+    renderGrid();
 
     // 10 · Social proof popup
     const spEl     = document.getElementById('socialProof');
