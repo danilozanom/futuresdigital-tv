@@ -560,61 +560,135 @@
     }
 
     /* ─────────────────────────────────────────────── */
-    /*  Streaming Services                             */
+    /*  Streaming Services (Carousel)                  */
     /* ─────────────────────────────────────────────── */
-    .stream-cats { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 32px; }
-    .scat-btn {
-      padding:6px 18px; border-radius:999px; border:1px solid var(--border-2);
-      background:transparent; color:var(--w50); font-size:.78rem; cursor:pointer;
-      transition:all .18s; font-family:inherit;
+    .stream-cats-2 { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 28px; }
+    .scat-btn-2 {
+      padding:7px 16px; border-radius:999px; border:1px solid var(--border-2);
+      background:transparent; color:var(--w50); font-size:.75rem; cursor:pointer;
+      transition:all .18s; font-family:inherit; font-weight:500;
     }
-    .scat-btn:hover { border-color:var(--cyan); color:var(--cyan); }
-    .scat-btn.active { background:var(--cyan); border-color:var(--cyan); color:var(--navy-deep); font-weight:700; }
-    .stream-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .scat-btn-2:hover { border-color:var(--cyan); color:var(--cyan); }
+    .scat-btn-2.active { background:var(--cyan); border-color:var(--cyan); color:var(--navy-deep); font-weight:700; }
+
+    /* Carousel */
+    .carousel-wrapper {
+      display:flex; align-items:center; gap:16px; position:relative;
+      margin:0 -12px;
+    }
+    .carousel-nav {
+      width:44px; height:44px; border-radius:12px; border:1px solid var(--border-2);
+      background:var(--w08); color:var(--w70); cursor:pointer; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      transition:all .22s; position:relative; z-index:10;
+    }
+    .carousel-nav:hover {
+      background:var(--w15); color:var(--white); border-color:var(--cyan);
+      transform:scale(1.05);
+    }
+    .carousel-nav svg { width:20px; height:20px; }
+    .carousel-nav.disabled { opacity:.4; cursor:not-allowed; }
+    .carousel-nav.disabled:hover { transform:none; background:var(--w08); color:var(--w70); border-color:var(--border-2); }
+
+    .carousel-container {
+      flex:1; overflow:hidden; position:relative;
+      border-radius:16px;
+    }
+    .carousel-track {
+      display:flex; gap:16px; transition:transform .45s cubic-bezier(.4,0,.2,1);
+      padding:4px;
+    }
+    .carousel-slide {
+      flex:0 0 calc(20% - 12.8px); min-width:0; position:relative;
+      animation:slideIn .5s cubic-bezier(.34,.1,.64,.1) forwards;
+    }
+    @keyframes slideIn {
+      from { opacity:0; transform:translateY(12px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
     .stream-card {
       border-radius:16px; overflow:hidden; border:1px solid var(--border-2);
       background:var(--w05); display:flex; flex-direction:column;
-      transition:transform .22s, box-shadow .22s, border-color .22s; position:relative;
+      height:100%; position:relative;
+      transition:all .3s cubic-bezier(.34,.1,.64,.1);
+      cursor:pointer;
     }
-    .stream-card:hover { transform:translateY(-5px); box-shadow:0 18px 44px rgba(0,0,0,.45); }
+    .carousel-slide:hover .stream-card {
+      transform:translateY(-8px) scale(1.02);
+      box-shadow:0 20px 48px rgba(0,150,255,.25), 0 0 1px 1px rgba(0,150,255,.15);
+      border-color:var(--cyan);
+    }
     .stream-card.has-badge { border-color:var(--brand-color,var(--accent)); }
-    .stream-card.has-badge:hover { box-shadow:0 18px 52px rgba(0,0,0,.5); }
+
     .sc-header {
-      padding:18px 14px 16px; display:flex; align-items:flex-start; justify-content:space-between;
+      padding:20px 16px 18px; display:flex; align-items:flex-start; justify-content:space-between;
       background:linear-gradient(135deg, var(--brand-color,var(--accent)), var(--brand-dark,#000));
-      min-height:115px; background-size:cover; background-position:center;
+      min-height:120px; background-size:cover; background-position:center; position:relative;
+      overflow:hidden;
+    }
+    .sc-header::after {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(circle at 100% 0%, rgba(255,255,255,.1), transparent 70%);
+      pointer-events:none;
     }
     .sc-logo {
-      width:50px; height:50px; border-radius:13px; flex-shrink:0;
+      width:56px; height:56px; border-radius:14px; flex-shrink:0;
       display:flex; align-items:center; justify-content:center;
       font-size:.78rem; font-weight:900; letter-spacing:-.5px; line-height:1;
+      background:rgba(255,255,255,.15); backdrop-filter:blur(8px);
+      position:relative; z-index:2;
     }
-    .sc-logo img { width:26px; height:26px; object-fit:contain; display:block; }
+    .sc-logo img { width:28px; height:28px; object-fit:contain; display:block; }
     .sc-logo img.icon-light { filter:brightness(0) invert(1); }
     .sc-logo img.icon-dark  { filter:brightness(0); }
+
     .sc-badge {
-      font-size:.57rem; font-weight:800; padding:4px 10px; border-radius:999px;
-      text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; align-self:flex-start;
+      font-size:.55rem; font-weight:800; padding:5px 11px; border-radius:999px;
+      text-transform:uppercase; letter-spacing:.06em; white-space:nowrap;
+      position:relative; z-index:2;
     }
     .sc-badge-PROMO     { background:#ff4500; color:#fff; }
     .sc-badge-OFERTA    { background:#f9fd00; color:#000; }
     .sc-badge-FLASH     { background:#ffffff; color:#000; }
     .sc-badge-EXCLUSIVO { background:linear-gradient(90deg,#a855f7,#ec4899); color:#fff; }
     .sc-badge-NUEVO     { background:#22c55e; color:#fff; }
-    .sc-body { padding:14px 16px 16px; display:flex; flex-direction:column; gap:4px; flex:1; }
-    .sc-name  { font-size:.9rem; font-weight:700; color:var(--white); line-height:1.2; }
-    .sc-cat   { font-size:.62rem; color:var(--w40); text-transform:uppercase; letter-spacing:.07em; }
-    .sc-price-row { display:flex; align-items:baseline; gap:3px; margin-top:8px; }
-    .sc-price-val { font-size:1.75rem; font-weight:800; letter-spacing:-.04em; color:var(--brand-color,var(--accent)); line-height:1; }
-    .sc-price-per { font-size:.75rem; color:var(--w40); }
-    .sc-monthly   { font-size:.72rem; color:var(--w50); margin-bottom:4px; }
+
+    .sc-body { padding:16px 16px 16px; display:flex; flex-direction:column; gap:6px; flex:1; }
+    .sc-name  { font-size:.88rem; font-weight:700; color:var(--white); line-height:1.3; }
+    .sc-cat   { font-size:.63rem; color:var(--w40); text-transform:uppercase; letter-spacing:.06em; }
+    .sc-price-row { display:flex; align-items:baseline; gap:4px; margin-top:6px; }
+    .sc-price-val { font-size:1.88rem; font-weight:800; letter-spacing:-.02em; color:var(--cyan); line-height:1; }
+    .sc-price-per { font-size:.7rem; color:var(--w40); }
+    .sc-monthly   { font-size:.69rem; color:var(--w50); margin-bottom:8px; }
     .sc-btn {
-      margin-top:auto; padding:9px 0; text-align:center;
-      background:var(--w08); border:1px solid var(--border-2); border-radius:10px;
-      font-size:.78rem; font-weight:600; color:var(--w70); text-decoration:none;
-      transition:background .2s, color .2s, border-color .2s;
+      margin-top:auto; padding:11px 0; text-align:center;
+      background:linear-gradient(135deg, var(--cyan), #0099cc);
+      border:none; border-radius:11px; color:#fff;
+      font-size:.76rem; font-weight:700; text-decoration:none;
+      transition:all .25s;
+      letter-spacing:.03em; cursor:pointer;
+      box-shadow:0 4px 12px rgba(0,150,255,.2);
     }
-    .sc-btn:hover, .stream-card.has-badge .sc-btn { background:var(--brand-color,var(--accent)); color:#fff; border-color:transparent; }
+    .sc-btn:hover {
+      transform:translateY(-2px);
+      box-shadow:0 8px 20px rgba(0,150,255,.35);
+    }
+    .sc-btn:active { transform:translateY(0); }
+
+    .carousel-indicators {
+      display:flex; gap:6px; justify-content:center; margin-top:20px;
+      flex-wrap:wrap;
+    }
+    .indicator {
+      width:8px; height:8px; border-radius:50%;
+      background:var(--border-2); cursor:pointer;
+      transition:all .3s;
+    }
+    .indicator.active {
+      background:var(--cyan); width:24px; border-radius:999px;
+    }
+    .indicator:hover { background:var(--w40); }
 
     /* ─────────────────────────────────────────────── */
     /*  Admin Panel                                    */
@@ -681,24 +755,28 @@
     .admin-save-btn:active { transform:scale(.97); }
     .admin-hint { font-size:.63rem; color:var(--w30); text-align:center; margin-top:8px; letter-spacing:.04em; }
 
-    @media (max-width:1024px) { .stream-grid { grid-template-columns:repeat(3,1fr); } }
-    @media (max-width:700px)  { .stream-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:1440px) { .carousel-slide { flex:0 0 calc(25% - 12px); } }
+    @media (max-width:1024px) { .carousel-slide { flex:0 0 calc(33.33% - 10.67px); } }
+    @media (max-width:768px)  { .carousel-slide { flex:0 0 calc(50% - 8px); } }
     @media (max-width:440px)  { .admin-panel { width:100%; } }
 
-    /* ── Streaming mobile (must come after base streaming CSS) ─────── */
+    /* ── Streaming mobile ─────── */
     @media (max-width:640px) {
-      .stream-cats { flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-      .stream-cats::-webkit-scrollbar { display:none; }
-      .scat-btn { flex-shrink:0; }
-      .sc-header { padding:14px 12px 12px; }
-      .sc-logo { width:42px; height:42px; border-radius:10px; }
-      .sc-logo img { width:22px; height:22px; }
-      .sc-body { padding:10px 12px 12px; }
-      .sc-name { font-size:.82rem; }
-      .sc-price-val { font-size:1.45rem; }
-      .sc-btn { font-size:.75rem; padding:8px 0; }
+      .stream-cats-2 { flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .stream-cats-2::-webkit-scrollbar { display:none; }
+      .scat-btn-2 { flex-shrink:0; }
+      .carousel-wrapper { gap:12px; margin:0 -8px; }
+      .carousel-nav { width:40px; height:40px; }
+      .carousel-slide { flex:0 0 calc(50% - 6px); }
+      .sc-header { padding:16px 14px; min-height:110px; }
+      .sc-logo { width:48px; height:48px; }
+      .sc-logo img { width:24px; height:24px; }
+      .sc-body { padding:12px 14px; gap:4px; }
+      .sc-name { font-size:.8rem; }
+      .sc-price-val { font-size:1.5rem; }
+      .sc-btn { padding:10px 0; font-size:.72rem; }
     }
-    @media (max-width:320px) { .stream-grid { grid-template-columns:1fr; } }
+    @media (max-width:480px)  { .carousel-slide { flex:0 0 100%; } }
 
     /* ─────────────────────────────────────────────── */
     /*  WhatsApp FAB                                   */
@@ -909,7 +987,7 @@
 
   <!-- ═══════════════════ TICKER ═══════════════════ -->
   <div class="ticker-section" aria-hidden="true">
-    <p class="ticker-label">Canales disponibles</p>
+    <p class="ticker-label">Algunos de nuestros canales</p>
     <div class="ticker-cols">
 
       <!-- ⚽ Fútbol -->
@@ -1272,9 +1350,25 @@
         <h2 class="section-title">Streaming a precio<br/>anual inmejorable</h2>
         <p class="section-sub">Todas tus plataformas favoritas en suscripción anual. Sin permanencia y al mejor precio del mercado.</p>
       </div>
-      <div class="stream-grid" id="streamGrid">
-        <!-- Generado por JS -->
+      <div class="stream-cats-2" id="streamCats2"></div>
+      <div class="carousel-wrapper reveal">
+        <button class="carousel-nav prev-btn" id="prevBtn" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <div class="carousel-container" id="carouselContainer">
+          <div class="carousel-track" id="carouselTrack">
+            <!-- Generado por JS -->
+          </div>
+        </div>
+        <button class="carousel-nav next-btn" id="nextBtn" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
+      <div class="carousel-indicators" id="indicators"></div>
     </div>
   </section>
 
@@ -1580,59 +1674,135 @@
 
     // ── Category tabs ────────────────────────────────────────────────────
     let currentCat = 'Todos';
+    let carouselIndex = 0;
     const CATS = ['Todos', ...new Set(SERVICES.map(s => s.cat))];
     function buildCatTabs() {
-      const wrap = document.createElement('div');
-      wrap.className = 'stream-cats';
-      wrap.innerHTML = CATS.map(c => `<button class="scat-btn${c==='Todos'?' active':''}" data-cat="${c}">${c}</button>`).join('');
+      const wrap = document.getElementById('streamCats2');
+      wrap.innerHTML = CATS.map(c => `<button class="scat-btn-2${c==='Todos'?' active':''}" data-cat="${c}">${c}</button>`).join('');
       wrap.addEventListener('click', e => {
-        const btn = e.target.closest('.scat-btn');
+        const btn = e.target.closest('.scat-btn-2');
         if (!btn) return;
-        wrap.querySelectorAll('.scat-btn').forEach(b => b.classList.remove('active'));
+        wrap.querySelectorAll('.scat-btn-2').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentCat = btn.dataset.cat;
-        renderStreamGrid();
+        carouselIndex = 0;
+        renderCarousel();
       });
-      document.getElementById('streamGrid').before(wrap);
     }
 
-    // ── Render grid ──────────────────────────────────────────────────────
-    function renderStreamGrid() {
-      const grid = document.getElementById('streamGrid');
+    // ── Render carousel ──────────────────────────────────────────────────
+    function renderCarousel() {
+      const track = document.getElementById('carouselTrack');
       const saved = loadConfig();
-      if (!grid) return;
+      if (!track) return;
       const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
-      grid.innerHTML = list.map(s => {
+      const dark = (hex) => {
+        try {
+          const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+          return `rgb(${Math.round(r*.3)},${Math.round(g*.3)},${Math.round(b*.3)})`;
+        } catch(e) { return '#000'; }
+      };
+
+      track.innerHTML = list.map(s => {
         const cfg = getSvcCfg(s.id, saved);
         const price = cfg.price, monthly = (price/12).toFixed(2);
         const displayName = cfg.name || s.name;
         const badge = cfg.badge;
-        const dark = brandDark(s.color);
+        const darkColor = dark(s.color);
         const wa = `https://wa.me/1234567890?text=${encodeURIComponent('Hola, me interesa contratar ' + displayName)}`;
-        const logoBg = s.dark ? 'rgba(255,255,255,.9)' : 'rgba(0,0,0,.25)';
         const headerBg = s.banner
-          ? `background:linear-gradient(135deg,${s.color}cc 0%,${dark}bb 100%),url('${s.banner}') center/cover no-repeat`
-          : `background:linear-gradient(135deg,${s.color},${dark})`;
+          ? `background:linear-gradient(135deg,${s.color}dd 0%,${darkColor}bb 100%),url('${s.banner}') center/cover no-repeat`
+          : `background:linear-gradient(135deg,${s.color},${darkColor})`;
         return `
-        <div class="stream-card reveal${badge?' has-badge':''}" style="--brand-color:${s.color}">
-          <div class="sc-header" style="${headerBg}">
-            <div class="sc-logo" style="background:${logoBg}" data-abbr="${s.abbr}">${logoImg(s,26)}</div>
-            ${badge ? `<span class="sc-badge sc-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
-          </div>
-          <div class="sc-body">
-            <div class="sc-name">${displayName}</div>
-            <div class="sc-cat">${s.cat}</div>
-            <div class="sc-price-row">
-              <span class="sc-price-val">${price}</span>
-              <span class="sc-price-per">€/año</span>
+        <div class="carousel-slide">
+          <div class="stream-card${badge?' has-badge':''}" style="--brand-color:${s.color}">
+            <div class="sc-header" style="${headerBg}">
+              <div class="sc-logo" data-abbr="${s.abbr}">${logoImg(s,28)}</div>
+              ${badge ? `<span class="sc-badge sc-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
             </div>
-            <div class="sc-monthly">≈ ${monthly}€/mes</div>
-            <a href="${wa}" class="sc-btn" target="_blank" rel="noopener">Contratar</a>
+            <div class="sc-body">
+              <div class="sc-name">${displayName}</div>
+              <div class="sc-cat">${s.cat}</div>
+              <div class="sc-price-row">
+                <span class="sc-price-val">${price}</span>
+                <span class="sc-price-per">€/año</span>
+              </div>
+              <div class="sc-monthly">≈ ${monthly}€/mes</div>
+              <a href="${wa}" class="sc-btn" target="_blank" rel="noopener">Contratar</a>
+            </div>
           </div>
         </div>`;
       }).join('');
-      grid.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+      updateCarouselPosition(list.length);
+      updateIndicators(list.length);
     }
+
+    function updateCarouselPosition(total) {
+      const track = document.getElementById('carouselTrack');
+      const slides = document.querySelectorAll('.carousel-slide');
+      if (!track || !slides.length) return;
+
+      // Calcula el ancho de una tarjeta + gap
+      const firstSlide = slides[0];
+      const slideWidth = firstSlide.offsetWidth;
+      const gap = 16;
+      const itemSize = slideWidth + gap;
+
+      // Determina cuántas tarjetas caben en pantalla
+      const container = document.getElementById('carouselContainer');
+      const containerWidth = container.offsetWidth;
+      const visibleItems = Math.floor(containerWidth / (slideWidth + (gap / slides.length)));
+      const maxScroll = Math.max(0, total - Math.min(visibleItems, 5));
+
+      carouselIndex = Math.max(0, Math.min(carouselIndex, maxScroll));
+      track.style.transform = `translateX(${-carouselIndex * itemSize}px)`;
+
+      document.getElementById('prevBtn').classList.toggle('disabled', carouselIndex === 0);
+      document.getElementById('nextBtn').classList.toggle('disabled', carouselIndex >= maxScroll);
+    }
+
+    function updateIndicators(total) {
+      const indContainer = document.getElementById('indicators');
+      if (!indContainer) return;
+      indContainer.innerHTML = Array.from({length: total}, (_, i) =>
+        `<div class="indicator${i === carouselIndex ? ' active' : ''}" data-index="${i}"></div>`
+      ).join('');
+      indContainer.querySelectorAll('.indicator').forEach(ind => {
+        ind.addEventListener('click', () => {
+          carouselIndex = parseInt(ind.dataset.index, 10);
+          const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
+          updateCarouselPosition(list.length);
+          updateIndicators(list.length);
+        });
+      });
+    }
+
+    // ── Carousel navigation ──────────────────────────────────────────────
+    document.getElementById('prevBtn')?.addEventListener('click', () => {
+      if (carouselIndex > 0) {
+        carouselIndex--;
+        const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
+        updateCarouselPosition(list.length);
+        updateIndicators(list.length);
+      }
+    });
+
+    document.getElementById('nextBtn')?.addEventListener('click', () => {
+      const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
+      const maxScroll = Math.max(0, list.length - 5);
+      if (carouselIndex < maxScroll) {
+        carouselIndex++;
+        updateCarouselPosition(list.length);
+        updateIndicators(list.length);
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
+      updateCarouselPosition(list.length);
+    }, { passive: true });
 
     // ── Render admin ─────────────────────────────────────────────────────
     function renderAdminBody() {
@@ -1691,7 +1861,7 @@
         };
       });
       saveConfig(cfg);
-      renderStreamGrid();
+      renderCarousel();
       closeAdmin();
       adminSave.textContent = '✓ Guardado';
       setTimeout(() => { adminSave.textContent = '💾 Guardar cambios'; }, 1800);
@@ -1701,7 +1871,7 @@
     });
 
     buildCatTabs();
-    renderStreamGrid();
+    renderCarousel();
 
     // 10 · Social proof popup
     const spEl     = document.getElementById('socialProof');

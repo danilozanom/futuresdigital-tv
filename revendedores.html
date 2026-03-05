@@ -1085,28 +1085,34 @@
           </div>
 
           <div class="sim-block">
-            <div class="sim-label">2 · Paquete que venderás a tus clientes</div>
-            <div class="sim-pkg-grid" id="pkgGrid">
-              <button class="sim-pkg-btn" data-pkg="españa" data-cr="10" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">📺 Solo España</div>
-                <div class="sim-pkg-cr">10 créditos / acceso</div>
+            <div class="sim-label">2 · Paquete que venderás</div>
+            <div class="sim-pkg-grid" id="pkgGrid" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px">
+              <button class="sim-pkg-btn active" data-pkg="basico" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">📺 Básico</div>
+                <div class="sim-pkg-cr">Canales nacionales</div>
               </button>
-              <button class="sim-pkg-btn active" data-pkg="premium" data-cr="15" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">🌍 España + Internacional</div>
-                <div class="sim-pkg-cr">15 créditos / acceso</div>
+              <button class="sim-pkg-btn" data-pkg="basico_vod" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">🎬 Básico + VOD</div>
+                <div class="sim-pkg-cr">Canales + videoclubs</div>
               </button>
-              <button class="sim-pkg-btn" data-pkg="futbol" data-cr="15" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">⚽ Fútbol Exclusivo</div>
-                <div class="sim-pkg-cr">15 créditos / acceso</div>
+              <button class="sim-pkg-btn" data-pkg="futbol" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">⚽ Todo el Fútbol</div>
+                <div class="sim-pkg-cr">Todos los canales fútbol</div>
               </button>
-              <button class="sim-pkg-btn" data-pkg="motor" data-cr="15" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">🏎️ Motor y F1</div>
-                <div class="sim-pkg-cr">15 créditos / acceso</div>
+              <button class="sim-pkg-btn" data-pkg="dazn" onclick="selectPkg(this)">
+                <div class="sim-pkg-name">🏎️ DAZN</div>
+                <div class="sim-pkg-cr">Motor y deportes DAZN</div>
               </button>
-              <button class="sim-pkg-btn" data-pkg="vod" data-cr="20" onclick="selectPkg(this)" style="grid-column:span 2">
-                <div class="sim-pkg-name">🎬 VOD Premium (España + Internacional + Biblioteca)</div>
-                <div class="sim-pkg-cr">20 créditos / acceso</div>
-              </button>
+            </div>
+            <div class="sim-label" style="margin-top:16px">Duración del acceso</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap" id="durGrid">
+              <button class="sim-dur-btn" data-dur="1" onclick="selectDur(this)">1 Mes</button>
+              <button class="sim-dur-btn active" data-dur="3" onclick="selectDur(this)">3 Meses</button>
+              <button class="sim-dur-btn" data-dur="6" onclick="selectDur(this)">6 Meses</button>
+              <button class="sim-dur-btn" data-dur="12" onclick="selectDur(this)">12 Meses</button>
+            </div>
+            <div style="margin-top:12px;padding:10px 14px;background:var(--w05);border-radius:10px;font-size:.82rem;color:var(--w50)">
+              Coste: <strong id="pkg-cr-display" style="color:var(--cyan)">3,5 créditos</strong> por acceso
             </div>
           </div>
 
