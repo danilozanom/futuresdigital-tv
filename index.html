@@ -560,83 +560,107 @@
     }
 
     /* ─────────────────────────────────────────────── */
-    /*  Streaming Services - Minimal Compact Grid    */
+    /*  Streaming Services - Minimal Card Showcase   */
     /* ─────────────────────────────────────────────── */
     .stream-showcase {
-      display:grid; grid-template-columns:repeat(6,1fr);
-      gap:12px; max-width:100%; margin:32px 0 0;
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:16px; max-width:100%; margin:32px 0 0;
     }
 
     .service-item {
-      display:flex; flex-direction:column; align-items:center;
-      gap:8px; padding:12px; border-radius:10px;
-      background:transparent;
-      transition:all .2s ease;
+      display:flex; flex-direction:column; align-items:flex-start;
+      gap:12px; padding:16px; border-radius:12px;
+      background:var(--w05); border:1px solid var(--border-2);
+      transition:all .25s ease;
       position:relative;
-      text-align:center;
-      border:1px solid transparent;
+      text-decoration:none;
+      color:inherit;
     }
 
     .service-item:hover {
-      background:var(--w02);
-      border-color:var(--border-2);
+      border-color:var(--cyan);
+      background:var(--w08);
+      box-shadow:0 8px 24px rgba(0,150,255,.12);
+      transform:translateY(-4px);
     }
 
     .service-item:hover .si-logo {
-      transform:scale(1.12);
+      transform:scale(1.15);
     }
 
     .si-logo {
-      width:48px; height:48px; flex-shrink:0;
-      border-radius:8px;
+      width:52px; height:52px; flex-shrink:0;
+      border-radius:10px;
       background:linear-gradient(135deg, var(--brand-color), var(--brand-dark));
       display:flex; align-items:center; justify-content:center;
-      transition:transform .2s ease;
+      transition:transform .25s ease;
     }
 
-    .si-logo img { width:24px; height:24px; object-fit:contain; }
+    .si-logo img { width:26px; height:26px; object-fit:contain; }
     .si-logo img.icon-light { filter:brightness(0) invert(1); }
     .si-logo img.icon-dark { filter:brightness(0); }
 
     .si-content {
-      display:flex; flex-direction:column; gap:4px;
-      width:100%;
+      width:100%; display:flex; flex-direction:column; gap:4px;
     }
 
-    .si-info {
-      display:none;
+    .si-header {
+      width:100%; display:flex; flex-direction:column; gap:2px;
     }
 
     .si-name {
-      font-size:.75rem; font-weight:700;
-      color:var(--white); line-height:1.1;
+      font-size:.9rem; font-weight:700;
+      color:var(--white);
     }
 
     .si-cat {
-      font-size:.56rem; color:var(--w40);
-      text-transform:uppercase; letter-spacing:.03em;
+      font-size:.62rem; color:var(--w40);
+      text-transform:uppercase; letter-spacing:.04em;
       font-weight:500;
+    }
+
+    .si-features {
+      font-size:.7rem; color:var(--w50);
+      line-height:1.4; margin:4px 0 8px;
+      display:flex; flex-direction:column; gap:2px;
+    }
+
+    .si-feature {
+      display:flex; align-items:flex-start; gap:4px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .si-feature::before {
+      content:'•'; flex-shrink:0;
+      color:var(--cyan); font-weight:bold; margin-right:2px;
+    }
+
+    .si-price-section {
+      width:100%;
+      padding-top:8px; border-top:1px solid var(--border-2);
+      display:flex; justify-content:space-between; align-items:flex-end;
     }
 
     .si-price {
       display:flex; flex-direction:column;
-      align-items:center; gap:0;
+      align-items:flex-start; gap:1px;
     }
 
     .si-price-val {
-      font-size:1.1rem; font-weight:900;
+      font-size:1.35rem; font-weight:900;
       color:var(--cyan); letter-spacing:-.02em;
     }
 
     .si-price-per {
-      font-size:.55rem; color:var(--w50);
-      letter-spacing:.02em;
+      font-size:.62rem; color:var(--w40);
     }
 
     .si-badge {
-      position:absolute; top:6px; right:6px;
-      font-size:.42rem; font-weight:900; padding:2px 5px;
-      border-radius:3px; text-transform:uppercase;
+      position:absolute; top:8px; right:8px;
+      font-size:.48rem; font-weight:900; padding:3px 7px;
+      border-radius:4px; text-transform:uppercase;
       letter-spacing:.05em;
     }
     .si-badge-PROMO     { background:#ff4500; color:#fff; }
@@ -646,34 +670,29 @@
     .si-badge-NUEVO     { background:#22c55e; color:#fff; }
 
     @media (max-width:1200px) {
-      .stream-showcase { grid-template-columns:repeat(5,1fr); }
+      .stream-showcase { grid-template-columns:repeat(3,1fr); gap:14px; }
+      .service-item { padding:14px; }
+      .si-logo { width:48px; height:48px; }
+      .si-logo img { width:24px; height:24px; }
+      .si-name { font-size:.85rem; }
+      .si-features { font-size:.68rem; }
     }
 
     @media (max-width:900px) {
-      .stream-showcase { grid-template-columns:repeat(4,1fr); gap:10px; }
-      .service-item { padding:10px; gap:6px; }
+      .stream-showcase { grid-template-columns:repeat(2,1fr); gap:12px; }
+      .service-item { padding:12px; gap:10px; }
       .si-logo { width:44px; height:44px; }
       .si-logo img { width:22px; height:22px; }
-      .si-name { font-size:.7rem; }
-      .si-price-val { font-size:.95rem; }
+      .si-name { font-size:.8rem; }
+      .si-features { font-size:.65rem; }
+      .si-price-val { font-size:1.2rem; }
     }
 
-    @media (max-width:768px) {
-      .stream-showcase { grid-template-columns:repeat(3,1fr); gap:8px; }
-      .service-item { padding:8px; gap:5px; }
-      .si-logo { width:40px; height:40px; }
-      .si-logo img { width:20px; height:20px; }
-      .si-name { font-size:.65rem; }
-      .si-price-val { font-size:.9rem; }
-    }
-
-    @media (max-width:480px) {
-      .stream-showcase { grid-template-columns:repeat(2,1fr); gap:6px; }
-      .service-item { padding:6px; gap:4px; }
-      .si-logo { width:36px; height:36px; }
-      .si-logo img { width:18px; height:18px; }
-      .si-name { font-size:.6rem; }
-      .si-price-val { font-size:.8rem; }
+    @media (max-width:640px) {
+      .stream-showcase { grid-template-columns:1fr; gap:10px; }
+      .service-item { padding:12px; }
+      .si-name { font-size:.8rem; }
+      .si-features { font-size:.64rem; }
     }
     .admin-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9998; opacity:0; pointer-events:none; transition:opacity .3s; }
     .admin-overlay.show { opacity:1; pointer-events:all; }
@@ -1584,18 +1603,18 @@
     // 9 · Streaming services + admin panel
     const UNS = 'https://images.unsplash.com/photo-';
     const SERVICES = [
-      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify' },
-      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:null },
-      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax' },
-      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix' },
-      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#F47521', abbr:'CR',  dark:false, logo:'crunchyroll' },
-      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn' },
-      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer' },
-      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu' },
-      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo' },
-      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null },
-      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:25,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo' },
-      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube' },
+      { id:'spotify',     name:'Spotify',           cat:'Música',         price:38,  color:'#1DB954', abbr:'SP',  dark:true,  logo:'spotify', features:'70M+ canciones • Sin anuncios • Descargas offline' },
+      { id:'disney',      name:'Disney+',            cat:'Series & Cine',  price:40,  color:'#0063e5', abbr:'D+',  dark:false, logo:null, features:'Disney • Pixar • Marvel • Star Wars' },
+      { id:'max',         name:'MAX 4K UHD',         cat:'Series & Cine',  price:105, color:'#5823f5', abbr:'MAX', dark:false, logo:'hbomax', features:'HBO • 4K • Sin anuncios • 4 perfiles' },
+      { id:'netflix',     name:'Netflix Premium',    cat:'Series & Cine',  price:135, color:'#E50914', abbr:'N',   dark:false, logo:'netflix', features:'4K Ultra HD • 4 pantallas • Descargas' },
+      { id:'crunchyroll', name:'CrunchyRoll',        cat:'Anime',          price:40,  color:'#F47521', abbr:'CR',  dark:false, logo:'crunchyroll', features:'10k+ anime • Manga • Español' },
+      { id:'dazn',        name:'DAZN',               cat:'Deportes',       price:45,  color:'#F9FD00', abbr:'DZ',  dark:true,  logo:'dazn', features:'LaLiga • Champions • Deportes en vivo' },
+      { id:'a3player',    name:'A3Player Premium',   cat:'TV Online',      price:35,  color:'#FF5E00', abbr:'A3',  dark:false, logo:'atresplayer', features:'Series A3 • Sin anuncios • Directo' },
+      { id:'hulu',        name:'Hulu sin Anuncios',  cat:'Series & Cine',  price:60,  color:'#1CE783', abbr:'H',   dark:true,  logo:'hulu', features:'Series originales • Películas • Premium' },
+      { id:'fubotv',      name:'FuboTV',             cat:'Deportes',       price:65,  color:'#E8343C', abbr:'FT',  dark:false, logo:'fubo', features:'Fútbol en vivo • Eventos deportivos' },
+      { id:'flixole',     name:'FlixOlé',            cat:'Cine Español',   price:38,  color:'#C8102E', abbr:'FO',  dark:false, logo:null, features:'Cine español • Clásicos • Películas' },
+      { id:'prime',       name:'Prime Video',        cat:'Series & Cine',  price:25,  color:'#00A8E1', abbr:'PV',  dark:false, logo:'primevideo', features:'Series • Películas • Envíos Prime' },
+      { id:'youtube',     name:'YouTube Premium',    cat:'Música & Vídeo', price:45,  color:'#FF0000', abbr:'YT',  dark:false, logo:'youtube', features:'Sin anuncios • Descargas • Fondo' },
     ];
 
     // ── Storage (config: price + custom name + badge) ──────────────────
@@ -1657,17 +1676,25 @@
         const badge = cfg.badge;
         const darkColor = dark(s.color);
         const wa = `https://wa.me/1234567890?text=${encodeURIComponent('Hola, me interesa contratar ' + displayName)}`;
+        const features = s.features.split('•').map(f => f.trim()).filter(f => f);
         return `
         <a class="service-item" href="${wa}" target="_blank" rel="noopener">
           <div class="si-logo" style="--brand-color:${s.color}; --brand-dark:${darkColor}" data-abbr="${s.abbr}">
-            ${logoImg(s,24)}
+            ${logoImg(s,26)}
           </div>
           <div class="si-content">
-            <div class="si-name">${displayName}</div>
-            <div class="si-cat">${s.cat}</div>
-            <div class="si-price">
-              <span class="si-price-val">${price}€</span>
-              <span class="si-price-per">año</span>
+            <div class="si-header">
+              <div class="si-name">${displayName}</div>
+              <div class="si-cat">${s.cat}</div>
+            </div>
+            <div class="si-features">
+              ${features.map(f => `<div class="si-feature">${f}</div>`).join('')}
+            </div>
+            <div class="si-price-section">
+              <div class="si-price">
+                <span class="si-price-val">${price}€</span>
+                <span class="si-price-per">al año</span>
+              </div>
             </div>
           </div>
           ${badge ? `<span class="si-badge si-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
