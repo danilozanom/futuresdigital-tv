@@ -560,92 +560,105 @@
     }
 
     /* ─────────────────────────────────────────────── */
-    /*  Streaming Services (Carousel)                  */
+    /*  Streaming Services (3D Stacked Cards)          */
     /* ─────────────────────────────────────────────── */
-    .stream-cats-2 { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 28px; }
-    .scat-btn-2 {
+    .stream-cats-3d { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 32px; }
+    .scat-btn-3d {
       padding:7px 16px; border-radius:999px; border:1px solid var(--border-2);
       background:transparent; color:var(--w50); font-size:.75rem; cursor:pointer;
       transition:all .18s; font-family:inherit; font-weight:500;
     }
-    .scat-btn-2:hover { border-color:var(--cyan); color:var(--cyan); }
-    .scat-btn-2.active { background:var(--cyan); border-color:var(--cyan); color:var(--navy-deep); font-weight:700; }
+    .scat-btn-3d:hover { border-color:var(--cyan); color:var(--cyan); }
+    .scat-btn-3d.active { background:var(--cyan); border-color:var(--cyan); color:var(--navy-deep); font-weight:700; }
 
-    /* Carousel */
-    .carousel-wrapper {
-      display:flex; align-items:center; gap:16px; position:relative;
-      margin:0 -12px;
+    /* Stack Container */
+    .stack-container {
+      perspective:1200px; margin:40px 0 20px;
+      display:flex; justify-content:center; align-items:center;
+      min-height:360px;
     }
-    .carousel-nav {
-      width:44px; height:44px; border-radius:12px; border:1px solid var(--border-2);
-      background:var(--w08); color:var(--w70); cursor:pointer; flex-shrink:0;
-      display:flex; align-items:center; justify-content:center;
-      transition:all .22s; position:relative; z-index:10;
-    }
-    .carousel-nav:hover {
-      background:var(--w15); color:var(--white); border-color:var(--cyan);
-      transform:scale(1.05);
-    }
-    .carousel-nav svg { width:20px; height:20px; }
-    .carousel-nav.disabled { opacity:.4; cursor:not-allowed; }
-    .carousel-nav.disabled:hover { transform:none; background:var(--w08); color:var(--w70); border-color:var(--border-2); }
-
-    .carousel-container {
-      flex:1; overflow:hidden; position:relative;
-      border-radius:16px;
-    }
-    .carousel-track {
-      display:flex; gap:16px; transition:transform .45s cubic-bezier(.4,0,.2,1);
-      padding:4px;
-    }
-    .carousel-slide {
-      flex:0 0 calc(20% - 12.8px); min-width:0; position:relative;
-      animation:slideIn .5s cubic-bezier(.34,.1,.64,.1) forwards;
-    }
-    @keyframes slideIn {
-      from { opacity:0; transform:translateY(12px); }
-      to { opacity:1; transform:translateY(0); }
+    .cards-stack-wrapper {
+      position:relative; width:100%; max-width:380px; height:380px;
     }
 
-    .stream-card {
-      border-radius:16px; overflow:hidden; border:1px solid var(--border-2);
-      background:var(--w05); display:flex; flex-direction:column;
-      height:100%; position:relative;
-      transition:all .3s cubic-bezier(.34,.1,.64,.1);
-      cursor:pointer;
+    /* Stack Cards */
+    .stack-card {
+      position:absolute; width:100%; height:100%;
+      border-radius:20px; overflow:hidden;
+      background:var(--w05); border:1px solid var(--border-2);
+      cursor:grab; user-select:none;
+      transition:transform .5s cubic-bezier(.34,.1,.64,.1),
+                  box-shadow .5s cubic-bezier(.34,.1,.64,.1),
+                  opacity .5s ease;
+      transform-style:preserve-3d;
+      display:flex; flex-direction:column;
+      box-shadow:0 0 0 rgba(0,150,255,0), 0 20px 40px rgba(0,0,0,.3);
     }
-    .carousel-slide:hover .stream-card {
-      transform:translateY(-8px) scale(1.02);
-      box-shadow:0 20px 48px rgba(0,150,255,.25), 0 0 1px 1px rgba(0,150,255,.15);
-      border-color:var(--cyan);
-    }
-    .stream-card.has-badge { border-color:var(--brand-color,var(--accent)); }
 
+    .stack-card:active { cursor:grabbing; }
+
+    /* Stacked positioning */
+    .stack-card:nth-child(1) {
+      transform:translateY(0) translateX(0) rotateY(0deg) scale(1);
+      z-index:20; box-shadow:0 20px 60px rgba(0,0,0,.4), 0 0 30px rgba(0,150,255,.2);
+    }
+    .stack-card:nth-child(2) {
+      transform:translateY(12px) translateX(8px) rotateY(-8deg) scale(0.97);
+      z-index:15; opacity:.9;
+    }
+    .stack-card:nth-child(3) {
+      transform:translateY(24px) translateX(16px) rotateY(-16deg) scale(0.94);
+      z-index:10; opacity:.8;
+    }
+    .stack-card:nth-child(n+4) {
+      transform:translateY(36px) translateX(24px) rotateY(-24deg) scale(0.91);
+      z-index:5; opacity:0;
+    }
+
+    /* Hover effect - lift stack */
+    .cards-stack-wrapper:hover .stack-card:nth-child(1) {
+      transform:translateY(-8px) translateX(0) rotateY(0deg) scale(1);
+      box-shadow:0 30px 80px rgba(0,0,0,.5), 0 0 40px rgba(0,150,255,.3);
+    }
+    .cards-stack-wrapper:hover .stack-card:nth-child(2) {
+      transform:translateY(4px) translateX(8px) rotateY(-8deg) scale(0.97);
+    }
+    .cards-stack-wrapper:hover .stack-card:nth-child(3) {
+      transform:translateY(16px) translateX(16px) rotateY(-16deg) scale(0.94);
+    }
+
+    /* Card structure */
     .sc-header {
-      padding:20px 16px 18px; display:flex; align-items:flex-start; justify-content:space-between;
-      background:linear-gradient(135deg, var(--brand-color,var(--accent)), var(--brand-dark,#000));
-      min-height:120px; background-size:cover; background-position:center; position:relative;
-      overflow:hidden;
+      flex:0 0 150px; display:flex; align-items:flex-start; justify-content:space-between;
+      padding:20px 18px; background:linear-gradient(135deg, var(--brand-color,var(--accent)), var(--brand-dark,#000));
+      background-size:cover; background-position:center;
+      position:relative; overflow:hidden;
+    }
+    .sc-header::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(circle at 100% 0%, rgba(255,255,255,.15), transparent 70%);
+      pointer-events:none;
     }
     .sc-header::after {
       content:''; position:absolute; inset:0;
-      background:radial-gradient(circle at 100% 0%, rgba(255,255,255,.1), transparent 70%);
-      pointer-events:none;
+      background:linear-gradient(to bottom, rgba(0,0,0,.0), rgba(0,0,0,.15));
     }
+
     .sc-logo {
       width:56px; height:56px; border-radius:14px; flex-shrink:0;
       display:flex; align-items:center; justify-content:center;
-      font-size:.78rem; font-weight:900; letter-spacing:-.5px; line-height:1;
-      background:rgba(255,255,255,.15); backdrop-filter:blur(8px);
+      font-size:.78rem; font-weight:900; letter-spacing:-.5px;
+      background:rgba(255,255,255,.15); backdrop-filter:blur(10px);
       position:relative; z-index:2;
+      border:1px solid rgba(255,255,255,.2);
     }
-    .sc-logo img { width:28px; height:28px; object-fit:contain; display:block; }
+    .sc-logo img { width:28px; height:28px; object-fit:contain; }
     .sc-logo img.icon-light { filter:brightness(0) invert(1); }
-    .sc-logo img.icon-dark  { filter:brightness(0); }
+    .sc-logo img.icon-dark { filter:brightness(0); }
 
     .sc-badge {
-      font-size:.55rem; font-weight:800; padding:5px 11px; border-radius:999px;
-      text-transform:uppercase; letter-spacing:.06em; white-space:nowrap;
+      font-size:.6rem; font-weight:900; padding:6px 12px; border-radius:999px;
+      text-transform:uppercase; letter-spacing:.08em; white-space:nowrap;
       position:relative; z-index:2;
     }
     .sc-badge-PROMO     { background:#ff4500; color:#fff; }
@@ -654,45 +667,76 @@
     .sc-badge-EXCLUSIVO { background:linear-gradient(90deg,#a855f7,#ec4899); color:#fff; }
     .sc-badge-NUEVO     { background:#22c55e; color:#fff; }
 
-    .sc-body { padding:16px 16px 16px; display:flex; flex-direction:column; gap:6px; flex:1; }
-    .sc-name  { font-size:.88rem; font-weight:700; color:var(--white); line-height:1.3; }
-    .sc-cat   { font-size:.63rem; color:var(--w40); text-transform:uppercase; letter-spacing:.06em; }
-    .sc-price-row { display:flex; align-items:baseline; gap:4px; margin-top:6px; }
-    .sc-price-val { font-size:1.88rem; font-weight:800; letter-spacing:-.02em; color:var(--cyan); line-height:1; }
-    .sc-price-per { font-size:.7rem; color:var(--w40); }
-    .sc-monthly   { font-size:.69rem; color:var(--w50); margin-bottom:8px; }
+    .sc-body {
+      flex:1; padding:22px 20px; display:flex; flex-direction:column; gap:8px;
+      background:linear-gradient(180deg, var(--w05), var(--w02));
+    }
+    .sc-name { font-size:1.05rem; font-weight:800; color:var(--white); line-height:1.2; }
+    .sc-cat { font-size:.65rem; color:var(--w40); text-transform:uppercase; letter-spacing:.08em; font-weight:600; }
+
+    .sc-price-row { display:flex; align-items:baseline; gap:5px; margin-top:8px; margin-bottom:4px; }
+    .sc-price-val { font-size:2.2rem; font-weight:900; letter-spacing:-.03em; color:var(--cyan); }
+    .sc-price-per { font-size:.75rem; color:var(--w40); }
+    .sc-monthly { font-size:.7rem; color:var(--w50); margin-bottom:12px; }
+
     .sc-btn {
-      margin-top:auto; padding:11px 0; text-align:center;
-      background:linear-gradient(135deg, var(--cyan), #0099cc);
-      border:none; border-radius:11px; color:#fff;
-      font-size:.76rem; font-weight:700; text-decoration:none;
-      transition:all .25s;
-      letter-spacing:.03em; cursor:pointer;
-      box-shadow:0 4px 12px rgba(0,150,255,.2);
+      margin-top:auto; padding:12px; text-align:center;
+      background:linear-gradient(135deg, var(--cyan), #0088bb);
+      border:none; border-radius:12px; color:#fff;
+      font-size:.8rem; font-weight:800; text-decoration:none;
+      letter-spacing:.04em; cursor:pointer;
+      transition:all .3s cubic-bezier(.34,.1,.64,.1);
+      box-shadow:0 4px 15px rgba(0,150,255,.25);
+      position:relative; overflow:hidden;
+    }
+    .sc-btn::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+      transform:translateX(-100%);
+      animation:shimmer 2s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform:translateX(-100%); }
+      100% { transform:translateX(100%); }
     }
     .sc-btn:hover {
-      transform:translateY(-2px);
-      box-shadow:0 8px 20px rgba(0,150,255,.35);
+      transform:translateY(-3px);
+      box-shadow:0 12px 28px rgba(0,150,255,.4);
     }
-    .sc-btn:active { transform:translateY(0); }
+    .sc-btn:active { transform:translateY(-1px); }
 
-    .carousel-indicators {
-      display:flex; gap:6px; justify-content:center; margin-top:20px;
-      flex-wrap:wrap;
+    .stack-actions {
+      text-align:center; margin-top:28px;
     }
-    .indicator {
-      width:8px; height:8px; border-radius:50%;
-      background:var(--border-2); cursor:pointer;
-      transition:all .3s;
+    .stack-shuffle-btn {
+      padding:12px 28px; border-radius:999px;
+      border:2px solid var(--cyan); background:transparent;
+      color:var(--cyan); font-size:.85rem; font-weight:700;
+      cursor:pointer; transition:all .3s;
+      letter-spacing:.03em;
     }
-    .indicator.active {
-      background:var(--cyan); width:24px; border-radius:999px;
+    .stack-shuffle-btn:hover {
+      background:var(--cyan); color:var(--navy-deep);
+      transform:scale(1.05);
     }
-    .indicator:hover { background:var(--w40); }
 
-    /* ─────────────────────────────────────────────── */
-    /*  Admin Panel                                    */
-    /* ─────────────────────────────────────────────── */
+    @media (max-width:768px) {
+      .cards-stack-wrapper { max-width:320px; height:320px; }
+      .stack-card:nth-child(1) { transform:translateY(0) translateX(0) rotateY(0deg) scale(1); }
+      .stack-card:nth-child(2) { transform:translateY(10px) translateX(6px) rotateY(-6deg) scale(0.95); }
+      .stack-card:nth-child(3) { transform:translateY(20px) translateX(12px) rotateY(-12deg) scale(0.90); }
+      .sc-header { flex:0 0 130px; padding:16px 14px; }
+      .sc-body { padding:16px 14px; gap:6px; }
+      .sc-name { font-size:.95rem; }
+      .sc-price-val { font-size:1.8rem; }
+      .sc-btn { padding:10px; font-size:.75rem; }
+    }
+
+    @media (max-width:480px) {
+      .stack-container { min-height:300px; }
+      .cards-stack-wrapper { max-width:280px; height:360px; }
+      .sc-body { padding:14px 12px; }
+    }
     .admin-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9998; opacity:0; pointer-events:none; transition:opacity .3s; }
     .admin-overlay.show { opacity:1; pointer-events:all; }
     .admin-panel {
@@ -1350,25 +1394,15 @@
         <h2 class="section-title">Streaming a precio<br/>anual inmejorable</h2>
         <p class="section-sub">Todas tus plataformas favoritas en suscripción anual. Sin permanencia y al mejor precio del mercado.</p>
       </div>
-      <div class="stream-cats-2" id="streamCats2"></div>
-      <div class="carousel-wrapper reveal">
-        <button class="carousel-nav prev-btn" id="prevBtn" aria-label="Anterior">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
-        <div class="carousel-container" id="carouselContainer">
-          <div class="carousel-track" id="carouselTrack">
-            <!-- Generado por JS -->
-          </div>
+      <div class="stream-cats-3d" id="streamCats3d"></div>
+      <div class="stack-container reveal">
+        <div class="cards-stack-wrapper" id="cardsStackWrapper">
+          <!-- Generado por JS -->
         </div>
-        <button class="carousel-nav next-btn" id="nextBtn" aria-label="Siguiente">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
       </div>
-      <div class="carousel-indicators" id="indicators"></div>
+      <div class="stack-actions">
+        <button class="stack-shuffle-btn" id="shuffleBtn" aria-label="Mezclar">🔄 Explorar más</button>
+      </div>
     </div>
   </section>
 
@@ -1674,27 +1708,25 @@
 
     // ── Category tabs ────────────────────────────────────────────────────
     let currentCat = 'Todos';
-    let carouselIndex = 0;
     const CATS = ['Todos', ...new Set(SERVICES.map(s => s.cat))];
     function buildCatTabs() {
-      const wrap = document.getElementById('streamCats2');
-      wrap.innerHTML = CATS.map(c => `<button class="scat-btn-2${c==='Todos'?' active':''}" data-cat="${c}">${c}</button>`).join('');
+      const wrap = document.getElementById('streamCats3d');
+      wrap.innerHTML = CATS.map(c => `<button class="scat-btn-3d${c==='Todos'?' active':''}" data-cat="${c}">${c}</button>`).join('');
       wrap.addEventListener('click', e => {
-        const btn = e.target.closest('.scat-btn-2');
+        const btn = e.target.closest('.scat-btn-3d');
         if (!btn) return;
-        wrap.querySelectorAll('.scat-btn-2').forEach(b => b.classList.remove('active'));
+        wrap.querySelectorAll('.scat-btn-3d').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentCat = btn.dataset.cat;
-        carouselIndex = 0;
-        renderCarousel();
+        renderStackCards();
       });
     }
 
-    // ── Render carousel ──────────────────────────────────────────────────
-    function renderCarousel() {
-      const track = document.getElementById('carouselTrack');
+    // ── Render stacked cards ─────────────────────────────────────────────
+    function renderStackCards() {
+      const wrapper = document.getElementById('cardsStackWrapper');
       const saved = loadConfig();
-      if (!track) return;
+      if (!wrapper) return;
       const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
       const dark = (hex) => {
         try {
@@ -1703,7 +1735,7 @@
         } catch(e) { return '#000'; }
       };
 
-      track.innerHTML = list.map(s => {
+      wrapper.innerHTML = list.slice(0, 10).map(s => {
         const cfg = getSvcCfg(s.id, saved);
         const price = cfg.price, monthly = (price/12).toFixed(2);
         const displayName = cfg.name || s.name;
@@ -1714,95 +1746,96 @@
           ? `background:linear-gradient(135deg,${s.color}dd 0%,${darkColor}bb 100%),url('${s.banner}') center/cover no-repeat`
           : `background:linear-gradient(135deg,${s.color},${darkColor})`;
         return `
-        <div class="carousel-slide">
-          <div class="stream-card${badge?' has-badge':''}" style="--brand-color:${s.color}">
-            <div class="sc-header" style="${headerBg}">
-              <div class="sc-logo" data-abbr="${s.abbr}">${logoImg(s,28)}</div>
-              ${badge ? `<span class="sc-badge sc-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
+        <div class="stack-card" style="--brand-color:${s.color}">
+          <div class="sc-header" style="${headerBg}">
+            <div class="sc-logo" data-abbr="${s.abbr}">${logoImg(s,28)}</div>
+            ${badge ? `<span class="sc-badge sc-badge-${badge}">${BADGE_LABELS[badge]}</span>` : ''}
+          </div>
+          <div class="sc-body">
+            <div class="sc-name">${displayName}</div>
+            <div class="sc-cat">${s.cat}</div>
+            <div class="sc-price-row">
+              <span class="sc-price-val">${price}</span>
+              <span class="sc-price-per">€/año</span>
             </div>
-            <div class="sc-body">
-              <div class="sc-name">${displayName}</div>
-              <div class="sc-cat">${s.cat}</div>
-              <div class="sc-price-row">
-                <span class="sc-price-val">${price}</span>
-                <span class="sc-price-per">€/año</span>
-              </div>
-              <div class="sc-monthly">≈ ${monthly}€/mes</div>
-              <a href="${wa}" class="sc-btn" target="_blank" rel="noopener">Contratar</a>
-            </div>
+            <div class="sc-monthly">≈ ${monthly}€/mes</div>
+            <a href="${wa}" class="sc-btn" target="_blank" rel="noopener">Contratar</a>
           </div>
         </div>`;
       }).join('');
 
-      updateCarouselPosition(list.length);
-      updateIndicators(list.length);
+      setupStackInteraction();
     }
 
-    function updateCarouselPosition(total) {
-      const track = document.getElementById('carouselTrack');
-      const slides = document.querySelectorAll('.carousel-slide');
-      if (!track || !slides.length) return;
+    // ── Stack interaction (drag to remove top card) ───────────────────────
+    let stackIndex = 0;
+    function setupStackInteraction() {
+      const cards = document.querySelectorAll('.stack-card');
+      if (!cards.length) return;
 
-      // Calcula el ancho de una tarjeta + gap
-      const firstSlide = slides[0];
-      const slideWidth = firstSlide.offsetWidth;
-      const gap = 16;
-      const itemSize = slideWidth + gap;
+      cards.forEach((card, idx) => {
+        let startX = 0, startY = 0, offsetX = 0, offsetY = 0;
 
-      // Determina cuántas tarjetas caben en pantalla
-      const container = document.getElementById('carouselContainer');
-      const containerWidth = container.offsetWidth;
-      const visibleItems = Math.floor(containerWidth / (slideWidth + (gap / slides.length)));
-      const maxScroll = Math.max(0, total - Math.min(visibleItems, 5));
+        card.addEventListener('mousedown', (e) => {
+          startX = e.clientX;
+          startY = e.clientY;
+          offsetX = 0;
+          offsetY = 0;
+        });
 
-      carouselIndex = Math.max(0, Math.min(carouselIndex, maxScroll));
-      track.style.transform = `translateX(${-carouselIndex * itemSize}px)`;
+        document.addEventListener('mousemove', (e) => {
+          if (!startX) return;
+          offsetX = e.clientX - startX;
+          offsetY = e.clientY - startY;
 
-      document.getElementById('prevBtn').classList.toggle('disabled', carouselIndex === 0);
-      document.getElementById('nextBtn').classList.toggle('disabled', carouselIndex >= maxScroll);
-    }
+          if (idx === 0) {
+            const angle = (offsetX / window.innerWidth) * 20;
+            const scale = 1 - Math.abs(offsetX) / window.innerWidth * 0.2;
+            card.style.transform = `translateX(${offsetX}px) rotateZ(${angle}deg) scale(${Math.max(0.6, scale)})`;
+            card.style.opacity = Math.max(0.5, 1 - Math.abs(offsetX) / window.innerWidth);
+          }
+        });
 
-    function updateIndicators(total) {
-      const indContainer = document.getElementById('indicators');
-      if (!indContainer) return;
-      indContainer.innerHTML = Array.from({length: total}, (_, i) =>
-        `<div class="indicator${i === carouselIndex ? ' active' : ''}" data-index="${i}"></div>`
-      ).join('');
-      indContainer.querySelectorAll('.indicator').forEach(ind => {
-        ind.addEventListener('click', () => {
-          carouselIndex = parseInt(ind.dataset.index, 10);
-          const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
-          updateCarouselPosition(list.length);
-          updateIndicators(list.length);
+        document.addEventListener('mouseup', () => {
+          if (Math.abs(offsetX) > 100 && idx === 0) {
+            card.style.transition = 'all .4s ease-out';
+            card.style.transform = `translateX(${offsetX > 0 ? 500 : -500}px) rotateZ(${offsetX > 0 ? 30 : -30}deg) scale(0.5)`;
+            card.style.opacity = '0';
+            setTimeout(() => {
+              card.remove();
+              if (document.querySelectorAll('.stack-card').length < 3) {
+                const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
+                if (stackIndex + 10 < list.length) {
+                  stackIndex += 10;
+                  renderStackCards();
+                }
+              }
+            }, 400);
+          } else if (idx === 0) {
+            card.style.transition = 'all .4s cubic-bezier(.34,.1,.64,.1)';
+            card.style.transform = 'translateY(0) translateX(0) rotateY(0deg) scale(1)';
+            card.style.opacity = '1';
+          }
+          startX = 0;
+          startY = 0;
         });
       });
     }
 
-    // ── Carousel navigation ──────────────────────────────────────────────
-    document.getElementById('prevBtn')?.addEventListener('click', () => {
-      if (carouselIndex > 0) {
-        carouselIndex--;
-        const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
-        updateCarouselPosition(list.length);
-        updateIndicators(list.length);
-      }
-    });
-
-    document.getElementById('nextBtn')?.addEventListener('click', () => {
+    // ── Shuffle button ────────────────────────────────────────────────────
+    document.getElementById('shuffleBtn')?.addEventListener('click', () => {
+      const wrapper = document.getElementById('cardsStackWrapper');
+      const cards = document.querySelectorAll('.stack-card');
       const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
-      const maxScroll = Math.max(0, list.length - 5);
-      if (carouselIndex < maxScroll) {
-        carouselIndex++;
-        updateCarouselPosition(list.length);
-        updateIndicators(list.length);
-      }
-    });
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      const list = currentCat === 'Todos' ? SERVICES : SERVICES.filter(s => s.cat === currentCat);
-      updateCarouselPosition(list.length);
-    }, { passive: true });
+      // Si quedan pocas tarjetas, reiniciar
+      if (cards.length < 3 || stackIndex + 10 >= list.length) {
+        stackIndex = 0;
+      } else {
+        stackIndex += 10;
+      }
+      renderStackCards();
+    });
 
     // ── Render admin ─────────────────────────────────────────────────────
     function renderAdminBody() {
@@ -1861,7 +1894,7 @@
         };
       });
       saveConfig(cfg);
-      renderCarousel();
+      renderStackCards();
       closeAdmin();
       adminSave.textContent = '✓ Guardado';
       setTimeout(() => { adminSave.textContent = '💾 Guardar cambios'; }, 1800);
@@ -1871,7 +1904,7 @@
     });
 
     buildCatTabs();
-    renderCarousel();
+    renderStackCards();
 
     // 10 · Social proof popup
     const spEl     = document.getElementById('socialProof');
