@@ -523,10 +523,24 @@
       .hero-stats { gap: 20px; }
       .stat-sep { display: none; }
       .whatsapp-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+      #cursor-glow { display: none; }
+      .bg-orbs { display: none; }
     }
     @media (max-width: 400px) {
       .packages-grid { grid-template-columns: 1fr; }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+
+    /* Duration buttons */
+    .sim-dur-btn {
+      padding: 8px 16px; border-radius: 20px; font-size: .8rem; font-weight: 600;
+      background: var(--w05); border: 1px solid var(--border-2); color: var(--w70);
+      cursor: pointer; transition: all .2s;
+    }
+    .sim-dur-btn:hover { background: var(--w08); color: var(--white); }
+    .sim-dur-btn.active { background: rgba(37,99,235,.18); border-color: rgba(37,99,235,.4); color: #93c5fd; }
   </style>
 </head>
 <body>
@@ -1087,19 +1101,19 @@
           <div class="sim-block">
             <div class="sim-label">2 · Paquete que venderás</div>
             <div class="sim-pkg-grid" id="pkgGrid" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px">
-              <button class="sim-pkg-btn active" data-pkg="basico" onclick="selectPkg(this)">
+              <button class="sim-pkg-btn active" data-pkg="basico" data-base-cr="3" onclick="selectPkg(this)">
                 <div class="sim-pkg-name">📺 Básico</div>
                 <div class="sim-pkg-cr">Canales nacionales</div>
               </button>
-              <button class="sim-pkg-btn" data-pkg="basico_vod" onclick="selectPkg(this)">
+              <button class="sim-pkg-btn" data-pkg="basico_vod" data-base-cr="4" onclick="selectPkg(this)">
                 <div class="sim-pkg-name">🎬 Básico + VOD</div>
                 <div class="sim-pkg-cr">Canales + videoclubs</div>
               </button>
-              <button class="sim-pkg-btn" data-pkg="futbol" onclick="selectPkg(this)">
+              <button class="sim-pkg-btn" data-pkg="futbol" data-base-cr="5" onclick="selectPkg(this)">
                 <div class="sim-pkg-name">⚽ Todo el Fútbol</div>
                 <div class="sim-pkg-cr">Todos los canales fútbol</div>
               </button>
-              <button class="sim-pkg-btn" data-pkg="dazn" onclick="selectPkg(this)">
+              <button class="sim-pkg-btn" data-pkg="dazn" data-base-cr="5" onclick="selectPkg(this)">
                 <div class="sim-pkg-name">🏎️ DAZN</div>
                 <div class="sim-pkg-cr">Motor y deportes DAZN</div>
               </button>
@@ -1228,9 +1242,11 @@
         (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
     });
 
-    // Cursor glow
+    // Cursor glow (desktop only)
     const cg = document.getElementById('cursor-glow');
-    window.addEventListener('mousemove', e => { cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px'; });
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      window.addEventListener('mousemove', e => { cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px'; }, { passive: true });
+    }
 
     // Reveal on scroll
     const revealObs = new IntersectionObserver(entries => {
@@ -1306,7 +1322,7 @@
       ]
     };
 
-    let simState = { credits: 500, cost: 750, pkgCr: 15, sellPrice: 80 };
+    let simState = { credits: 500, cost: 750, baseCr: 3, dur: 3, pkgCr: 9, sellPrice: 80 };
 
     function fmt(n) { return n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
     function fmtInt(n) { return Math.floor(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
@@ -1345,7 +1361,16 @@
     function selectPkg(btn) {
       document.querySelectorAll('.sim-pkg-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      simState.pkgCr = parseInt(btn.dataset.cr);
+      simState.baseCr = parseInt(btn.dataset.baseCr);
+      simState.pkgCr  = simState.baseCr * simState.dur;
+      updateSim();
+    }
+
+    function selectDur(btn) {
+      document.querySelectorAll('.sim-dur-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      simState.dur   = parseInt(btn.dataset.dur);
+      simState.pkgCr = simState.baseCr * simState.dur;
       updateSim();
     }
 
@@ -1362,6 +1387,7 @@
       const margin       = simState.sellPrice > 0 ? (profitPerSale / simState.sellPrice) * 100 : 0;
       const breakeven    = profitPerSale > 0 ? Math.ceil(simState.cost / profitPerSale) : '∞';
 
+      document.getElementById('pkg-cr-display').textContent = simState.pkgCr + ' créditos';
       document.getElementById('r-credits').textContent    = fmtInt(simState.credits) + ' cr';
       document.getElementById('r-investment').textContent = '€' + fmtInt(simState.cost);
       document.getElementById('r-per-credit').textContent = '€' + fmt(perCredit);
