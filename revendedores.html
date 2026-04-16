@@ -410,103 +410,149 @@
     /* ── SIMULATOR ── */
     .simulator { padding: 100px 0; }
     .sim-wrap {
-      margin-top: 56px; display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: start;
+      margin-top: 56px; display: grid; grid-template-columns: 1fr 400px; gap: 24px; align-items: start;
     }
-    .sim-controls {
-      background: var(--w03); border: 1px solid var(--border-2);
-      border-radius: var(--rlg); padding: 36px;
+    @media (max-width: 900px) { .sim-wrap { grid-template-columns: 1fr; } }
+
+    /* Steps panel */
+    .sim-steps { display: flex; flex-direction: column; gap: 16px; }
+    .sim-step {
+      border-radius: var(--r); border: 1px solid var(--border-2);
+      background: var(--w03); overflow: hidden;
     }
-    .sim-block { margin-bottom: 32px; }
-    .sim-block:last-child { margin-bottom: 0; }
+    .sim-step-header {
+      display: flex; align-items: center; gap: 14px; padding: 18px 20px;
+      cursor: default;
+    }
+    .sim-step-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 800;
+    }
+    .sim-step-title { font-size: .92rem; font-weight: 700; }
+    .sim-step-sub { font-size: .75rem; color: var(--w40); margin-top: 1px; }
+    .sim-step-body { padding: 0 20px 20px; }
+
     .sim-label {
-      font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--w40); margin-bottom: 14px;
+      font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--w40); margin-bottom: 10px;
     }
-    .sim-pkg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .sim-pkg-btn {
-      background: var(--w05); border: 1px solid var(--border-2); border-radius: 12px;
-      padding: 12px 14px; cursor: pointer; transition: all .2s; text-align: left;
-      color: var(--white);
+
+    /* Tier segmented control */
+    .sim-tier-seg {
+      display: flex; background: var(--w05); border: 1px solid var(--border-2);
+      border-radius: 12px; padding: 4px; gap: 4px; margin-bottom: 16px;
     }
-    .sim-pkg-btn:hover { background: var(--w08); border-color: var(--border); }
-    .sim-pkg-btn.active { background: rgba(37,99,235,.15); border-color: rgba(37,99,235,.4); }
-    .sim-pkg-name { font-size: .83rem; font-weight: 600; }
-    .sim-pkg-cr { font-size: .72rem; color: var(--w40); margin-top: 2px; }
-    .sim-credit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .sim-cr-btn {
-      background: var(--w05); border: 1px solid var(--border-2); border-radius: 12px;
-      padding: 12px 10px; cursor: pointer; transition: all .2s; text-align: center;
-      color: var(--white);
-    }
-    .sim-cr-btn:hover { background: var(--w08); border-color: var(--border); }
-    .sim-cr-btn.active { background: rgba(37,99,235,.15); border-color: rgba(37,99,235,.4); }
-    .sim-cr-num { font-size: 1rem; font-weight: 700; }
-    .sim-cr-eur { font-size: .72rem; color: var(--cyan); margin-top: 2px; font-weight: 500; }
-    .sim-cr-per { font-size: .65rem; color: var(--w40); }
-    .sim-slider-row { display: flex; align-items: center; gap: 14px; }
-    .sim-slider {
-      flex: 1; -webkit-appearance: none; appearance: none; height: 4px;
-      border-radius: 2px; background: var(--w15); outline: none; cursor: pointer;
-    }
-    .sim-slider::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
-      cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,.5);
-      border: 2px solid white;
-    }
-    .sim-slider::-moz-range-thumb {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
-      cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,.5);
-      border: 2px solid white;
-    }
-    .sim-price-val {
-      min-width: 64px; text-align: right; font-size: 1.1rem; font-weight: 700;
-      color: var(--green);
-    }
-    .sim-results {
-      background: var(--w03); border: 1px solid var(--border-2);
-      border-radius: var(--rlg); padding: 32px; position: sticky; top: 76px;
-    }
-    .sim-results-title { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--w40); margin-bottom: 22px; }
-    .sim-result-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 0; border-bottom: 1px solid var(--border-2); font-size: .88rem;
-    }
-    .sim-result-row:last-of-type { border-bottom: none; }
-    .sim-result-row .lbl { color: var(--w50); }
-    .sim-result-row .val { font-weight: 600; }
-    .sim-total {
-      margin-top: 20px; padding: 22px; border-radius: 14px;
-      background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2);
-    }
-    .sim-total-lbl { font-size: .78rem; color: var(--w70); margin-bottom: 6px; }
-    .sim-total-val { font-size: 2.2rem; font-weight: 800; color: var(--green); letter-spacing: -.04em; line-height: 1; }
-    .sim-total-sub { font-size: .75rem; color: var(--w40); margin-top: 4px; }
-    .sim-margin-bar { margin-top: 20px; }
-    .sim-margin-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--w50); margin-bottom: 6px; }
-    .sim-margin-track { height: 8px; border-radius: 4px; background: var(--w08); overflow: hidden; }
-    .sim-margin-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent-2), var(--green)); transition: width .6s cubic-bezier(.4,0,.2,1); }
-    .sim-breakeven {
-      margin-top: 16px; padding: 14px 16px; border-radius: 12px;
-      background: rgba(37,99,235,.1); border: 1px solid rgba(37,99,235,.2);
-      font-size: .82rem; color: var(--w70);
-    }
-    .sim-breakeven strong { color: #93c5fd; }
     .sim-tier-btn {
-      padding: 8px 16px; border-radius: 20px; font-size: .8rem; font-weight: 600;
-      background: var(--w05); border: 1px solid var(--border-2); color: var(--w70);
+      flex: 1; padding: 8px 4px; border-radius: 9px; font-size: .75rem; font-weight: 600;
+      background: transparent; border: none; color: var(--w50);
       cursor: pointer; transition: all .2s;
     }
-    .sim-tier-btn:hover { background: var(--w08); color: var(--white); }
-    .sim-tier-btn.active { background: rgba(37,99,235,.18); border-color: rgba(37,99,235,.4); color: #93c5fd; }
-    @media (max-width: 900px) {
-      .sim-wrap { grid-template-columns: 1fr; }
-      .sim-results { position: static; }
+    .sim-tier-btn:hover { color: var(--white); }
+    .sim-tier-btn.active { background: rgba(37,99,235,.25); color: #93c5fd; }
+
+    /* Credit scroll list */
+    .sim-credit-scroll {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+      scrollbar-width: none;
     }
+    .sim-credit-scroll::-webkit-scrollbar { display: none; }
+    .sim-cr-btn {
+      flex-shrink: 0; background: var(--w05); border: 1px solid var(--border-2);
+      border-radius: 10px; padding: 10px 14px; cursor: pointer; transition: all .2s;
+      text-align: center; color: var(--white); min-width: 80px;
+    }
+    .sim-cr-btn:hover { background: var(--w08); border-color: var(--border); }
+    .sim-cr-btn.active { background: rgba(37,99,235,.2); border-color: rgba(37,99,235,.5); }
+    .sim-cr-num { font-size: .92rem; font-weight: 800; }
+    .sim-cr-eur { font-size: .68rem; color: var(--cyan); margin-top: 2px; font-weight: 600; }
+    .sim-cr-per { font-size: .6rem; color: var(--w40); }
+
+    /* Package chips */
+    .sim-pkg-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sim-pkg-btn {
+      background: var(--w05); border: 1px solid var(--border-2); border-radius: 20px;
+      padding: 8px 14px; cursor: pointer; transition: all .2s;
+      color: var(--white); font-size: .82rem; font-weight: 500; white-space: nowrap;
+    }
+    .sim-pkg-btn:hover { background: var(--w08); border-color: var(--border); }
+    .sim-pkg-btn.active { background: rgba(37,99,235,.18); border-color: rgba(37,99,235,.4); color: #93c5fd; font-weight: 600; }
+
+    /* Duration chips */
+    .sim-dur-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Price slider */
+    .sim-slider-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .sim-slider-top { display: flex; justify-content: space-between; align-items: baseline; }
+    .sim-slider-val { font-size: 2rem; font-weight: 800; color: var(--green); letter-spacing: -.04em; }
+    .sim-slider-hint { font-size: .72rem; color: var(--w40); }
+    .sim-slider {
+      width: 100%; -webkit-appearance: none; appearance: none; height: 6px;
+      border-radius: 3px; outline: none; cursor: pointer;
+      background: linear-gradient(90deg, var(--accent-2) var(--pct, 30%), var(--w15) var(--pct, 30%));
+    }
+    .sim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+      background: white; cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(37,99,235,.4), 0 2px 8px rgba(0,0,0,.4);
+    }
+    .sim-slider::-moz-range-thumb {
+      width: 22px; height: 22px; border-radius: 50%; background: white; cursor: pointer; border: none;
+      box-shadow: 0 0 0 4px rgba(37,99,235,.4), 0 2px 8px rgba(0,0,0,.4);
+    }
+
+    /* Results dashboard */
+    .sim-dashboard {
+      position: sticky; top: 76px;
+      border-radius: var(--rlg); border: 1px solid rgba(37,99,235,.3);
+      background: rgba(8,16,40,.9);
+      overflow: hidden;
+    }
+    @media (max-width: 900px) { .sim-dashboard { position: static; } }
+
+    .sim-dash-head {
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid var(--border-2);
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px;
+    }
+    .sim-dash-eyebrow { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--w40); }
+
+    /* Gauge */
+    .sim-gauge-wrap { position: relative; width: 160px; height: 160px; margin: 16px auto 8px; }
+    .sim-gauge-wrap svg { width: 100%; height: 100%; }
+    .sim-gauge-track { fill: none; stroke: rgba(255,255,255,.07); stroke-width: 12; }
+    .sim-gauge-fill  { fill: none; stroke-width: 12; stroke-linecap: round;
+      transition: stroke-dashoffset .7s cubic-bezier(.4,0,.2,1), stroke .4s; }
+    .sim-gauge-center {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .sim-gauge-pct { font-size: 1.8rem; font-weight: 800; letter-spacing: -.05em; color: var(--green); }
+    .sim-gauge-lbl { font-size: .6rem; color: var(--w40); letter-spacing: .08em; text-transform: uppercase; margin-top: -2px; }
+
+    .sim-profit-big { font-size: 2.6rem; font-weight: 800; letter-spacing: -.06em; color: var(--green); line-height: 1; }
+    .sim-profit-sub { font-size: .78rem; color: var(--w40); margin-top: 4px; }
+
+    /* KPI tiles */
+    .sim-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-2); }
+    .sim-kpi {
+      padding: 18px 20px; background: rgba(8,16,40,.95); display: flex; flex-direction: column; gap: 4px;
+    }
+    .sim-kpi-lbl { font-size: .65rem; color: var(--w40); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+    .sim-kpi-val { font-size: 1.15rem; font-weight: 800; letter-spacing: -.03em; }
+    .sim-kpi-sub { font-size: .68rem; color: var(--w40); }
+
+    /* Breakeven banner */
+    .sim-be-banner {
+      padding: 14px 24px; background: rgba(37,99,235,.1); border-top: 1px solid rgba(37,99,235,.2);
+      text-align: center; font-size: .8rem; color: var(--w70);
+    }
+    .sim-be-banner strong { color: #93c5fd; }
+
     @media (max-width: 480px) {
-      .sim-credit-grid { grid-template-columns: repeat(2, 1fr); }
-      .sim-pkg-grid { grid-template-columns: 1fr; }
+      .sim-credit-scroll { gap: 6px; }
+      .sim-pkg-chips { gap: 6px; }
     }
 
     /* ── FOOTER ── */
@@ -1157,113 +1203,139 @@
       <p class="section-sub reveal d2">Elige tu paquete de créditos, el tipo de servicio que vas a vender y el precio que le pondrás a tus clientes. Verás tu beneficio al instante.</p>
 
       <div class="sim-wrap reveal d3">
-        <!-- Controls -->
-        <div class="sim-controls">
 
-          <div class="sim-block">
-            <div class="sim-label">1 · Selecciona tu nivel</div>
-            <div style="display:flex;gap:8px;margin-bottom:14px" id="tierTabs">
-              <button class="sim-tier-btn active" data-tier="junior" onclick="selectTier(this)">Junior</button>
-              <button class="sim-tier-btn" data-tier="super" onclick="selectTier(this)">Super Reseller</button>
-              <button class="sim-tier-btn" data-tier="mega" onclick="selectTier(this)">Super Mega</button>
-            </div>
-            <div class="sim-credit-grid" id="creditGrid"></div>
-          </div>
+        <!-- Steps (left) -->
+        <div class="sim-steps">
 
-          <div class="sim-block">
-            <div class="sim-label">2 · Paquete que venderás</div>
-            <div class="sim-pkg-grid" id="pkgGrid" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px">
-              <button class="sim-pkg-btn active" data-pkg="basico" data-base-cr="3" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">📺 Básico</div>
-                <div class="sim-pkg-cr">Canales nacionales</div>
-              </button>
-              <button class="sim-pkg-btn" data-pkg="basico_vod" data-base-cr="4" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">🎬 Básico + VOD</div>
-                <div class="sim-pkg-cr">Canales + videoclubs</div>
-              </button>
-              <button class="sim-pkg-btn" data-pkg="futbol" data-base-cr="5" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">⚽ Todo el Fútbol</div>
-                <div class="sim-pkg-cr">Todos los canales fútbol</div>
-              </button>
-              <button class="sim-pkg-btn" data-pkg="dazn" data-base-cr="5" onclick="selectPkg(this)">
-                <div class="sim-pkg-name">🏎️ DAZN</div>
-                <div class="sim-pkg-cr">Motor y deportes DAZN</div>
-              </button>
+          <!-- Step 1: Nivel + créditos -->
+          <div class="sim-step">
+            <div class="sim-step-header">
+              <div class="sim-step-num">1</div>
+              <div>
+                <div class="sim-step-title">Tu nivel y paquete de créditos</div>
+                <div class="sim-step-sub">Elige cuántos créditos vas a comprar</div>
+              </div>
             </div>
-            <div class="sim-label" style="margin-top:16px">Duración del acceso</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap" id="durGrid">
-              <button class="sim-dur-btn" data-dur="1" onclick="selectDur(this)">1 Mes</button>
-              <button class="sim-dur-btn active" data-dur="3" onclick="selectDur(this)">3 Meses</button>
-              <button class="sim-dur-btn" data-dur="6" onclick="selectDur(this)">6 Meses</button>
-              <button class="sim-dur-btn" data-dur="12" onclick="selectDur(this)">12 Meses</button>
-            </div>
-            <div style="margin-top:12px;padding:10px 14px;background:var(--w05);border-radius:10px;font-size:.82rem;color:var(--w50)">
-              Coste: <strong id="pkg-cr-display" style="color:var(--cyan)">3,5 créditos</strong> por acceso
+            <div class="sim-step-body">
+              <div class="sim-tier-seg" id="tierTabs">
+                <button class="sim-tier-btn active" data-tier="junior" onclick="selectTier(this)">🟢 Junior</button>
+                <button class="sim-tier-btn" data-tier="super" onclick="selectTier(this)">🔵 Super</button>
+                <button class="sim-tier-btn" data-tier="mega" onclick="selectTier(this)">🔷 Mega</button>
+              </div>
+              <div class="sim-credit-scroll" id="creditGrid"></div>
             </div>
           </div>
 
-          <div class="sim-block">
-            <div class="sim-label">3 · Precio que cobrarás a tu cliente</div>
-            <div class="sim-slider-row">
-              <input type="range" class="sim-slider" id="priceSlider" min="20" max="200" value="80" oninput="updateSim()">
-              <div class="sim-price-val" id="priceDisplay">€80</div>
+          <!-- Step 2: Paquete + duración -->
+          <div class="sim-step">
+            <div class="sim-step-header">
+              <div class="sim-step-num">2</div>
+              <div>
+                <div class="sim-step-title">Qué vas a vender</div>
+                <div class="sim-step-sub">Paquete y duración del acceso</div>
+              </div>
+            </div>
+            <div class="sim-step-body">
+              <div class="sim-label" style="margin-bottom:10px">Paquete</div>
+              <div class="sim-pkg-chips" style="margin-bottom:18px">
+                <button class="sim-pkg-btn active" data-pkg="basico"     data-base-cr="3" onclick="selectPkg(this)">📺 Básico</button>
+                <button class="sim-pkg-btn"        data-pkg="basico_vod" data-base-cr="4" onclick="selectPkg(this)">🎬 Básico + VOD</button>
+                <button class="sim-pkg-btn"        data-pkg="futbol"     data-base-cr="5" onclick="selectPkg(this)">⚽ Fútbol</button>
+                <button class="sim-pkg-btn"        data-pkg="dazn"       data-base-cr="5" onclick="selectPkg(this)">🏎️ DAZN</button>
+              </div>
+              <div class="sim-label" style="margin-bottom:10px">Duración</div>
+              <div class="sim-dur-chips">
+                <button class="sim-dur-btn" data-dur="1"  onclick="selectDur(this)">1 mes</button>
+                <button class="sim-dur-btn active" data-dur="3"  onclick="selectDur(this)">3 meses</button>
+                <button class="sim-dur-btn" data-dur="6"  onclick="selectDur(this)">6 meses</button>
+                <button class="sim-dur-btn" data-dur="12" onclick="selectDur(this)">12 meses</button>
+              </div>
+              <div style="margin-top:14px;padding:10px 14px;background:var(--w05);border-radius:10px;font-size:.8rem;color:var(--w50)">
+                Coste: <strong id="pkg-cr-display" style="color:var(--cyan)">9 créditos</strong> por acceso
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Precio -->
+          <div class="sim-step">
+            <div class="sim-step-header">
+              <div class="sim-step-num">3</div>
+              <div>
+                <div class="sim-step-title">Tu precio de venta</div>
+                <div class="sim-step-sub">Lo que cobrarás a cada cliente</div>
+              </div>
+            </div>
+            <div class="sim-step-body">
+              <div class="sim-slider-wrap">
+                <div class="sim-slider-top">
+                  <div class="sim-slider-val" id="priceDisplay">€80</div>
+                  <div class="sim-slider-hint">min €20 · max €200</div>
+                </div>
+                <input type="range" class="sim-slider" id="priceSlider" min="20" max="200" value="80" oninput="updateSim()">
+              </div>
             </div>
           </div>
 
         </div>
 
-        <!-- Results -->
-        <div class="sim-results">
-          <div class="sim-results-title">Tu beneficio estimado</div>
+        <!-- Dashboard (right) -->
+        <div class="sim-dashboard">
 
-          <div class="sim-result-row">
-            <span class="lbl">Créditos comprados</span>
-            <span class="val" id="r-credits">500</span>
-          </div>
-          <div class="sim-result-row">
-            <span class="lbl">Inversión total</span>
-            <span class="val" id="r-investment">€600</span>
-          </div>
-          <div class="sim-result-row">
-            <span class="lbl">Coste por crédito</span>
-            <span class="val" id="r-per-credit">€1,20</span>
-          </div>
-          <div class="sim-result-row">
-            <span class="lbl">Créditos por acceso</span>
-            <span class="val" id="r-cr-per-sale">15</span>
-          </div>
-          <div class="sim-result-row">
-            <span class="lbl">Tu coste por acceso</span>
-            <span class="val" id="r-cost-sale" style="color:#f87171">€18,00</span>
-          </div>
-          <div class="sim-result-row">
-            <span class="lbl">Precio de venta</span>
-            <span class="val" id="r-sell-price" style="color:var(--green)">€80</span>
-          </div>
-          <div class="sim-result-row">
-            <span class="lbl">Accesos totales generables</span>
-            <span class="val" id="r-total-sales">33</span>
-          </div>
-
-          <div class="sim-total">
-            <div class="sim-total-lbl">Beneficio neto total estimado</div>
-            <div class="sim-total-val" id="r-total-profit">€2.046</div>
-            <div class="sim-total-sub" id="r-profit-sale">€62,00 por acceso vendido</div>
-          </div>
-
-          <div class="sim-margin-bar">
-            <div class="sim-margin-label">
-              <span>Margen de beneficio</span>
-              <span id="r-margin-pct" style="color:var(--green);font-weight:600">77,5%</span>
+          <div class="sim-dash-head">
+            <div class="sim-dash-eyebrow">Margen de beneficio</div>
+            <!-- Gauge -->
+            <div class="sim-gauge-wrap">
+              <svg viewBox="0 0 160 160">
+                <circle class="sim-gauge-track" cx="80" cy="80" r="64"/>
+                <circle class="sim-gauge-fill" id="gaugeArc" cx="80" cy="80" r="64"
+                  stroke="url(#gaugeGrad)"
+                  stroke-dasharray="402.12"
+                  stroke-dashoffset="402.12"
+                  transform="rotate(-90 80 80)"/>
+                <defs>
+                  <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#2563eb"/>
+                    <stop offset="100%" stop-color="#4ade80"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="sim-gauge-center">
+                <div class="sim-gauge-pct" id="r-margin-pct">0%</div>
+                <div class="sim-gauge-lbl">margen</div>
+              </div>
             </div>
-            <div class="sim-margin-track">
-              <div class="sim-margin-fill" id="r-margin-bar" style="width:77.5%"></div>
+            <div class="sim-profit-big" id="r-total-profit">€0</div>
+            <div class="sim-profit-sub" id="r-profit-sale">beneficio total estimado</div>
+          </div>
+
+          <!-- KPI grid -->
+          <div class="sim-kpis">
+            <div class="sim-kpi">
+              <div class="sim-kpi-lbl">Inversión</div>
+              <div class="sim-kpi-val" id="r-investment">€0</div>
+              <div class="sim-kpi-sub" id="r-credits">— cr</div>
+            </div>
+            <div class="sim-kpi">
+              <div class="sim-kpi-lbl">Coste / acceso</div>
+              <div class="sim-kpi-val" id="r-cost-sale" style="color:#f87171">€0</div>
+              <div class="sim-kpi-sub" id="r-cr-per-sale">— cr</div>
+            </div>
+            <div class="sim-kpi">
+              <div class="sim-kpi-lbl">Precio de venta</div>
+              <div class="sim-kpi-val" id="r-sell-price" style="color:var(--green)">€0</div>
+              <div class="sim-kpi-sub" id="r-per-credit">— / cr</div>
+            </div>
+            <div class="sim-kpi">
+              <div class="sim-kpi-lbl">Accesos generables</div>
+              <div class="sim-kpi-val" id="r-total-sales">0</div>
+              <div class="sim-kpi-sub">con tu paquete</div>
             </div>
           </div>
 
-          <div class="sim-breakeven" id="r-breakeven">
-            Necesitas vender <strong id="r-be-num">10</strong> accesos para recuperar tu inversión.
+          <div class="sim-be-banner">
+            Recuperas tu inversión con <strong id="r-be-num">—</strong> ventas
           </div>
+
         </div>
       </div>
     </div>
@@ -1446,40 +1518,58 @@
       updateSim();
     }
 
+    // Gauge constants: circumference of r=64 circle
+    const CIRC = 2 * Math.PI * 64; // ~402.12
+
     function updateSim() {
       const slider = document.getElementById('priceSlider');
       simState.sellPrice = parseInt(slider.value);
+
+      // Update slider gradient fill
+      const pct = ((simState.sellPrice - 20) / (200 - 20)) * 100;
+      slider.style.setProperty('--pct', pct + '%');
       document.getElementById('priceDisplay').textContent = '€' + simState.sellPrice;
 
-      const perCredit    = simState.cost / simState.credits;
-      const costPerSale  = perCredit * simState.pkgCr;
-      const profitPerSale= simState.sellPrice - costPerSale;
-      const totalSales   = Math.floor(simState.credits / simState.pkgCr);
-      const totalProfit  = profitPerSale * totalSales;
-      const margin       = simState.sellPrice > 0 ? (profitPerSale / simState.sellPrice) * 100 : 0;
-      const breakeven    = profitPerSale > 0 ? Math.ceil(simState.cost / profitPerSale) : '∞';
+      const perCredit     = simState.cost / simState.credits;
+      const costPerSale   = perCredit * simState.pkgCr;
+      const profitPerSale = simState.sellPrice - costPerSale;
+      const totalSales    = Math.floor(simState.credits / simState.pkgCr);
+      const totalProfit   = profitPerSale * totalSales;
+      const margin        = simState.sellPrice > 0 ? Math.max(0, (profitPerSale / simState.sellPrice) * 100) : 0;
+      const breakeven     = profitPerSale > 0 ? Math.ceil(simState.cost / profitPerSale) : '∞';
 
+      // pkg-cr-display
       document.getElementById('pkg-cr-display').textContent = simState.pkgCr + ' créditos';
-      document.getElementById('r-credits').textContent    = fmtInt(simState.credits) + ' cr';
-      document.getElementById('r-investment').textContent = '€' + fmtInt(simState.cost);
-      document.getElementById('r-per-credit').textContent = '€' + fmt(perCredit);
-      document.getElementById('r-cr-per-sale').textContent= simState.pkgCr + ' cr';
-      document.getElementById('r-cost-sale').textContent  = '€' + fmt(costPerSale);
-      document.getElementById('r-sell-price').textContent = '€' + simState.sellPrice;
-      document.getElementById('r-total-sales').textContent= fmtInt(totalSales);
-      document.getElementById('r-total-profit').textContent = '€' + fmtInt(totalProfit);
-      document.getElementById('r-profit-sale').textContent  = '€' + fmt(profitPerSale) + ' por acceso vendido';
-      document.getElementById('r-margin-pct').textContent   = fmt(margin) + '%';
-      document.getElementById('r-margin-bar').style.width   = Math.max(0, Math.min(100, margin)) + '%';
-      document.getElementById('r-margin-bar').style.background =
-        margin >= 60 ? 'linear-gradient(90deg,var(--accent-2),var(--green))' :
-        margin >= 30 ? 'linear-gradient(90deg,var(--accent-2),#facc15)' :
-        'linear-gradient(90deg,#f87171,#facc15)';
+
+      // Gauge arc
+      const arc = document.getElementById('gaugeArc');
+      const offset = CIRC - (CIRC * Math.min(margin, 100) / 100);
+      arc.style.strokeDashoffset = offset;
+      const gaugeColor = margin >= 60 ? '#4ade80' : margin >= 30 ? '#facc15' : '#f87171';
+      arc.style.stroke = gaugeColor;
+
+      // Margin % & color
+      const marginEl = document.getElementById('r-margin-pct');
+      marginEl.textContent = fmt(margin) + '%';
+      marginEl.style.color = gaugeColor;
+
+      // Profit big number
+      const profitEl = document.getElementById('r-total-profit');
+      profitEl.textContent = '€' + fmtInt(totalProfit);
+      profitEl.style.color = totalProfit > 0 ? 'var(--green)' : '#f87171';
+      document.getElementById('r-profit-sale').textContent = '€' + fmt(profitPerSale) + ' por acceso vendido';
+
+      // KPIs
+      document.getElementById('r-investment').textContent  = '€' + fmtInt(simState.cost);
+      document.getElementById('r-credits').textContent     = fmtInt(simState.credits) + ' créditos';
+      document.getElementById('r-cost-sale').textContent   = '€' + fmt(costPerSale);
+      document.getElementById('r-cr-per-sale').textContent = simState.pkgCr + ' cr / acceso';
+      document.getElementById('r-sell-price').textContent  = '€' + simState.sellPrice;
+      document.getElementById('r-per-credit').textContent  = '€' + fmt(perCredit) + ' / cr';
+      document.getElementById('r-total-sales').textContent = fmtInt(totalSales);
+
+      // Breakeven
       document.getElementById('r-be-num').textContent = breakeven;
-      document.getElementById('r-cost-sale').style.color = '#f87171';
-      document.getElementById('r-sell-price').style.color = 'var(--green)';
-      document.getElementById('r-total-profit').style.color =
-        totalProfit > 0 ? 'var(--green)' : '#f87171';
     }
 
     // Init simulator
