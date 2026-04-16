@@ -547,7 +547,7 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .hero { padding: 80px 0 60px; }
-.stat-value { font-size: 1.25rem; }
+      .stat-value { font-size: 1.25rem; }
       .stat-label { font-size: .65rem; }
       .cta-banner { padding: 52px 24px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -557,6 +557,11 @@
       .devices-grid { gap: 8px; }
       .social-proof { right: 82px; left: auto; max-width: 230px; bottom: 20px; padding: 10px 12px; }
       .whatsapp-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+      #cursor-glow { display: none; }
+      .bg-orbs { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
 
     /* ─────────────────────────────────────────────── */
@@ -1508,12 +1513,14 @@
       progress.style.width = pct + '%';
     }, { passive: true });
 
-    // 2 · Cursor glow
+    // 2 · Cursor glow (desktop only)
     const glow = document.getElementById('cursor-glow');
-    document.addEventListener('mousemove', e => {
-      glow.style.left = e.clientX + 'px';
-      glow.style.top  = e.clientY + 'px';
-    }, { passive: true });
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.addEventListener('mousemove', e => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top  = e.clientY + 'px';
+      }, { passive: true });
+    }
 
     // 3 · Hamburger / Mobile menu
     const ham = document.getElementById('ham');
