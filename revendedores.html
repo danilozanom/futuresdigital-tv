@@ -453,11 +453,24 @@
     .sim-tier-btn.active { background: rgba(37,99,235,.25); color: #93c5fd; }
 
     /* Credit scroll list */
+    .sim-credit-row { position: relative; }
     .sim-credit-scroll {
       display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
-      scrollbar-width: none;
+      scrollbar-width: none; scroll-behavior: smooth;
     }
     .sim-credit-scroll::-webkit-scrollbar { display: none; }
+    .sim-scroll-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(37,99,235,.25); border: 1px solid rgba(37,99,235,.4);
+      color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; transition: background .2s, opacity .2s; z-index: 2;
+      padding: 0; line-height: 1;
+    }
+    .sim-scroll-arrow:hover { background: rgba(37,99,235,.5); }
+    .sim-scroll-arrow.hidden { opacity: 0; pointer-events: none; }
+    .sim-scroll-arrow.left  { left: -14px; }
+    .sim-scroll-arrow.right { right: -14px; }
     .sim-cr-btn {
       flex-shrink: 0; background: var(--w05); border: 1px solid var(--border-2);
       border-radius: 10px; padding: 10px 14px; cursor: pointer; transition: all .2s;
@@ -1222,7 +1235,11 @@
                 <button class="sim-tier-btn" data-tier="super" onclick="selectTier(this)">🔵 Super</button>
                 <button class="sim-tier-btn" data-tier="mega" onclick="selectTier(this)">🔷 Mega</button>
               </div>
-              <div class="sim-credit-scroll" id="creditGrid"></div>
+              <div class="sim-credit-row">
+                <button class="sim-scroll-arrow left hidden" id="scrollLeft" onclick="scrollCredits(-1)">&#8249;</button>
+                <div class="sim-credit-scroll" id="creditGrid"></div>
+                <button class="sim-scroll-arrow right" id="scrollRight" onclick="scrollCredits(1)">&#8250;</button>
+              </div>
             </div>
           </div>
 
@@ -1486,6 +1503,7 @@
       simState.credits = first.credits;
       simState.cost    = first.cost;
       updateSim();
+      requestAnimationFrame(updateArrows);
     }
 
     function selectTier(btn) {
@@ -1571,6 +1589,18 @@
       // Breakeven
       document.getElementById('r-be-num').textContent = breakeven;
     }
+
+    // Credit scroll arrows
+    function scrollCredits(dir) {
+      const grid = document.getElementById('creditGrid');
+      grid.scrollBy({ left: dir * 180, behavior: 'smooth' });
+    }
+    function updateArrows() {
+      const grid = document.getElementById('creditGrid');
+      document.getElementById('scrollLeft').classList.toggle('hidden', grid.scrollLeft <= 4);
+      document.getElementById('scrollRight').classList.toggle('hidden', grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4);
+    }
+    document.getElementById('creditGrid').addEventListener('scroll', updateArrows, { passive: true });
 
     // Init simulator
     renderCreditGrid('junior');
