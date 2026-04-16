@@ -331,47 +331,80 @@
     .cta-inner p { color: var(--w50); font-size: 1rem; margin-bottom: 36px; position: relative; }
     .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
 
-    /* ── PRICING TABLE ── */
+    /* ── PRICING CARDS ── */
     .pricing-table-section { padding: 100px 0; }
-    .price-table {
-      width: 100%; border-collapse: collapse; margin-top: 56px;
-      background: var(--w03); border-radius: var(--rlg); overflow: hidden;
-      border: 1px solid var(--border-2);
+
+    .tier-tabs {
+      display: flex; gap: 8px; margin: 48px 0 32px; flex-wrap: wrap;
     }
-    .price-table th {
-      padding: 16px 20px; font-size: .72rem; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--w40); text-align: left;
-      border-bottom: 1px solid var(--border-2); background: rgba(0,0,0,.2);
+    .tier-tab {
+      padding: 10px 24px; border-radius: 50px; font-size: .85rem; font-weight: 600;
+      border: 1px solid var(--border-2); background: var(--w05); color: var(--w70);
+      cursor: pointer; transition: all .2s;
     }
-    .price-table th:last-child { text-align: right; }
-    .price-table td {
-      padding: 18px 20px; font-size: .9rem; border-bottom: 1px solid var(--border-2);
-      vertical-align: middle;
+    .tier-tab:hover { background: var(--w08); color: var(--white); }
+    .tier-tab.active.junior-tab  { background: rgba(74,222,128,.12); border-color: rgba(74,222,128,.35); color: #4ade80; }
+    .tier-tab.active.super-tab   { background: rgba(37,99,235,.16); border-color: rgba(37,99,235,.4); color: #93c5fd; }
+    .tier-tab.active.mega-tab    { background: rgba(34,211,238,.1); border-color: rgba(34,211,238,.35); color: var(--cyan); }
+
+    .tier-panel { display: none; }
+    .tier-panel.active { display: block; }
+
+    .credit-cards-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
     }
-    .price-table tr:last-child td { border-bottom: none; }
-    .price-table tr:hover td { background: var(--w05); }
-    .price-table td:last-child { text-align: right; }
-    .pt-level { display: inline-flex; align-items: center; gap: 8px; }
-    .pt-badge {
-      font-size: .65rem; font-weight: 700; padding: 3px 8px; border-radius: 10px;
-      letter-spacing: .06em; text-transform: uppercase;
+    @media (max-width: 1024px) { .credit-cards-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px)  { .credit-cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 400px)  { .credit-cards-grid { grid-template-columns: 1fr; } }
+
+    .cr-card {
+      border-radius: var(--r); border: 1px solid var(--border-2);
+      background: var(--w03); padding: 20px 18px;
+      display: flex; flex-direction: column; gap: 14px;
+      position: relative; overflow: hidden;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
     }
-    .pt-badge.junior  { background: rgba(74,222,128,.15);  color: #4ade80; border: 1px solid rgba(74,222,128,.3); }
-    .pt-badge.super   { background: rgba(37,99,235,.18);   color: #93c5fd; border: 1px solid rgba(37,99,235,.35); }
-    .pt-badge.mega    { background: rgba(34,211,238,.12);  color: var(--cyan); border: 1px solid rgba(34,211,238,.3); }
-    .pt-badge.popular { background: linear-gradient(135deg,var(--accent-2),#1d4ed8); color: white; border: none; }
-    .pt-price { font-size: 1.1rem; font-weight: 700; }
-    .pt-per { font-size: .75rem; color: var(--w40); margin-top: 2px; }
-    .pt-saving { color: var(--green); font-size: .78rem; font-weight: 600; }
-    .pt-saving-zero { color: var(--w40); font-size: .78rem; }
-    .pt-tier-row td {
-      padding: 10px 20px; background: rgba(37,99,235,.07);
-      border-bottom: 1px solid var(--border-2);
+    .cr-card:hover { transform: translateY(-3px); border-color: var(--border); box-shadow: 0 8px 28px rgba(0,0,0,.3); }
+    .cr-card.popular {
+      border-color: rgba(37,99,235,.45);
+      background: rgba(37,99,235,.07);
     }
-    .pt-tier-row:hover td { background: rgba(37,99,235,.07); }
-    @media (max-width: 640px) {
-      .price-table th:nth-child(4), .price-table td:nth-child(4) { display: none; }
-      .price-table th:last-child, .price-table td:last-child { display: none; }
+    .cr-card.popular::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(145deg, rgba(37,99,235,.1), transparent 60%);
+      pointer-events: none;
+    }
+
+    .cr-popular-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      color: white; font-size: .6rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 20px;
+    }
+
+    .cr-credits {
+      font-size: 2rem; font-weight: 800; letter-spacing: -.05em; line-height: 1;
+    }
+    .cr-credits span { font-size: .75rem; font-weight: 500; color: var(--w40); letter-spacing: 0; margin-left: 2px; }
+
+    .cr-price-row { display: flex; align-items: baseline; gap: 8px; }
+    .cr-price { font-size: 1.25rem; font-weight: 700; }
+    .cr-per-credit {
+      font-size: .75rem; color: var(--w50);
+    }
+
+    .cr-value-bar { display: flex; flex-direction: column; gap: 5px; }
+    .cr-value-label { display: flex; justify-content: space-between; font-size: .68rem; color: var(--w40); }
+    .cr-bar-track { height: 5px; border-radius: 3px; background: var(--w08); overflow: hidden; }
+    .cr-bar-fill  { height: 100%; border-radius: 3px; transition: width 1s cubic-bezier(.4,0,.2,1); }
+
+    .cr-days {
+      font-size: .75rem; color: var(--w40);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .cr-days::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
     }
 
     /* ── SIMULATOR ── */
@@ -943,135 +976,174 @@
 
   <div class="divider"></div>
 
-  <!-- TABLA DE PRECIOS -->
+  <!-- PAQUETES DE CRÉDITOS -->
   <section class="pricing-table-section" id="precios">
     <div class="container">
-      <div class="section-label reveal">Tabla de precios</div>
+      <div class="section-label reveal">Paquetes de créditos</div>
       <h2 class="section-title reveal d1">Paquetes de <span>créditos disponibles</span></h2>
       <p class="section-sub reveal d2">Cuantos más créditos compres de una vez, menor es tu coste por crédito y mayor tu margen de beneficio.</p>
-      <table class="price-table reveal d3">
-        <thead>
-          <tr>
-            <th>Créditos</th>
-            <th>Precio (€)</th>
-            <th>Por crédito</th>
-            <th>Sin obligación de recarga</th>
-            <th>Nivel</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="pt-tier-row"><td colspan="5"><span class="pt-badge junior">Junior Reseller</span></td></tr>
-          <tr>
-            <td><strong>25</strong></td>
-            <td><div class="pt-price">€60</div></td>
-            <td><div class="pt-per">€2,40</div></td>
-            <td>30 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
-          <tr>
-            <td><strong>50</strong></td>
-            <td><div class="pt-price">€115</div></td>
-            <td><div class="pt-per">€2,30</div></td>
-            <td>30 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
-          <tr>
-            <td><strong>100</strong></td>
-            <td><div class="pt-price">€220</div></td>
-            <td><div class="pt-per">€2,20</div></td>
-            <td>45 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
-          <tr>
-            <td><strong>200</strong></td>
-            <td><div class="pt-price">€400</div></td>
-            <td><div class="pt-per">€2,00</div></td>
-            <td>90 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
-          <tr>
-            <td><strong>300</strong></td>
-            <td><div class="pt-price">€540</div></td>
-            <td><div class="pt-per">€1,80</div></td>
-            <td>120 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
-          <tr>
-            <td><strong>500</strong></td>
-            <td><div class="pt-price">€750</div></td>
-            <td><div class="pt-per">€1,50</div></td>
-            <td>180 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
-          <tr>
-            <td><strong>800</strong></td>
-            <td><div class="pt-price">€1.050</div></td>
-            <td><div class="pt-per">€1,30</div></td>
-            <td>240 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
-          <tr>
-            <td><strong>1000</strong></td>
-            <td><div class="pt-price">€1.200</div></td>
-            <td><div class="pt-per">€1,20</div></td>
-            <td>300 días</td>
-            <td><span class="pt-badge junior">Junior</span></td>
-          </tr>
 
-          <tr class="pt-tier-row"><td colspan="5"><span class="pt-badge super">Super Reseller</span></td></tr>
-          <tr>
-            <td><strong>300</strong></td>
-            <td><div class="pt-price">€480</div></td>
-            <td><div class="pt-per">€1,60</div></td>
-            <td>60 días</td>
-            <td><span class="pt-badge super">Super</span></td>
-          </tr>
-          <tr>
-            <td><strong>500</strong></td>
-            <td><div class="pt-price">€650</div></td>
-            <td><div class="pt-per">€1,30</div></td>
-            <td>120 días</td>
-            <td><span class="pt-badge super">Super</span></td>
-          </tr>
-          <tr>
-            <td><strong>800</strong></td>
-            <td><div class="pt-price">€900</div></td>
-            <td><div class="pt-per">€1,12</div></td>
-            <td>180 días</td>
-            <td><span class="pt-badge super">Super</span></td>
-          </tr>
-          <tr>
-            <td><strong>1000</strong> <span class="pt-badge popular" style="margin-left:6px">Popular</span></td>
-            <td><div class="pt-price">€1.000</div></td>
-            <td><div class="pt-per">€1,00</div></td>
-            <td>240 días</td>
-            <td><span class="pt-badge super">Super</span></td>
-          </tr>
+      <!-- Tabs -->
+      <div class="tier-tabs reveal d3">
+        <button class="tier-tab junior-tab active" onclick="switchTierTab('junior', this)">🟢 Junior Reseller</button>
+        <button class="tier-tab super-tab"  onclick="switchTierTab('super', this)">🔵 Super Reseller</button>
+        <button class="tier-tab mega-tab"   onclick="switchTierTab('mega', this)">🔷 Super Mega</button>
+      </div>
 
-          <tr class="pt-tier-row"><td colspan="5"><span class="pt-badge mega">Super Mega Reseller</span></td></tr>
-          <tr>
-            <td><strong>1500</strong></td>
-            <td><div class="pt-price">€1.350</div></td>
-            <td><div class="pt-per">€0,90</div></td>
-            <td>120 días</td>
-            <td><span class="pt-badge mega">Mega</span></td>
-          </tr>
-          <tr>
-            <td><strong>2000</strong></td>
-            <td><div class="pt-price">€1.600</div></td>
-            <td><div class="pt-per">€0,80</div></td>
-            <td>200 días</td>
-            <td><span class="pt-badge mega">Mega</span></td>
-          </tr>
-          <tr>
-            <td><strong>5000</strong></td>
-            <td><div class="pt-price">€3.000</div></td>
-            <td><div class="pt-per">€0,60</div></td>
-            <td>500 días</td>
-            <td><span class="pt-badge mega">Mega</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Junior -->
+      <div class="tier-panel active" id="tab-junior">
+        <div class="credit-cards-grid">
+          <div class="cr-card reveal">
+            <div class="cr-credits">25<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€60</span><span class="cr-per-credit">€2,40 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€2,40/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="15"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 30 días</div>
+          </div>
+          <div class="cr-card reveal d1">
+            <div class="cr-credits">50<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€115</span><span class="cr-per-credit">€2,30 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€2,30/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="23"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 30 días</div>
+          </div>
+          <div class="cr-card reveal d2">
+            <div class="cr-credits">100<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€220</span><span class="cr-per-credit">€2,20 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€2,20/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="33"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 45 días</div>
+          </div>
+          <div class="cr-card reveal d3">
+            <div class="cr-credits">200<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€400</span><span class="cr-per-credit">€2,00 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€2,00/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="50"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 90 días</div>
+          </div>
+          <div class="cr-card reveal d1">
+            <div class="cr-credits">300<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€540</span><span class="cr-per-credit">€1,80 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,80/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="58"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 120 días</div>
+          </div>
+          <div class="cr-card reveal d2">
+            <div class="cr-credits">500<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€750</span><span class="cr-per-credit">€1,50 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,50/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="70"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 180 días</div>
+          </div>
+          <div class="cr-card reveal d3">
+            <div class="cr-credits">800<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€1.050</span><span class="cr-per-credit">€1,30 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,30/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="83"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 240 días</div>
+          </div>
+          <div class="cr-card reveal d4">
+            <div class="cr-credits">1000<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€1.200</span><span class="cr-per-credit">€1,20 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,20/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#4ade80,#22d3ee)" data-w="92"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 300 días</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Super Reseller -->
+      <div class="tier-panel" id="tab-super">
+        <div class="credit-cards-grid">
+          <div class="cr-card reveal">
+            <div class="cr-credits">300<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€480</span><span class="cr-per-credit">€1,60 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,60/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#60a5fa,#22d3ee)" data-w="25"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 60 días</div>
+          </div>
+          <div class="cr-card reveal d1">
+            <div class="cr-credits">500<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€650</span><span class="cr-per-credit">€1,30 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,30/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#60a5fa,#22d3ee)" data-w="50"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 120 días</div>
+          </div>
+          <div class="cr-card reveal d2">
+            <div class="cr-credits">800<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€900</span><span class="cr-per-credit">€1,12 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,12/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#60a5fa,#22d3ee)" data-w="72"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 180 días</div>
+          </div>
+          <div class="cr-card popular reveal d3">
+            <div class="cr-popular-badge">Popular</div>
+            <div class="cr-credits">1000<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€1.000</span><span class="cr-per-credit">€1,00 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€1,00/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#60a5fa,#22d3ee)" data-w="100"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 240 días</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Super Mega -->
+      <div class="tier-panel" id="tab-mega">
+        <div class="credit-cards-grid" style="grid-template-columns:repeat(3,1fr)">
+          <div class="cr-card reveal">
+            <div class="cr-credits">1500<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€1.350</span><span class="cr-per-credit">€0,90 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€0,90/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#22d3ee,#4ade80)" data-w="50"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 120 días</div>
+          </div>
+          <div class="cr-card reveal d1">
+            <div class="cr-credits">2000<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€1.600</span><span class="cr-per-credit">€0,80 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€0,80/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#22d3ee,#4ade80)" data-w="75"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 200 días</div>
+          </div>
+          <div class="cr-card reveal d2">
+            <div class="cr-credits">5000<span>cr</span></div>
+            <div class="cr-price-row"><span class="cr-price">€3.000</span><span class="cr-per-credit">€0,60 / cr</span></div>
+            <div class="cr-value-bar">
+              <div class="cr-value-label"><span>Valor</span><span>€0,60/cr</span></div>
+              <div class="cr-bar-track"><div class="cr-bar-fill" style="width:0%;background:linear-gradient(90deg,#22d3ee,#4ade80)" data-w="100"></div></div>
+            </div>
+            <div class="cr-days">Sin recarga: 500 días</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1413,6 +1485,36 @@
     // Init simulator
     renderCreditGrid('junior');
     document.getElementById('priceSlider').addEventListener('input', updateSim);
+
+    // ── TIER TABS ──
+    function switchTierTab(tier, btn) {
+      document.querySelectorAll('.tier-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tier-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + tier).classList.add('active');
+      animateBars(document.getElementById('tab-' + tier));
+    }
+
+    // Animate value bars on visibility
+    function animateBars(panel) {
+      panel.querySelectorAll('.cr-bar-fill').forEach(bar => {
+        const target = bar.dataset.w + '%';
+        bar.style.width = '0%';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { bar.style.width = target; });
+        });
+      });
+    }
+
+    // Animate bars on scroll (initial tab)
+    const pricingObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        animateBars(document.getElementById('tab-junior'));
+        pricingObs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    const pricingSection = document.getElementById('precios');
+    if (pricingSection) pricingObs.observe(pricingSection);
   </script>
 
 </body>
