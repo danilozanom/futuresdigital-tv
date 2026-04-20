@@ -541,7 +541,7 @@
       position: absolute; inset: 0; display: flex; flex-direction: column;
       align-items: center; justify-content: center;
     }
-    .sim-gauge-pct { font-size: 1.9rem; font-weight: 800; letter-spacing: -.05em; color: var(--green); }
+    .sim-gauge-pct { font-size: 1.35rem; font-weight: 800; letter-spacing: -.04em; color: var(--green); }
     .sim-gauge-lbl { font-size: .6rem; color: var(--w40); letter-spacing: .08em; text-transform: uppercase; margin-top: -2px; }
 
     .sim-profit-big { font-size: 2.6rem; font-weight: 800; letter-spacing: -.06em; color: var(--green); line-height: 1; }
@@ -1255,10 +1255,13 @@
             <div class="sim-step-body">
               <div class="sim-label" style="margin-bottom:10px">Paquete</div>
               <div class="sim-pkg-chips" style="margin-bottom:18px">
-                <button class="sim-pkg-btn active" data-pkg="basico"     data-base-cr="3" onclick="selectPkg(this)">📺 Básico</button>
-                <button class="sim-pkg-btn"        data-pkg="basico_vod" data-base-cr="4" onclick="selectPkg(this)">🎬 Básico + VOD</button>
-                <button class="sim-pkg-btn"        data-pkg="futbol"     data-base-cr="5" onclick="selectPkg(this)">⚽ Fútbol</button>
-                <button class="sim-pkg-btn"        data-pkg="dazn"       data-base-cr="5" onclick="selectPkg(this)">🏎️ DAZN</button>
+                <button class="sim-pkg-btn active" data-pkg="basico"       onclick="selectPkg(this)">📺 Básico</button>
+                <button class="sim-pkg-btn"        data-pkg="basico_vod"   onclick="selectPkg(this)">📺🎬 Básico + VOD</button>
+                <button class="sim-pkg-btn"        data-pkg="premium"      onclick="selectPkg(this)">⭐ Premium</button>
+                <button class="sim-pkg-btn"        data-pkg="premium_vod"  onclick="selectPkg(this)">⭐🎬 Premium + VOD</button>
+                <button class="sim-pkg-btn"        data-pkg="dazn"         onclick="selectPkg(this)">🏎️ DAZN</button>
+                <button class="sim-pkg-btn"        data-pkg="futbol"       onclick="selectPkg(this)">⚽ Todo el Fútbol</button>
+                <button class="sim-pkg-btn"        data-pkg="videoclub"    onclick="selectPkg(this)">🎬 Videoclub</button>
               </div>
               <div class="sim-label" style="margin-bottom:10px">Duración</div>
               <div class="sim-dur-chips">
@@ -1483,7 +1486,18 @@
       ]
     };
 
-    let simState = { credits: 500, cost: 750, baseCr: 3, dur: 3, pkgCr: 9, sellPrice: 80 };
+    // Credits per package per duration (official values)
+    const PKG_CREDITS = {
+      basico:      { 1: 1.5, 3: 3.5, 6: 7,  12: 14 },
+      basico_vod:  { 1: 2.5, 3: 4.5, 6: 9,  12: 18 },
+      premium:     { 1: 2.5, 3: 4.5, 6: 9,  12: 18 },
+      premium_vod: { 1: 3,   3: 5.5, 6: 10, 12: 20 },
+      dazn:        { 1: 0.5, 3: 2,   6: 4,  12: 8  },
+      futbol:      { 1: 1,   3: 3,   6: 6,  12: 12 },
+      videoclub:   { 1: 1,   3: 3,   6: 6,  12: 12 },
+    };
+
+    let simState = { credits: 500, cost: 750, pkg: 'basico', dur: 3, pkgCr: 3.5, sellPrice: 80 };
 
     function fmt(n) { return n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
     function fmtInt(n) { return Math.floor(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
@@ -1523,8 +1537,8 @@
     function selectPkg(btn) {
       document.querySelectorAll('.sim-pkg-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      simState.baseCr = parseInt(btn.dataset.baseCr);
-      simState.pkgCr  = simState.baseCr * simState.dur;
+      simState.pkg   = btn.dataset.pkg;
+      simState.pkgCr = PKG_CREDITS[simState.pkg][simState.dur];
       updateSim();
     }
 
@@ -1532,7 +1546,7 @@
       document.querySelectorAll('.sim-dur-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       simState.dur   = parseInt(btn.dataset.dur);
-      simState.pkgCr = simState.baseCr * simState.dur;
+      simState.pkgCr = PKG_CREDITS[simState.pkg][simState.dur];
       updateSim();
     }
 
@@ -1557,7 +1571,7 @@
       const breakeven     = profitPerSale > 0 ? Math.ceil(simState.cost / profitPerSale) : '∞';
 
       // pkg-cr-display
-      document.getElementById('pkg-cr-display').textContent = simState.pkgCr + ' créditos';
+      document.getElementById('pkg-cr-display').textContent = fmt(simState.pkgCr) + ' créditos';
 
       // Gauge arc
       const arc = document.getElementById('gaugeArc');
