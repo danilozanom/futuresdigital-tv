@@ -617,7 +617,8 @@
     .sim-gauge-lbl { font-size: .6rem; color: var(--w40); letter-spacing: .08em; text-transform: uppercase; margin-top: -2px; }
 
     .sim-profit-big { font-size: 2.6rem; font-weight: 800; letter-spacing: -.06em; color: var(--green); line-height: 1; }
-    .sim-profit-sub { font-size: .78rem; color: var(--w40); margin-top: 4px; }
+    .sim-profit-lbl { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--w40); margin-top: 4px; }
+    .sim-profit-total { font-size: .82rem; color: var(--w50); margin-top: 10px; padding: 8px 14px; background: var(--w05); border-radius: 8px; border: 1px solid var(--border-2); }
 
     /* KPI tiles */
     .sim-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-2); }
@@ -1419,8 +1420,9 @@
                 <div class="sim-gauge-lbl">margen</div>
               </div>
             </div>
-            <div class="sim-profit-big" id="r-total-profit">€0</div>
-            <div class="sim-profit-sub" id="r-profit-sale">beneficio total estimado</div>
+            <div class="sim-profit-big" id="r-profit-sale">€0</div>
+            <div class="sim-profit-lbl">por acceso vendido</div>
+            <div class="sim-profit-total" id="r-total-profit">€0 si vendes todos los accesos</div>
           </div>
 
           <!-- KPI grid -->
@@ -1698,11 +1700,20 @@
       marginEl.textContent = fmt(margin) + '%';
       marginEl.style.color = gaugeColor;
 
-      // Profit big number
-      const profitEl = document.getElementById('r-total-profit');
-      profitEl.textContent = '€' + fmtInt(totalProfit);
-      profitEl.style.color = totalProfit > 0 ? 'var(--green)' : '#f87171';
-      document.getElementById('r-profit-sale').textContent = '€' + fmt(profitPerSale) + ' por acceso vendido';
+      // Profit per sale (hero number)
+      const saleEl = document.getElementById('r-profit-sale');
+      saleEl.textContent = '€' + fmt(profitPerSale);
+      saleEl.style.color = profitPerSale > 0 ? 'var(--green)' : '#f87171';
+
+      // Total potential (secondary)
+      const totalEl = document.getElementById('r-total-profit');
+      if (totalProfit > 0) {
+        totalEl.textContent = '€' + fmtInt(totalProfit) + ' potencial · ' + fmtInt(totalSales) + ' accesos';
+        totalEl.style.color = 'var(--w50)';
+      } else {
+        totalEl.textContent = 'Precio de venta demasiado bajo';
+        totalEl.style.color = '#f87171';
+      }
 
       // KPIs
       document.getElementById('r-investment').textContent  = '€' + fmtInt(simState.cost);
