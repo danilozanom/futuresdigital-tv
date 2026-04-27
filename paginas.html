@@ -476,7 +476,7 @@
           </div>
           <div class="card-footer">
             <div class="card-date">${new Date(s.ultimaActualizacion).toLocaleDateString('es-ES')}</div>
-            <button class="btn-view" onclick="event.stopPropagation()">Ver detalles</button>
+            <button class="btn-view" onclick="event.stopPropagation(); abrirModal(${servicios.indexOf(s)})">Ver detalles</button>
           </div>
         </div>
       `).join('');
