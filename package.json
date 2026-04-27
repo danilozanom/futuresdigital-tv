@@ -1,0 +1,13 @@
+{
+  "name": "app-futures",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing estática de FuturesDigital TV lista para producción.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "generate-sitemap": "node sitemap-generator.js"
+  }
+}

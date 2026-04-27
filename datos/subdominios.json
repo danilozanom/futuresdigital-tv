@@ -1,0 +1,58 @@
+{
+  "subdominios": [
+    {
+      "slug": "clientes",
+      "nombre": "Área de Clientes",
+      "url": "https://clientes.cfuturesdigital.es",
+      "descripcion": "Zona privada para clientes donde gestionar su cuenta, historial de compras y facturación",
+      "categoria": "clientes",
+      "estado": "activo",
+      "imagen": "/assets/img-clientes.svg",
+      "funciones": ["Mi Cuenta", "Historial de accesos", "Facturación", "Soporte directo", "Renovaciones"],
+      "fechaCreacion": "2024-01-15",
+      "ultimaActualizacion": "2026-04-27"
+    },
+    {
+      "slug": "status",
+      "nombre": "Estado del Sistema",
+      "url": "https://status.cfuturesdigital.es",
+      "descripcion": "Panel de estado en tiempo real y monitoreo de disponibilidad de todos nuestros servicios",
+      "categoria": "herramientas",
+      "estado": "activo",
+      "imagen": "/assets/img-status.svg",
+      "funciones": ["Estado en vivo", "Histórico de incidentes", "Notificaciones", "Estadísticas de uptime"],
+      "fechaCreacion": "2024-02-01",
+      "ultimaActualizacion": "2026-04-25"
+    },
+    {
+      "slug": "apps",
+      "nombre": "Centro de Descargas",
+      "url": "https://apps.cfuturesdigital.es",
+      "descripcion": "Descargas de aplicaciones móviles y de escritorio para acceder a FuturesDigital en cualquier dispositivo",
+      "categoria": "herramientas",
+      "estado": "activo",
+      "imagen": "/assets/img-apps.svg",
+      "funciones": ["Descargas", "Actualizaciones automáticas", "Guías de instalación", "Soporte por dispositivo"],
+      "fechaCreacion": "2024-01-20",
+      "ultimaActualizacion": "2026-04-20"
+    },
+    {
+      "slug": "guia",
+      "nombre": "Guía y Tutoriales",
+      "url": "https://guia.cfuturesdigital.es",
+      "descripcion": "Base de conocimiento completa con guías paso a paso, video tutoriales y preguntas frecuentes",
+      "categoria": "soporte",
+      "estado": "activo",
+      "imagen": "/assets/img-guia.svg",
+      "funciones": ["Guías de instalación", "Vídeo tutoriales", "FAQ completo", "Troubleshooting", "Compatibilidades"],
+      "fechaCreacion": "2023-12-10",
+      "ultimaActualizacion": "2026-04-27"
+    }
+  ],
+  "categorias": [
+    { "id": "clientes", "nombre": "Clientes", "emoji": "👥", "color": "#4ade80" },
+    { "id": "soporte", "nombre": "Soporte", "emoji": "🆘", "color": "#f87171" },
+    { "id": "herramientas", "nombre": "Herramientas", "emoji": "🛠️", "color": "#60a5fa" },
+    { "id": "paneles", "nombre": "Paneles", "emoji": "⚙️", "color": "#a78bfa" }
+  ]
+}

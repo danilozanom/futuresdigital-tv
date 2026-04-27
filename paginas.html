@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestros Servicios — FuturesDigital TV</title>
+  <meta name="description" content="Accede a todos nuestros servicios: panel de clientes, centro de descargas, guías de soporte y estado del sistema." />
+  <meta name="theme-color" content="#020b18" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://cfuturesdigital.es/paginas" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="FuturesDigital TV" />
+  <meta property="og:title" content="Nuestros Servicios — FuturesDigital TV" />
+  <meta property="og:description" content="Accede a todos nuestros servicios: panel de clientes, guías de soporte y más." />
+  <meta property="og:url" content="https://cfuturesdigital.es/paginas" />
+  <meta property="og:image" content="https://cfuturesdigital.es/og-image-services.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://cfuturesdigital.es/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Servicios",
+          "item": "https://cfuturesdigital.es/paginas"
+        }
+      ]
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:  #020b18;
+      --navy:       #0a1628;
+      --navy-mid:   #0d2147;
+      --navy-light: #1a3a6b;
+      --accent:     #1e4fd8;
+      --accent-2:   #2563eb;
+      --cyan:       #22d3ee;
+      --green:      #4ade80;
+      --red:        #f87171;
+      --blue:       #60a5fa;
+      --white:      #ffffff;
+      --w70:        rgba(255,255,255,.70);
+      --w50:        rgba(255,255,255,.50);
+      --w40:        rgba(255,255,255,.40);
+      --w20:        rgba(255,255,255,.20);
+      --w15:        rgba(255,255,255,.15);
+      --w08:        rgba(255,255,255,.08);
+      --w05:        rgba(255,255,255,.05);
+      --border:     rgba(255,255,255,.12);
+      --blur:       saturate(180%) blur(24px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--navy-deep);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9998;
+    }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* Header */
+    header { padding: 28px 0; border-bottom: 1px solid var(--border); position: relative; z-index: 50; }
+    .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -.025em; color: var(--white); text-decoration: none; }
+
+    /* Hero */
+    .hero { padding: 80px 0 60px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; margin-bottom: 16px; }
+    .hero h1 span { background: linear-gradient(135deg, var(--cyan), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 1rem; color: var(--w50); max-width: 580px; margin: 0 auto 36px; line-height: 1.7; }
+
+    /* Search + Filters */
+    .controls { margin: 48px 0; display: flex; flex-direction: column; gap: 24px; }
+
+    .search-box { position: relative; }
+    .search-box input {
+      width: 100%; padding: 14px 18px;
+      background: var(--w05); border: 1px solid var(--border);
+      border-radius: 12px; color: var(--white); font-size: .95rem;
+      font-family: inherit; transition: all .2s;
+    }
+    .search-box input:focus {
+      outline: none; background: var(--w08); border-color: var(--accent-2);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.2);
+    }
+    .search-box input::placeholder { color: var(--w40); }
+
+    .filters {
+      display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    }
+    .filter-label { font-size: .85rem; font-weight: 600; color: var(--w50); }
+    .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border);
+      background: var(--w05); color: var(--white); cursor: pointer; font-size: .82rem;
+      font-weight: 500; transition: all .2s;
+    }
+    .chip:hover { background: var(--w08); }
+    .chip.active { background: var(--accent-2); border-color: var(--accent-2); color: var(--white); }
+
+    .sort-select {
+      padding: 8px 14px; background: var(--w05); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--white); font-family: inherit; font-size: .85rem;
+      cursor: pointer; transition: all .2s;
+    }
+    .sort-select:hover { background: var(--w08); }
+    .sort-select:focus { outline: none; border-color: var(--accent-2); }
+
+    /* Results counter */
+    .results-info { font-size: .85rem; color: var(--w50); }
+
+    /* Grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 32px; }
+
+    /* Card */
+    .card {
+      background: var(--w03); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; cursor: pointer; transition: all .25s;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(37,99,235,.4);
+      box-shadow: 0 8px 32px rgba(37,99,235,.1);
+    }
+
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; flex: 1; }
+    .card-status {
+      font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      background: rgba(74,222,128,.15); color: var(--green); padding: 4px 10px; border-radius: 6px;
+    }
+    .card-status.mantenimiento { background: rgba(248,113,113,.15); color: var(--red); }
+
+    .card-desc { font-size: .9rem; color: var(--w50); line-height: 1.6; flex: 1; }
+    .card-category {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--w08); padding: 6px 12px; border-radius: 8px;
+      font-size: .78rem; color: var(--w70);
+    }
+    .category-emoji { font-size: 1rem; }
+
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between; margin-top: auto;
+      padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .card-date { font-size: .75rem; color: var(--w40); }
+    .btn-view {
+      padding: 8px 16px; border-radius: 8px; background: var(--accent-2);
+      color: var(--white); border: none; cursor: pointer; font-weight: 600;
+      font-size: .82rem; transition: all .2s;
+    }
+    .btn-view:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(37,99,235,.4); }
+
+    /* Modal */
+    .modal {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.6); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.active { display: flex; animation: fadeIn .2s ease-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: var(--navy-mid); border: 1px solid var(--border); border-radius: 20px;
+      padding: 40px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto;
+      animation: slideUp .3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;
+    }
+    .modal-title { font-size: 1.6rem; font-weight: 800; }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--w08);
+      border: none; color: var(--white); cursor: pointer; font-size: 1.2rem;
+      transition: all .2s;
+    }
+    .modal-close:hover { background: var(--w15); }
+
+    .modal-url {
+      padding: 12px; background: var(--w05); border: 1px solid var(--border);
+      border-radius: 8px; margin: 16px 0; word-break: break-all; font-size: .85rem;
+      color: var(--cyan); font-family: 'Courier New', monospace;
+    }
+
+    .modal-section {
+      margin: 24px 0; display: flex; flex-direction: column; gap: 8px;
+    }
+    .modal-section h3 {
+      font-size: .9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--w70);
+    }
+    .modal-section p { font-size: .9rem; color: var(--w50); line-height: 1.7; }
+    .features-list {
+      list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+    }
+    .features-list li {
+      font-size: .85rem; color: var(--w50); padding-left: 16px; position: relative;
+    }
+    .features-list li::before {
+      content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700;
+    }
+
+    .modal-actions {
+      display: flex; gap: 12px; margin-top: 28px;
+    }
+    .btn-visit {
+      flex: 1; padding: 12px; border-radius: 8px; background: var(--accent-2);
+      color: var(--white); text-decoration: none; text-align: center; font-weight: 600;
+      border: none; cursor: pointer; font-size: .9rem; transition: all .2s;
+    }
+    .btn-visit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(37,99,235,.4);
+    }
+
+    /* Empty state */
+    .empty { text-align: center; padding: 60px 24px; }
+    .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .empty-text { color: var(--w50); }
+
+    /* Footer */
+    footer { padding: 36px 0; border-top: 1px solid var(--border); margin-top: 80px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: .8rem; color: var(--w40); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: .8rem; color: var(--w40); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--white); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { padding: 60px 0 40px; }
+      .hero h1 { font-size: 1.8rem; }
+      .controls { margin: 36px 0; }
+      .filters { flex-direction: column; align-items: flex-start; }
+      .filter-chips { width: 100%; }
+      .grid { grid-template-columns: 1fr; }
+      .modal-content { padding: 24px; }
+      .features-list { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .hero p { font-size: .9rem; }
+      .card { padding: 16px; }
+      .card-title { font-size: 1rem; }
+      .modal-content { max-height: 90vh; }
+      .modal-actions { flex-direction: column; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo">FuturesDigital TV</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Nuestros <span>Servicios</span></h1>
+      <p>Accede a todos nuestros servicios y herramientas. Gestiona tu cuenta, descarga apps, consulta guías y monitorea nuestro estado en tiempo real.</p>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <div class="container">
+    <div class="controls">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍 Buscar por nombre o descripción..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="filters">
+        <span class="filter-label">Filtrar por:</span>
+        <div class="filter-chips" id="categoryFilter"></div>
+      </div>
+
+      <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+        <span class="filter-label">Ordenar por:</span>
+        <select class="sort-select" id="sortSelect">
+          <option value="nombre">Nombre (A-Z)</option>
+          <option value="fecha">Más recientes</option>
+          <option value="categoria">Categoría</option>
+        </select>
+      </div>
+
+      <div class="results-info">
+        Mostrando <strong id="resultCount">0</strong> servicios
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="container">
+    <div class="grid" id="servicesGrid"></div>
+    <div class="empty" id="emptyState" style="display: none;">
+      <div class="empty-icon">🔍</div>
+      <div class="empty-title">No se encontraron servicios</div>
+      <div class="empty-text">Intenta cambiar los filtros o la búsqueda</div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-url" id="modalUrl"></div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+
+      <div class="modal-section">
+        <p id="modalDesc"></p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Funciones principales</h3>
+        <ul class="features-list" id="modalFeatures"></ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Información</h3>
+        <p>
+          <strong>Categoría:</strong> <span id="modalCategory"></span>
+          <br/>
+          <strong>Estado:</strong> <span id="modalState"></span>
+          <br/>
+          <strong>Última actualización:</strong> <span id="modalDate"></span>
+        </p>
+      </div>
+
+      <div class="modal-actions">
+        <a class="btn-visit" id="modalLink" target="_blank">Ir al sitio</a>
+        <button class="btn-visit" onclick="closeModal()" style="background: var(--w08);">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">© 2025 FuturesDigital TV · Todos nuestros servicios</div>
+        <div class="footer-links">
+          <a href="/">Inicio</a>
+          <a href="/#soporte">Soporte</a>
+          <a href="/#contacto">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal overlay click to close -->
+  <script>
+    let servicios = [];
+    let filtroActivo = [];
+
+    // Cargar datos
+    async function cargarServicios() {
+      const res = await fetch('/datos/subdominios.json');
+      const data = await res.json();
+      servicios = data.subdominios;
+
+      // Renderizar categorías
+      const categoryFilter = document.getElementById('categoryFilter');
+      data.categorias.forEach(cat => {
+        const chip = document.createElement('button');
+        chip.className = 'chip';
+        chip.textContent = `${cat.emoji} ${cat.nombre}`;
+        chip.dataset.id = cat.id;
+        chip.onclick = () => toggleFiltro(cat.id, chip);
+        categoryFilter.appendChild(chip);
+      });
+
+      renderizar();
+    }
+
+    function toggleFiltro(catId, element) {
+      if (filtroActivo.includes(catId)) {
+        filtroActivo = filtroActivo.filter(c => c !== catId);
+        element.classList.remove('active');
+      } else {
+        filtroActivo.push(catId);
+        element.classList.add('active');
+      }
+      renderizar();
+    }
+
+    function renderizar() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const sort = document.getElementById('sortSelect').value;
+
+      let filtrado = servicios.filter(s => {
+        const matchSearch = s.nombre.toLowerCase().includes(search) ||
+                           s.descripcion.toLowerCase().includes(search);
+        const matchFiltro = filtroActivo.length === 0 || filtroActivo.includes(s.categoria);
+        return matchSearch && matchFiltro;
+      });
+
+      // Ordenar
+      if (sort === 'nombre') {
+        filtrado.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      } else if (sort === 'fecha') {
+        filtrado.sort((a, b) => new Date(b.ultimaActualizacion) - new Date(a.ultimaActualizacion));
+      } else if (sort === 'categoria') {
+        filtrado.sort((a, b) => a.categoria.localeCompare(b.categoria));
+      }
+
+      // Renderizar
+      const grid = document.getElementById('servicesGrid');
+      const empty = document.getElementById('emptyState');
+      const counter = document.getElementById('resultCount');
+
+      grid.innerHTML = filtrado.map(s => `
+        <div class="card" onclick="abrirModal(${servicios.indexOf(s)})">
+          <div class="card-header">
+            <div class="card-title">${s.nombre}</div>
+            <div class="card-status ${s.estado === 'mantenimiento' ? 'mantenimiento' : ''}">
+              ${s.estado === 'activo' ? '✓ Activo' : 'Mantenimiento'}
+            </div>
+          </div>
+          <p class="card-desc">${s.descripcion}</p>
+          <div class="card-category">
+            <span class="category-emoji">${servicios.find(x => x.slug === s.slug) ?
+              (s.categoria === 'clientes' ? '👥' :
+               s.categoria === 'soporte' ? '🆘' :
+               s.categoria === 'herramientas' ? '🛠️' : '⚙️') : ''}</span>
+            <span>${s.categoria.charAt(0).toUpperCase() + s.categoria.slice(1)}</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-date">${new Date(s.ultimaActualizacion).toLocaleDateString('es-ES')}</div>
+            <button class="btn-view" onclick="event.stopPropagation()">Ver detalles</button>
+          </div>
+        </div>
+      `).join('');
+
+      grid.style.display = filtrado.length > 0 ? 'grid' : 'none';
+      empty.style.display = filtrado.length === 0 ? 'block' : 'none';
+      counter.textContent = filtrado.length;
+    }
+
+    function abrirModal(index) {
+      const s = servicios[index];
+      document.getElementById('modalTitle').textContent = s.nombre;
+      document.getElementById('modalUrl').textContent = s.url;
+      document.getElementById('modalDesc').textContent = s.descripcion;
+      document.getElementById('modalCategory').textContent = s.categoria.charAt(0).toUpperCase() + s.categoria.slice(1);
+      document.getElementById('modalState').textContent = s.estado === 'activo' ? '✓ Activo' : 'Mantenimiento';
+      document.getElementById('modalDate').textContent = new Date(s.ultimaActualizacion).toLocaleDateString('es-ES');
+      document.getElementById('modalLink').href = s.url;
+      document.getElementById('modalFeatures').innerHTML = s.funciones.map(f => `<li>${f}</li>`).join('');
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    // Event listeners
+    document.getElementById('searchInput').addEventListener('input', renderizar);
+    document.getElementById('sortSelect').addEventListener('change', renderizar);
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('modal')) closeModal();
+    });
+
+    // Cargar
+    cargarServicios();
+  </script>
+
+</body>
+</html>
