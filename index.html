@@ -233,8 +233,9 @@
 
     /* Hamburger */
     .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
+      display: none; flex-direction: column; gap: 5px; justify-content: center;
+      cursor: pointer; background: none; border: none;
+      padding: 0; width: 44px; height: 44px; align-items: center;
     }
     .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--w70); border-radius: 2px; transition: all .3s; }
     .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
@@ -610,8 +611,8 @@
     /* ─────────────────────────────────────────────── */
     footer { border-top: 1px solid var(--border-2); padding: 40px 0; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-    .footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
-    .footer-links a { color: var(--w40); text-decoration: none; font-size: .8rem; transition: color .2s; }
+    .footer-links { display: flex; gap: 8px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { color: var(--w40); text-decoration: none; font-size: .8rem; transition: color .2s; padding: 10px 8px; min-height: 44px; display: inline-flex; align-items: center; }
     .footer-links a:hover { color: var(--w70); }
     .footer-copy { font-size: .75rem; color: var(--w40); }
 
@@ -661,8 +662,23 @@
       #cursor-glow { display: none; }
       .bg-orbs { display: none; }
     }
+    @media (max-width: 360px) {
+      .container { padding: 0 16px; }
+      .hero h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+      .btn-primary, .btn-ghost { padding: 12px 18px; font-size: .85rem; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions a { text-align: center; justify-content: center; }
+      .footer-links { gap: 0; }
+    }
+    /* Reducción de movimiento: solo desactivar animaciones decorativas pesadas,
+       mantener transiciones de UI para que los elementos sigan siendo usables */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .orb-1, .orb-2, .orb-3,
+      .tv-float,
+      .ticker-v-track, .ticker-v-track-1, .ticker-v-track-2, .ticker-v-track-3,
+      .badge-dot, .whatsapp-fab::before,
+      .reveal { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
     }
 
     /* ─────────────────────────────────────────────── */

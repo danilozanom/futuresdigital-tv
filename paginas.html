@@ -8,13 +8,21 @@
   <meta name="theme-color" content="#020b18" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://cfuturesdigital.es/paginas" />
+  <link rel="alternate" hreflang="es-ES" href="https://cfuturesdigital.es/paginas" />
+  <link rel="alternate" hreflang="x-default" href="https://cfuturesdigital.es/paginas" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_ES" />
   <meta property="og:site_name" content="FuturesDigital TV" />
   <meta property="og:title" content="Nuestros Servicios — FuturesDigital TV" />
   <meta property="og:description" content="Accede a todos nuestros servicios: panel de clientes, guías de soporte y más." />
   <meta property="og:url" content="https://cfuturesdigital.es/paginas" />
-  <meta property="og:image" content="https://cfuturesdigital.es/og-image-services.svg" />
+  <meta property="og:image" content="https://cfuturesdigital.es/og-image-home.svg" />
+  <meta property="og:image:alt" content="FuturesDigital TV — Directorio de servicios" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nuestros Servicios — FuturesDigital TV" />
+  <meta name="twitter:description" content="Accede a todos nuestros servicios: panel de clientes, centro de descargas, guías de soporte y estado del sistema." />
+  <meta name="twitter:image" content="https://cfuturesdigital.es/og-image-home.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -207,9 +215,9 @@
     }
     .modal-title { font-size: 1.6rem; font-weight: 800; }
     .modal-close {
-      width: 32px; height: 32px; border-radius: 50%; background: var(--w08);
+      width: 44px; height: 44px; border-radius: 50%; background: var(--w08);
       border: none; color: var(--white); cursor: pointer; font-size: 1.2rem;
-      transition: all .2s;
+      transition: all .2s; flex-shrink: 0;
     }
     .modal-close:hover { background: var(--w15); }
 
@@ -260,8 +268,8 @@
     footer { padding: 36px 0; border-top: 1px solid var(--border); margin-top: 80px; }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
     .footer-copy { font-size: .8rem; color: var(--w40); }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: .8rem; color: var(--w40); text-decoration: none; transition: color .2s; }
+    .footer-links { display: flex; gap: 4px; flex-wrap: wrap; }
+    .footer-links a { font-size: .8rem; color: var(--w40); text-decoration: none; transition: color .2s; padding: 10px 8px; min-height: 44px; display: inline-flex; align-items: center; }
     .footer-links a:hover { color: var(--white); }
 
     /* Responsive */
@@ -280,9 +288,22 @@
       .hero p { font-size: .9rem; }
       .card { padding: 16px; }
       .card-title { font-size: 1rem; }
-      .modal-content { max-height: 90vh; }
+      .modal-content { max-height: 90vh; padding: 20px; }
+      .modal-title { font-size: 1.3rem; }
       .modal-actions { flex-direction: column; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
+      .card-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .btn-view { width: 100%; text-align: center; padding: 12px; }
+    }
+    @media (max-width: 360px) {
+      .container { padding: 0 16px; }
+      .hero h1 { font-size: 1.6rem; }
+      .chip { padding: 6px 12px; font-size: .78rem; }
+      .grid { gap: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .card, .modal-content { animation: none !important; transition: none !important; }
+      .card:hover { transform: none; }
     }
   </style>
 </head>
@@ -387,7 +408,7 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-copy">© 2025 FuturesDigital TV · Todos nuestros servicios</div>
+        <div class="footer-copy">© 2026 FuturesDigital TV · Todos nuestros servicios</div>
         <div class="footer-links">
           <a href="/">Inicio</a>
           <a href="/#soporte">Soporte</a>

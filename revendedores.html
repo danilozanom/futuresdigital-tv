@@ -7,9 +7,9 @@
   <meta name="description" content="Conviertete en revendedor de FuturesDigital TV y simula margenes, paquetes y niveles con una pagina preparada para captacion comercial." />
   <meta name="theme-color" content="#020b18" />
   <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://cfuturesdigital.es/revendedores.html" />
-  <link rel="alternate" hreflang="es-ES" href="https://cfuturesdigital.es/revendedores.html" />
-  <link rel="alternate" hreflang="x-default" href="https://cfuturesdigital.es/revendedores.html" />
+  <link rel="canonical" href="https://cfuturesdigital.es/revendedores" />
+  <link rel="alternate" hreflang="es-ES" href="https://cfuturesdigital.es/revendedores" />
+  <link rel="alternate" hreflang="x-default" href="https://cfuturesdigital.es/revendedores" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_ES" />
@@ -137,9 +137,36 @@
     }
     .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -.025em; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 8px; }
     .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 14px var(--accent-2); }
-    .nav-back { color: var(--w70); text-decoration: none; font-size: .85rem; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .nav-back { color: var(--w70); text-decoration: none; font-size: .85rem; display: flex; align-items: center; gap: 6px; transition: color .2s; padding: 10px 0; min-height: 44px; }
     .nav-back:hover { color: var(--white); }
     .nav-back svg { width: 14px; height: 14px; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; justify-content: center;
+      cursor: pointer; background: none; border: none;
+      padding: 0; width: 44px; height: 44px; align-items: center;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--w70); border-radius: 2px; transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; inset: 58px 0 0;
+      background: rgba(2,11,24,.97); backdrop-filter: var(--blur);
+      z-index: 99; padding: 32px 24px; flex-direction: column; gap: 4px;
+      border-top: 1px solid var(--border-2);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--w70); text-decoration: none; font-size: 1.1rem; font-weight: 400;
+      padding: 16px 0; border-bottom: 1px solid var(--border-2); transition: color .2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu .btn-primary { margin-top: 16px; text-align: center; justify-content: center; }
 
     /* Buttons */
     .btn-primary {
@@ -653,7 +680,8 @@
       .cta-inner { padding: 48px 24px; }
     }
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+      .nav-back { display: none; }
+      .hamburger { display: flex; }
       .steps-grid { grid-template-columns: 1fr; }
       .packages-grid { grid-template-columns: repeat(2, 1fr); }
       .hero h1 { font-size: 2.2rem; }
@@ -662,12 +690,24 @@
       .whatsapp-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
       #cursor-glow { display: none; }
       .bg-orbs { display: none; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .footer-links { flex-wrap: wrap; gap: 0; }
     }
     @media (max-width: 400px) {
       .packages-grid { grid-template-columns: 1fr; }
     }
+    @media (max-width: 360px) {
+      .container { padding: 0 16px; }
+      .hero h1 { font-size: 1.9rem; }
+      .btn-primary, .btn-ghost { padding: 12px 18px; font-size: .85rem; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions a { justify-content: center; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .orb-1, .orb-2, .orb-3,
+      .badge-dot, .whatsapp-fab::before,
+      .reveal { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
     }
 
     /* Duration buttons */
@@ -701,8 +741,18 @@
         <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 2.5L4 7l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Volver al inicio
       </a>
+      <button class="hamburger" id="ham" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu" role="navigation">
+    <a href="#niveles">Niveles</a>
+    <a href="#paquetes">Paquetes</a>
+    <a href="#simulador">Simulador</a>
+    <a href="#pasos">Cómo empezar</a>
+    <a href="https://wa.me/34644712980" target="_blank" rel="noopener" class="btn-primary">Quiero ser revendedor</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -1455,6 +1505,24 @@
     const cg = document.getElementById('cursor-glow');
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       window.addEventListener('mousemove', e => { cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px'; }, { passive: true });
+    }
+
+    // Hamburger menu
+    const ham = document.getElementById('ham');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (ham && mobileMenu) {
+      ham.addEventListener('click', () => {
+        ham.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          ham.classList.remove('open');
+          mobileMenu.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
     }
 
     // Reveal on scroll
