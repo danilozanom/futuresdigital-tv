@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programa de Referidos — FuturesDigital TV</title>
+  <meta name="description" content="Invita a tus amigos a FuturesDigital TV y gana meses gratis por cada referido. Tu amigo también recibe descuento en su primera compra." />
+  <meta name="theme-color" content="#020b18" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://cfuturesdigital.es/referidos" />
+  <link rel="alternate" hreflang="es-ES" href="https://cfuturesdigital.es/referidos" />
+  <link rel="alternate" hreflang="x-default" href="https://cfuturesdigital.es/referidos" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="FuturesDigital TV" />
+  <meta property="og:title" content="Programa de Referidos — FuturesDigital TV" />
+  <meta property="og:description" content="Gana meses gratis invitando a tus amigos. Ellos reciben descuento en su primera compra." />
+  <meta property="og:url" content="https://cfuturesdigital.es/referidos" />
+  <meta property="og:image" content="https://cfuturesdigital.es/og-image-referidos.svg" />
+  <meta property="og:image:alt" content="Programa de referidos de FuturesDigital TV" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Programa de Referidos — FuturesDigital TV" />
+  <meta name="twitter:description" content="Invita a tus amigos y gana meses gratis. Ellos reciben descuento en su primera compra." />
+  <meta name="twitter:image" content="https://cfuturesdigital.es/og-image-referidos.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Programa de Referidos — FuturesDigital TV",
+      "url": "https://cfuturesdigital.es/referidos",
+      "inLanguage": "es"
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://cfuturesdigital.es/" },
+        { "@type": "ListItem", "position": 2, "name": "Referidos", "item": "https://cfuturesdigital.es/referidos" }
+      ]
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:  #020b18;
+      --navy:       #0a1628;
+      --navy-mid:   #0d2147;
+      --navy-light: #1a3a6b;
+      --accent:     #1e4fd8;
+      --accent-2:   #2563eb;
+      --cyan:       #22d3ee;
+      --green:      #4ade80;
+      --white:      #ffffff;
+      --w70:        rgba(255,255,255,.70);
+      --w50:        rgba(255,255,255,.50);
+      --w40:        rgba(255,255,255,.40);
+      --w15:        rgba(255,255,255,.15);
+      --w08:        rgba(255,255,255,.08);
+      --w05:        rgba(255,255,255,.05);
+      --w03:        rgba(255,255,255,.03);
+      --border:     rgba(255,255,255,.12);
+      --border-2:   rgba(255,255,255,.07);
+      --r:   18px;
+      --rlg: 28px;
+      --blur: saturate(180%) blur(24px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--navy-deep);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9998;
+    }
+
+    #progress {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--accent-2), #60a5fa, var(--cyan));
+      z-index: 10000; transition: width .1s linear;
+    }
+
+    #cursor-glow {
+      position: fixed; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.09), transparent 60%);
+      pointer-events: none; transform: translate(-50%,-50%);
+      transition: left .25s ease, top .25s ease; z-index: 0; will-change: left, top;
+    }
+
+    .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(130px); }
+    .orb-1 { width: 700px; height: 700px; background: var(--accent); top: -250px; left: -200px; opacity: .14; animation: orbf 12s ease-in-out infinite; }
+    .orb-2 { width: 500px; height: 500px; background: #0a2f8a; top: 35%; right: -150px; opacity: .11; animation: orbf 15s ease-in-out infinite reverse; }
+    .orb-3 { width: 380px; height: 380px; background: var(--navy-light); bottom: 5%; left: 25%; opacity: .09; animation: orbf 10s ease-in-out infinite 4s; }
+    @keyframes orbf { 0%,100%{transform:translate(0,0)scale(1)} 33%{transform:translate(20px,-15px)scale(1.04)} 66%{transform:translate(-12px,10px)scale(.96)} }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(2,11,24,.65);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--border-2);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -.025em; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 14px var(--accent-2); }
+    .nav-back { color: var(--w70); text-decoration: none; font-size: .85rem; display: flex; align-items: center; gap: 6px; transition: color .2s; padding: 10px 0; min-height: 44px; }
+    .nav-back:hover { color: var(--white); }
+    .nav-back svg { width: 14px; height: 14px; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; justify-content: center;
+      cursor: pointer; background: none; border: none;
+      padding: 0; width: 44px; height: 44px; align-items: center;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--w70); border-radius: 2px; transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    .mobile-menu {
+      display: none; position: fixed; inset: 58px 0 0;
+      background: rgba(2,11,24,.97); backdrop-filter: var(--blur);
+      z-index: 99; padding: 32px 24px; flex-direction: column; gap: 4px;
+      border-top: 1px solid var(--border-2);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--w70); text-decoration: none; font-size: 1.1rem; font-weight: 400;
+      padding: 16px 0; border-bottom: 1px solid var(--border-2); transition: color .2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu .btn-primary { margin-top: 16px; text-align: center; justify-content: center; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: .95rem;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      color: var(--white); text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 24px rgba(37,99,235,.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(37,99,235,.55); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px; font-weight: 500; font-size: .95rem;
+      background: var(--w08); color: var(--white); text-decoration: none;
+      border: 1px solid var(--border); cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-ghost:hover { background: var(--w15); border-color: var(--w40); }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+
+    .section-label {
+      font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.15; }
+    .section-title span { background: linear-gradient(135deg, var(--cyan), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-sub { color: var(--w50); font-size: 1rem; margin-top: 14px; max-width: 560px; line-height: 1.7; }
+
+    /* ── HERO ── */
+    .hero { min-height: 90vh; padding: 120px 0 70px; display: flex; align-items: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(37,99,235,.12); border: 1px solid rgba(37,99,235,.3);
+      padding: 6px 14px; border-radius: 20px;
+      font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      color: #93c5fd; margin-bottom: 22px;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.1; margin-bottom: 22px; }
+    .hero h1 span { background: linear-gradient(135deg, var(--cyan) 0%, #60a5fa 50%, var(--accent-2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 1.05rem; color: var(--w50); line-height: 1.75; max-width: 580px; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: flex; align-items: center; gap: 32px; margin-top: 52px;
+      padding-top: 36px; border-top: 1px solid var(--border-2); flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 1.8rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+    .stat-value.green { color: var(--green); }
+    .stat-value.cyan { background: linear-gradient(135deg, var(--cyan), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: .68rem; color: var(--w40); margin-top: 4px; letter-spacing: .05em; text-transform: uppercase; }
+    .stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+    /* ── CÓMO FUNCIONA ── */
+    .how { padding: 100px 0; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+    .step-card {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--r);
+      padding: 28px 24px; position: relative; transition: border-color .3s, background .3s;
+    }
+    .step-card:hover { border-color: var(--border); background: var(--w05); }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 12px; margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--accent-2), #1d4ed8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 800; color: var(--white);
+      box-shadow: 0 4px 16px rgba(37,99,235,.35);
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step-card p { font-size: .85rem; color: var(--w50); line-height: 1.6; }
+    .step-connector {
+      position: absolute; top: 48px; right: -12px;
+      width: 24px; height: 2px; background: linear-gradient(90deg, var(--border), transparent);
+      z-index: 2;
+    }
+
+    /* ── BENEFICIOS ── */
+    .benefits { padding: 100px 0; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+    .benefit-card {
+      border-radius: var(--rlg); border: 1px solid var(--border-2);
+      background: var(--w03); overflow: hidden; position: relative;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .benefit-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.4); }
+    .benefit-card.featured { border-color: rgba(37,99,235,.4); background: rgba(37,99,235,.06); }
+    .benefit-card.featured::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(145deg, rgba(37,99,235,.08), transparent 60%);
+      pointer-events: none;
+    }
+    .benefit-header { padding: 32px 28px 24px; border-bottom: 1px solid var(--border-2); }
+    .benefit-tier { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--w40); margin-bottom: 8px; }
+    .benefit-name { font-size: 1.3rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 14px; }
+    .benefit-price-row { display: flex; align-items: baseline; gap: 6px; }
+    .benefit-price { font-size: 2.2rem; font-weight: 800; letter-spacing: -.05em; color: var(--green); }
+    .benefit-price-sub { font-size: .82rem; color: var(--w40); }
+    .benefit-body { padding: 24px 28px 28px; }
+    .benefit-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .benefit-features li { display: flex; align-items: flex-start; gap: 10px; font-size: .87rem; color: var(--w70); }
+    .benefit-features li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='8' fill='%234ade80' opacity='.2'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%234ade80' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: cover; }
+
+    /* ── EJEMPLO ── */
+    .example { padding: 100px 0; }
+    .example-inner {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--rlg);
+      padding: 36px; position: relative; overflow: hidden; max-width: 640px; margin-top: 56px;
+    }
+    .example-inner::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,222,128,.08), transparent 70%);
+    }
+    .example-label { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    .example-inner h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+    .example-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border-2); font-size: .9rem;
+    }
+    .example-row:last-child { border-bottom: none; }
+    .example-row .label { color: var(--w50); }
+    .example-row .value { font-weight: 600; }
+    .example-row .value.green { color: var(--green); }
+    .example-total {
+      margin-top: 20px; padding: 20px; border-radius: 14px;
+      background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .example-total .label { font-size: .85rem; color: var(--w70); font-weight: 500; }
+    .example-total .value { font-size: 1.6rem; font-weight: 800; color: var(--green); }
+
+    /* ── NOTAS ── */
+    .notes { padding: 100px 0; }
+    .notes-inner {
+      background: var(--w03); border: 1px solid var(--border-2); border-radius: var(--rlg);
+      padding: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    }
+    .note-item h3 { font-size: .95rem; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .note-item p { font-size: .84rem; color: var(--w50); line-height: 1.65; }
+    .note-icon { font-size: 1rem; }
+
+    /* ── CTA BANNER ── */
+    .cta-section { padding: 100px 0; }
+    .cta-inner {
+      border-radius: var(--rlg); padding: 72px 48px; text-align: center;
+      background: linear-gradient(135deg, rgba(37,99,235,.15) 0%, rgba(29,78,216,.08) 100%);
+      border: 1px solid rgba(37,99,235,.25); position: relative; overflow: hidden;
+    }
+    .cta-inner::before {
+      content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(37,99,235,.18), transparent 70%);
+    }
+    .cta-inner h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: 16px; position: relative; }
+    .cta-inner p { color: var(--w50); font-size: 1rem; margin-bottom: 36px; position: relative; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* ── FOOTER ── */
+    footer { padding: 36px 0; border-top: 1px solid var(--border-2); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: .8rem; color: var(--w40); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: .8rem; color: var(--w40); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── WHATSAPP FAB ── */
+    .whatsapp-fab {
+      position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25d366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,.45);
+      transition: transform .2s, box-shadow .2s; text-decoration: none;
+    }
+    .whatsapp-fab:hover { transform: scale(1.1); box-shadow: 0 6px 36px rgba(37,211,102,.65); }
+    .whatsapp-fab svg { width: 30px; height: 30px; fill: white; }
+    .whatsapp-fab::before {
+      content: ''; position: absolute; inset: -6px; border-radius: 50%;
+      border: 2px solid rgba(37,211,102,.4);
+      animation: waPulse 2.2s ease-out infinite;
+    }
+    @keyframes waPulse { 0%{transform:scale(1);opacity:1} 100%{transform:scale(1.5);opacity:0} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .steps-grid { grid-template-columns: 1fr; }
+      .step-connector { display: none; }
+    }
+    @media (max-width: 768px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+      .notes-inner { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; }
+      .cta-inner { padding: 48px 24px; }
+      .example-inner { padding: 28px; }
+    }
+    @media (max-width: 640px) {
+      .nav-back { display: none; }
+      .hamburger { display: flex; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-stats { gap: 20px; }
+      .stat-sep { display: none; }
+      .whatsapp-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+      #cursor-glow { display: none; }
+      .bg-orbs { display: none; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .footer-links { flex-wrap: wrap; gap: 0; }
+    }
+    @media (max-width: 360px) {
+      .container { padding: 0 16px; }
+      .hero h1 { font-size: 1.9rem; }
+      .btn-primary, .btn-ghost { padding: 12px 18px; font-size: .85rem; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions a { justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .orb-1, .orb-2, .orb-3,
+      .badge-dot, .whatsapp-fab::before,
+      .reveal { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress"></div>
+  <div id="cursor-glow"></div>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        FuturesDigital TV
+      </a>
+      <a href="index.html" class="nav-back">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 2.5L4 7l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Volver al inicio
+      </a>
+      <button class="hamburger" id="ham" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu" role="navigation">
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#beneficios">Beneficios</a>
+    <a href="#ejemplo">Ejemplo</a>
+    <a href="https://wa.me/34644712980" target="_blank" rel="noopener" class="btn-primary">Quiero referir</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge reveal">
+        <span class="badge-dot"></span>
+        Programa de Referidos · Abierto
+      </div>
+      <h1 class="reveal d1">
+        Invita a un amigo,<br/><span>gana un mes gratis.</span>
+      </h1>
+      <p class="hero-sub reveal d2">
+        Comparte FuturesDigital TV con quien quieras. Por cada amigo que se suscriba mencionando tu nombre, tú ganas un mes gratis en tu servicio y él consigue descuento en su primera compra. Sin límite de referidos.
+      </p>
+      <div class="hero-actions reveal d3">
+        <a href="https://wa.me/34644712980" target="_blank" rel="noopener" class="btn-primary">
+          Quiero referir
+        </a>
+        <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
+      </div>
+      <div class="hero-stats reveal d4">
+        <div class="stat-item">
+          <div class="stat-value green">1 mes</div>
+          <div class="stat-label">Gratis por cada referido</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <div class="stat-value cyan">10%</div>
+          <div class="stat-label">Descuento para tu amigo</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <div class="stat-value">∞</div>
+          <div class="stat-label">Sin límite de referidos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="how" id="como-funciona">
+    <div class="container">
+      <div class="section-label reveal">¿Cómo funciona?</div>
+      <h2 class="section-title reveal d1">Referir en <span>3 pasos</span></h2>
+      <p class="section-sub reveal d2">No necesitas ningún código ni registro adicional. El seguimiento se hace por WhatsApp, igual que el resto de nuestra atención.</p>
+      <div class="steps-grid">
+        <div class="step-card reveal d1">
+          <div class="step-num">1</div>
+          <div class="step-connector"></div>
+          <h3>Comparte tu nombre</h3>
+          <p>Dile a tu amigo que te mencione a ti (nombre o número de contacto) cuando escriba por WhatsApp para contratar.</p>
+        </div>
+        <div class="step-card reveal d2">
+          <div class="step-num">2</div>
+          <div class="step-connector"></div>
+          <h3>Tu amigo se suscribe</h3>
+          <p>Al confirmar la compra con la referencia, tu amigo recibe automáticamente su descuento del 10% en la primera factura.</p>
+        </div>
+        <div class="step-card reveal d3">
+          <div class="step-num">3</div>
+          <h3>Recibes tu mes gratis</h3>
+          <p>Te aplicamos un mes gratis en tu propio servicio activo. Si refieres a varios amigos, los meses se acumulan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- BENEFICIOS -->
+  <section class="benefits" id="beneficios">
+    <div class="container">
+      <div class="section-label reveal">Qué gana cada uno</div>
+      <h2 class="section-title reveal d1">Beneficios para <span>los dos</span></h2>
+      <p class="section-sub reveal d2">El programa de referidos está pensado para que salgáis ganando ambas partes: tú y la persona a la que invitas.</p>
+      <div class="benefits-grid">
+
+        <div class="benefit-card featured reveal d1">
+          <div class="benefit-header">
+            <div class="benefit-tier">Para ti, que refieres</div>
+            <div class="benefit-name">Un mes gratis</div>
+            <div class="benefit-price-row">
+              <div class="benefit-price">+1 mes</div>
+              <div class="benefit-price-sub">por cada amigo que se suscribe</div>
+            </div>
+          </div>
+          <div class="benefit-body">
+            <ul class="benefit-features">
+              <li>Se aplica sobre tu servicio activo actual</li>
+              <li>Acumulable: 3 amigos referidos = 3 meses gratis</li>
+              <li>Sin límite de referidos al mes</li>
+              <li>No necesitas ser revendedor para participar</li>
+              <li>Confirmación por WhatsApp en menos de 24h</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="benefit-card reveal d2">
+          <div class="benefit-header">
+            <div class="benefit-tier">Para tu amigo, el referido</div>
+            <div class="benefit-name">10% de descuento</div>
+            <div class="benefit-price-row">
+              <div class="benefit-price">−10%</div>
+              <div class="benefit-price-sub">en su primera compra</div>
+            </div>
+          </div>
+          <div class="benefit-body">
+            <ul class="benefit-features">
+              <li>Aplica a cualquiera de nuestros paquetes</li>
+              <li>Solo tiene que mencionar quién le invitó</li>
+              <li>Prueba gratuita disponible antes de decidir</li>
+              <li>Sin permanencia ni compromiso</li>
+              <li>Soporte técnico incluido desde el primer día</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EJEMPLO -->
+  <section class="example" id="ejemplo">
+    <div class="container">
+      <div class="section-label reveal">Ejemplo práctico</div>
+      <h2 class="section-title reveal d1">Así se ve tu <span>ahorro real</span></h2>
+      <p class="section-sub reveal d2">Un ejemplo sencillo de cuánto puedes ahorrarte simplemente compartiendo el servicio con tu círculo cercano.</p>
+      <div class="example-inner reveal d3">
+        <div class="example-label">Si refieres a 3 amigos este mes</div>
+        <h3>3 amigos referidos → 3 meses gratis</h3>
+        <div class="example-row">
+          <span class="label">Amigo 1 se suscribe</span>
+          <span class="value green">+1 mes gratis</span>
+        </div>
+        <div class="example-row">
+          <span class="label">Amigo 2 se suscribe</span>
+          <span class="value green">+1 mes gratis</span>
+        </div>
+        <div class="example-row">
+          <span class="label">Amigo 3 se suscribe</span>
+          <span class="value green">+1 mes gratis</span>
+        </div>
+        <div class="example-total">
+          <span class="label">Total acumulado</span>
+          <span class="value">3 meses gratis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- NOTAS -->
+  <section class="notes">
+    <div class="container">
+      <div class="notes-inner">
+        <div class="note-item reveal d1">
+          <h3><span class="note-icon">📱</span> Todo por WhatsApp</h3>
+          <p>No hay ninguna app ni panel adicional que gestionar. Tu amigo solo tiene que mencionar tu nombre al escribirnos para contratar.</p>
+        </div>
+        <div class="note-item reveal d2">
+          <h3><span class="note-icon">♾️</span> Sin límite mensual</h3>
+          <p>Puedes referir a tantos amigos como quieras. Cada suscripción confirmada suma un mes gratis adicional a tu cuenta.</p>
+        </div>
+        <div class="note-item reveal d3">
+          <h3><span class="note-icon">✅</span> Se valida al confirmar</h3>
+          <p>El beneficio se aplica una vez tu amigo confirma y paga su primera suscripción, no antes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-section" id="contacto">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <h2>¿A quién vas a invitar primero?</h2>
+        <p>Escríbenos por WhatsApp y te explicamos cómo empezar en menos de un minuto.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/34644712980" target="_blank" rel="noopener" class="btn-primary">Quiero referir</a>
+          <a href="index.html" class="btn-ghost">Volver al inicio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="logo"><span class="logo-dot"></span>FuturesDigital TV</a>
+        <div class="footer-links">
+          <a href="index.html">Inicio</a>
+          <a href="paginas.html">Servicios</a>
+          <a href="revendedores.html">Revendedores</a>
+        </div>
+        <p class="footer-copy">© 2026 FuturesDigital TV · Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <a href="https://wa.me/34644712980" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.031 0h-.062C5.394 0 .001 5.396.001 12c0 2.625.845 5.061 2.284 7.034L.79 23.256l4.363-1.393A11.945 11.945 0 0012.031 24C18.667 24 24 18.605 24 12S18.667 0 12.031 0zm7.03 19.075A9.925 9.925 0 0112.031 22a9.94 9.94 0 01-5.031-1.375l-.361-.214-3.741 1.199 1.212-3.617-.235-.373A9.916 9.916 0 012.062 12c0-5.514 4.482-10 10.031-10 2.673 0 5.19 1.042 7.084 2.929A9.928 9.928 0 0122 12c0 5.514-4.482 10.031-9.939 7.075z"/></svg>
+  </a>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('progress').style.width = scrolled + '%';
+    });
+
+    // Cursor glow
+    document.addEventListener('mousemove', (e) => {
+      const glow = document.getElementById('cursor-glow');
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Hamburger menu
+    const ham = document.getElementById('ham');
+    const mobileMenu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        ham.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Reveal on scroll
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  </script>
+
+</body>
+</html>

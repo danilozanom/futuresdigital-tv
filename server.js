@@ -68,6 +68,7 @@ function resolvePath(urlPath) {
   // Route clean URLs to their .html files
   if (cleanUrl === '/paginas') resolvedPath = '/paginas.html';
   if (cleanUrl === '/revendedores') resolvedPath = '/revendedores.html';
+  if (cleanUrl === '/referidos') resolvedPath = '/referidos.html';
 
   // Route / to /index.html
   if (resolvedPath === '/') {
